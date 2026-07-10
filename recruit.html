@@ -76,43 +76,33 @@
         <p class="text-dim">現在募集中のポジションです。気になる職種があれば、お気軽にエントリーください。</p>
       </div>
 
-      <!-- ▼ 職種カード。増やすときはこのブロックを複製してください。 -->
-      <div class="grid cols-2">
-        <div class="job-card" data-reveal>
-          <span class="type">Film / 正社員・業務委託</span>
-          <h3>映像ディレクター</h3>
-          <p class="desc">企画から撮影・編集ディレクションまで、映像制作全体をリード。クライアントの課題を映像で解決へ導きます。</p>
-          <div class="foot"><span class="text-mute" style="font-size:var(--fs-sm);">東京 / リモート可</span><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div>
+      <!-- ▼ 雇用形態ごとの募集職種。職種を増やすときは job-card を複製してください。 -->
+      <!-- 正社員 -->
+      <div data-reveal>
+        <h3 style="font-family:var(--font-en); font-size:var(--fs-h3); letter-spacing:.04em; display:flex; align-items:baseline; gap:14px; padding-bottom:16px; border-bottom:1px solid var(--line-2);">Full-time <span style="font-family:var(--font-jp); font-size:var(--fs-sm); color:var(--fg-3);">正社員</span></h3>
+        <div class="grid cols-2" style="margin-top:28px;">
+          <div class="job-card"><h3>クリエイター</h3><p class="desc">映像・デザイン・コピーなど、企画から制作までを担うものづくりの中核。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
+          <div class="job-card"><h3>ディレクション</h3><p class="desc">案件全体を統括し、品質・進行・チームをまとめて成果へ導く。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
+          <div class="job-card"><h3>営業</h3><p class="desc">企業の課題をヒアリングし、クリエイティブで解決する提案を届ける。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
+          <div class="job-card"><h3>バックオフィス</h3><p class="desc">労務・経理・総務など、会社と現場を支える基盤をつくる。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
         </div>
-        <div class="job-card" data-reveal style="--reveal-delay:.06s">
-          <span class="type">Film / 正社員・業務委託</span>
-          <h3>動画エディター</h3>
-          <p class="desc">本編からSNSショートまで、目的に応じた編集で「伝わる」を形に。モーションが得意な方も歓迎です。</p>
-          <div class="foot"><span class="text-mute" style="font-size:var(--fs-sm);">東京 / リモート可</span><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div>
+      </div>
+      <!-- アルバイト -->
+      <div data-reveal style="margin-top:clamp(44px,6vw,72px);">
+        <h3 style="font-family:var(--font-en); font-size:var(--fs-h3); letter-spacing:.04em; display:flex; align-items:baseline; gap:14px; padding-bottom:16px; border-bottom:1px solid var(--line-2);">Part-time <span style="font-family:var(--font-jp); font-size:var(--fs-sm); color:var(--fg-3);">アルバイト</span></h3>
+        <div class="grid cols-2" style="margin-top:28px;">
+          <div class="job-card"><h3>インサイドセールス</h3><p class="desc">見込み顧客への架電・メールで、商談の機会を創出する。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
+          <div class="job-card"><h3>バックオフィス補助</h3><p class="desc">データ入力・書類整理など、管理業務をサポートする。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
+          <div class="job-card"><h3>営業補助</h3><p class="desc">資料作成・リスト整備など、営業チームをサポートする。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
         </div>
-        <div class="job-card" data-reveal>
-          <span class="type">Web / 正社員</span>
-          <h3>Webデザイナー</h3>
-          <p class="desc">コーポレート／ブランドサイトのデザイン。情報設計からビジュアルまで、成果につながる体験を設計します。</p>
-          <div class="foot"><span class="text-mute" style="font-size:var(--fs-sm);">東京 / リモート可</span><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div>
-        </div>
-        <div class="job-card" data-reveal style="--reveal-delay:.06s">
-          <span class="type">Web / 正社員</span>
-          <h3>フロントエンドエンジニア</h3>
-          <p class="desc">デザインを高品質に実装。パフォーマンスとインタラクションにこだわり、"エンジニアリング"で表現を支えます。</p>
-          <div class="foot"><span class="text-mute" style="font-size:var(--fs-sm);">東京 / リモート可</span><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div>
-        </div>
-        <div class="job-card" data-reveal>
-          <span class="type">Planning / 正社員</span>
-          <h3>クリエイティブプランナー</h3>
-          <p class="desc">課題を捉え、企画に変える。映像・Web・SNSを横断し、成果に直結する打ち手を設計・提案します。</p>
-          <div class="foot"><span class="text-mute" style="font-size:var(--fs-sm);">東京 / リモート可</span><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div>
-        </div>
-        <div class="job-card" data-reveal style="--reveal-delay:.06s">
-          <span class="type">Marketing / 正社員</span>
-          <h3>SNS・広告運用</h3>
-          <p class="desc">アカウント設計から日々の発信・広告運用まで。数字を見て磨き、事業成果につなげる運用を担います。</p>
-          <div class="foot"><span class="text-mute" style="font-size:var(--fs-sm);">東京 / リモート可</span><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div>
+      </div>
+      <!-- インターン -->
+      <div data-reveal style="margin-top:clamp(44px,6vw,72px);">
+        <h3 style="font-family:var(--font-en); font-size:var(--fs-h3); letter-spacing:.04em; display:flex; align-items:baseline; gap:14px; padding-bottom:16px; border-bottom:1px solid var(--line-2);">Internship <span style="font-family:var(--font-jp); font-size:var(--fs-sm); color:var(--fg-3);">インターン</span></h3>
+        <div class="grid cols-2" style="margin-top:28px;">
+          <div class="job-card"><h3>経営企画室</h3><p class="desc">経営の意思決定に近い立場で、事業計画・分析・企画に携わる。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
+          <div class="job-card"><h3>役員秘書</h3><p class="desc">役員のスケジュールや情報を整理し、経営の動きを間近で学ぶ。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
+          <div class="job-card"><h3>インサイドセールス</h3><p class="desc">商談機会の創出を通じて、営業の実践を学ぶ。</p><div class="foot"><a href="contact.html" class="link">エントリー <span class="arrow">→</span></a></div></div>
         </div>
       </div>
     </div>
