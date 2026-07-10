@@ -142,4 +142,44 @@
     counters.forEach(function (el) { el.textContent = '0'; cio.observe(el); });
   }
 
+  /* ---------------------------------------------------------------
+     9. YouTube動画：画面内で自動再生（ミュート）・画面外で一時停止
+        音は常にオフ。対象は data-yt 付き iframe（src に enablejsapi=1 が必要）
+  --------------------------------------------------------------- */
+  var ytFrames = Array.prototype.slice.call(document.querySelectorAll('iframe[data-yt]'));
+  if (ytFrames.length) {
+    var ytPlayers = [];
+    function bindYtObserver() {
+      if (!('IntersectionObserver' in window)) return;
+      var vio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var rec = ytPlayers.filter(function (r) { return r.iframe === entry.target; })[0];
+          if (!rec || !rec.player || typeof rec.player.playVideo !== 'function') return;
+          try {
+            rec.player.mute();                          // 常にミュート（音は鳴らさない）
+            if (entry.isIntersecting) rec.player.playVideo();
+            else rec.player.pauseVideo();
+          } catch (e) {}
+        });
+      }, { threshold: 0.5 });
+      ytPlayers.forEach(function (r) { vio.observe(r.iframe); });
+    }
+    window.onYouTubeIframeAPIReady = function () {
+      ytFrames.forEach(function (f) {
+        var player = new YT.Player(f, {
+          events: { onReady: function (e) { e.target.mute(); } }
+        });
+        ytPlayers.push({ iframe: f, player: player });
+      });
+      bindYtObserver();
+    };
+    if (window.YT && window.YT.Player) {
+      window.onYouTubeIframeAPIReady();
+    } else if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+  }
+
 })();
