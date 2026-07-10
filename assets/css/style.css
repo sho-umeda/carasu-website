@@ -553,7 +553,8 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
 }
 .service-card:hover { border-color: var(--ink); transform: translateY(-4px); }
 .service-card .num { font-family: var(--font-en); font-size: var(--fs-sm); color: var(--fg-3); letter-spacing: .1em; }
-.service-card h3 { font-size: var(--fs-h3); margin: 18px 0 12px; }
+.service-card h3 { font-size: var(--fs-h3); margin: 18px 0 12px; min-height: 2.4em; display: flex; align-items: flex-start; }
+@media (max-width: 860px) { .service-card h3 { min-height: 0; } }
 .service-card p { color: var(--fg-2); font-size: var(--fs-sm); line-height: 1.85; }
 .service-card .tags { margin-top: 20px; }
 
