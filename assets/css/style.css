@@ -554,6 +554,18 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
 .service-card:hover { border-color: var(--ink); transform: translateY(-4px); }
 .service-card .num { font-family: var(--font-en); font-size: var(--fs-sm); color: var(--fg-3); letter-spacing: .1em; }
 .service-card h3 { font-size: var(--fs-h3); margin: 18px 0 12px; min-height: 2.4em; display: flex; align-items: flex-start; }
+
+/* 和紙の便箋（代表の思い） */
+.washi {
+  background-color: #f4efe2;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0, transparent 39px, rgba(96,74,40,.09) 39px, rgba(96,74,40,.09) 40px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)' opacity='.05'/%3E%3C/svg%3E");
+  border: 1px solid rgba(96,74,40,.22);
+  box-shadow: 0 20px 54px rgba(20,19,18,.12);
+  padding: clamp(30px,5vw,68px);
+}
+@media (max-width: 860px) { .washi { background-size: auto, 120px 120px; } }
 @media (max-width: 860px) { .service-card h3 { min-height: 0; } }
 .service-card p { color: var(--fg-2); font-size: var(--fs-sm); line-height: 1.85; }
 .service-card .tags { margin-top: 20px; }
