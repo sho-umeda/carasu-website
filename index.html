@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>carasu inc. — Creative Engineering Studio ｜ 映像制作に強いクリエイティブスタジオ</title>
+<meta name="description" content="carasu（カラス）株式会社は、映像制作を起点に、ブランディング・Web制作・SNS/広告運用までを一気通貫で支援するクリエイティブ・エンジニアリング・スタジオです。クリエイティブを、企業の武器に。">
+<link rel="canonical" href="https://carasu.jp/">
+
+<!-- OGP / SNSシェア用 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="carasu inc.">
+<meta property="og:title" content="carasu inc. — Creative Engineering Studio">
+<meta property="og:description" content="映像制作に強いクリエイティブスタジオ。クリエイティブを、企業の武器に。">
+<meta property="og:url" content="https://carasu.jp/">
+<meta property="og:image" content="https://carasu.jp/assets/img/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- favicon（後で正式なものに差し替え） -->
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+
+<!-- 書体（Google Fonts） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- 構造化データ（会社情報：必要に応じて更新） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "carasu inc.",
+  "alternateName": "carasu 株式会社",
+  "url": "https://carasu.jp/",
+  "slogan": "Creative Engineering Studio",
+  "description": "映像制作を起点に、ブランディング・Web制作・SNS/広告運用までを支援するクリエイティブ・エンジニアリング・スタジオ。",
+  "address": { "@type": "PostalAddress", "postalCode": "105-0001", "addressRegion": "東京都", "addressLocality": "港区", "streetAddress": "虎ノ門2-5-5 櫻ビル3F" },
+  "telephone": "+81-80-8639-3344",
+  "email": "sho.umeda@carasu.jp"
+}
+</script>
+</head>
+<body>
+
+<!-- ============================================================
+     ヘッダー（全ページ共通：ここを直したら各ページも合わせて更新）
+============================================================ -->
+<header class="site-header" id="header">
+  <div class="container">
+    <a href="index.html" class="logo" aria-label="carasu inc. トップへ"><img src="assets/img/logo-black.png" alt="carasu inc."></a>
+
+    <nav class="nav" aria-label="グローバルナビゲーション">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="works.html">Work<span class="jp">制作実績</span></a></li>
+        <li><a href="news.html">News<span class="jp">カラスニュース</span></a></li>
+        <li><a href="recruit.html">Recruit<span class="jp">採用情報</span></a></li>
+        <li><a href="about.html">About<span class="jp">会社概要</span></a></li>
+        <li><a href="contact.html">Contact<span class="jp">お問い合わせ</span></a></li>
+      </ul>
+      <a href="contact.html" class="btn btn--accent">お問い合わせ <span class="arrow">→</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開閉" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================================================
+       ヒーロー
+       ▼ 背景に動画を入れる場合は、下の <video> のコメントを外し
+         src を差し替えてください（poster に静止画を指定推奨）。
+  ============================================================ -->
+  <section class="hero">
+    <div class="hero-media">
+      <!--
+      <video autoplay muted loop playsinline poster="assets/img/hero-poster.jpg">
+        <source src="assets/video/showreel.mp4" type="video/mp4">
+      </video>
+      -->
+    </div>
+    <img class="hero-mark" src="assets/img/logo-mark-black.png" alt="" aria-hidden="true">
+
+    <div class="container hero-inner">
+      <p class="hero-brand" data-reveal><img src="assets/img/logo-type-black.png" alt="CARASU"></p>
+      <div class="hero-content">
+        <span class="eyebrow" data-reveal>Creative Engineering Studio</span>
+        <h1 data-reveal style="--reveal-delay:.08s">
+          クリエイティブを、<br>企業の<span class="em">武器</span>に。
+        </h1>
+        <p class="hero-sub" data-reveal style="--reveal-delay:.18s">
+          映像制作を起点に、伝わる表現と成果につながる戦略を。<br>
+          carasu は、挑戦する企業のためのクリエイティブ・エンジニアリング・スタジオです。
+        </p>
+        <div class="hero-actions" data-reveal style="--reveal-delay:.28s">
+          <a href="works.html" class="btn btn--accent">制作実績を見る <span class="arrow">→</span></a>
+          <a href="about.html" class="btn btn--ghost">私たちについて <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span>Scroll</span>
+      <span class="bar"></span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       マーキー（提供領域を流れる帯で見せる）
+  ============================================================ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Film</span><span>Branding</span><span>Web</span><span>Motion</span>
+      <span>SNS</span><span>Advertising</span><span>Strategy</span>
+      <span>Film</span><span>Branding</span><span>Web</span><span>Motion</span>
+      <span>SNS</span><span>Advertising</span><span>Strategy</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Intro（理念・強み）＋ 実績数値
+  ============================================================ -->
+  <section class="section container" id="about">
+    <div class="grid cols-2" style="align-items:center; gap:clamp(40px,6vw,96px);">
+      <div>
+        <span class="eyebrow" data-reveal>01 / About</span>
+        <h2 class="section-head" style="margin-top:22px; margin-bottom:0; font-size:var(--fs-h2); font-weight:600;" data-reveal style="--reveal-delay:.05s">
+          「伝わらない」を、<br>映像の力で無くす。
+        </h2>
+      </div>
+      <div data-reveal style="--reveal-delay:.12s">
+        <p class="lead">
+          どれだけ良い商品・サービス・想いがあっても、正しく伝わらなければ、
+          必要としている人には届きません。
+        </p>
+        <p class="text-dim" style="margin-top:20px;">
+          carasu は、企業の価値を見つけ、磨き、「伝わる形」に変えて届けます。
+          映像・ブランディング・Web・SNS・広告——手段の垣根を越えて、
+          企業の挑戦に必要なクリエイティブを見極め、成果につながる形で実装する。
+          それが、クリエイティブ・エンジニアリング・スタジオとしての私たちの仕事です。
+        </p>
+        <a href="recruit.html" class="link" style="margin-top:28px;">私たちの理念を見る <span class="arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="stats" style="margin-top:clamp(56px,7vw,104px);" data-reveal>
+      <div class="stat">
+        <div class="num"><span class="count" data-count="500">500</span><span class="unit">+</span></div>
+        <div class="label">映像・クリエイティブ制作実績<br><small class="text-mute">※数値はサンプル</small></div>
+      </div>
+      <div class="stat">
+        <div class="num"><span class="count" data-count="95">95</span><span class="unit">%</span></div>
+        <div class="label">クライアント継続率<br><small class="text-mute">※数値はサンプル</small></div>
+      </div>
+      <div class="stat">
+        <div class="num"><span class="count" data-count="48">48</span><span class="unit">h</span></div>
+        <div class="label">初稿までの平均リードタイム<br><small class="text-mute">※数値はサンプル</small></div>
+      </div>
+      <div class="stat">
+        <div class="num"><span class="count" data-count="30">30</span><span class="unit">+</span></div>
+        <div class="label">映像・Web・広告の専門クリエイター<br><small class="text-mute">※数値はサンプル</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       サービス
+  ============================================================ -->
+  <section class="section section--elev" id="services">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">02 / Services</span>
+        <h2>企業の挑戦に必要な<br>クリエイティブを、一気通貫で。</h2>
+        <p class="text-dim">
+          映像を中核に、戦略から実装・運用までをワンストップで。
+          「作って終わり」ではなく、使いこなして事業を前に進める状態まで伴走します。
+        </p>
+      </div>
+
+      <div class="grid cols-4">
+        <div class="service-card" data-reveal>
+          <span class="num">01</span>
+          <h3>映像制作</h3>
+          <p>ブランドムービー、商品・サービス紹介、採用、SNSショート、モーショングラフィックスまで。企画・撮影・編集を一貫制作。</p>
+          <div class="tags"><span class="tag">Branded Film</span><span class="tag">Motion</span></div>
+        </div>
+        <div class="service-card" data-reveal style="--reveal-delay:.08s">
+          <span class="num">02</span>
+          <h3>ブランディング</h3>
+          <p>企業・商品の価値を言語化し、伝わる形へ。コンセプト設計、ネーミング、VI、コピーライティングまで。</p>
+          <div class="tags"><span class="tag">Concept</span><span class="tag">VI / Copy</span></div>
+        </div>
+        <div class="service-card" data-reveal style="--reveal-delay:.16s">
+          <span class="num">03</span>
+          <h3>Web制作・開発</h3>
+          <p>コーポレート、ブランド、ECまで。設計・デザイン・実装を内製し、成果につながる体験を"エンジニアリング"します。</p>
+          <div class="tags"><span class="tag">Site</span><span class="tag">Development</span></div>
+        </div>
+        <div class="service-card" data-reveal style="--reveal-delay:.24s">
+          <span class="num">04</span>
+          <h3>SNS・広告運用</h3>
+          <p>アカウント設計から日々の発信、UGC設計、広告運用まで。届けて、動かして、事業成果へつなげます。</p>
+          <div class="tags"><span class="tag">SNS</span><span class="tag">Ads</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       制作実績（抜粋）
+  ============================================================ -->
+  <section class="section container" id="works">
+    <div class="section-head" data-reveal style="display:flex; justify-content:space-between; align-items:flex-end; max-width:none; gap:24px; flex-wrap:wrap;">
+      <div>
+        <span class="eyebrow">03 / Works</span>
+        <h2 style="margin-top:22px;">制作実績</h2>
+      </div>
+      <a href="works.html" class="link">すべての実績を見る <span class="arrow">→</span></a>
+    </div>
+
+    <div class="works-grid">
+      <!-- ▼ 1件ぶんのカード。増やすときはこのブロックを複製してください。 -->
+      <a href="work-detail.html" class="work-card" data-reveal>
+        <div class="thumb"><div class="ph ph-1" data-label="Brand Film"></div></div>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span><span class="tag">ブランディング</span></div>
+          <h3>ブランドムービー『その挑戦に、光を』</h3>
+          <span class="client">Client — Sample Corporation</span>
+        </div>
+      </a>
+
+      <a href="work-detail.html" class="work-card" data-reveal style="--reveal-delay:.08s">
+        <div class="thumb"><div class="ph ph-2" data-label="Recruit Movie"></div></div>
+        <div class="meta">
+          <div class="tags"><span class="tag">採用映像</span><span class="tag">Web</span></div>
+          <h3>採用サイト＆リクルートムービー制作</h3>
+          <span class="client">Client — Sample Inc.</span>
+        </div>
+      </a>
+
+      <a href="work-detail.html" class="work-card" data-reveal style="--reveal-delay:.16s">
+        <div class="thumb"><div class="ph ph-3" data-label="SNS Campaign"></div></div>
+        <div class="meta">
+          <div class="tags"><span class="tag">SNS運用</span><span class="tag">広告</span></div>
+          <h3>SNSキャンペーン企画・運用</h3>
+          <span class="client">Client — Sample Brand</span>
+        </div>
+      </a>
+
+      <a href="work-detail.html" class="work-card" data-reveal style="--reveal-delay:.24s">
+        <div class="thumb"><div class="ph ph-4" data-label="Corporate Site"></div></div>
+        <div class="meta">
+          <div class="tags"><span class="tag">Web制作</span><span class="tag">開発</span></div>
+          <h3>コーポレートサイトリニューアル</h3>
+          <span class="client">Client — Sample Holdings</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       カラスニュース（抜粋）
+  ============================================================ -->
+  <section class="section section--elev" id="news">
+    <div class="container">
+      <div class="section-head" data-reveal style="display:flex; justify-content:space-between; align-items:flex-end; max-width:none; gap:24px; flex-wrap:wrap;">
+        <div>
+          <span class="eyebrow">04 / News</span>
+          <h2 style="margin-top:22px;">カラスニュース</h2>
+          <p class="text-dim" style="margin-top:16px;">制作の裏側、ナレッジ、お知らせを綴ります。</p>
+        </div>
+        <a href="news.html" class="link">記事一覧へ <span class="arrow">→</span></a>
+      </div>
+
+      <div class="news-cards">
+        <a href="news-article.html" class="news-card" data-reveal>
+          <div class="thumb"><div class="ph ph-5" data-label="Knowledge"></div></div>
+          <div class="body">
+            <div class="metarow"><span>2026.07.01</span><span class="accent">ナレッジ</span></div>
+            <h3>成果につながる採用動画の作り方——設計から公開後の運用まで</h3>
+          </div>
+        </a>
+        <a href="news-article.html" class="news-card" data-reveal style="--reveal-delay:.08s">
+          <div class="thumb"><div class="ph ph-6" data-label="Case Study"></div></div>
+          <div class="body">
+            <div class="metarow"><span>2026.06.20</span><span class="accent">実績紹介</span></div>
+            <h3>ブランドムービーで問い合わせが2.4倍に。制作の舞台裏</h3>
+          </div>
+        </a>
+        <a href="news-article.html" class="news-card" data-reveal style="--reveal-delay:.16s">
+          <div class="thumb"><div class="ph ph-1" data-label="Topics"></div></div>
+          <div class="body">
+            <div class="metarow"><span>2026.06.05</span><span class="accent">お知らせ</span></div>
+            <h3>carasu、新オフィスへ移転しました</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       採用への導線（理念バナー）
+  ============================================================ -->
+  <section class="section container">
+    <div data-reveal style="border:1px solid var(--line-2); border-radius:var(--radius-lg); padding:clamp(40px,6vw,88px); position:relative; overflow:hidden; background:linear-gradient(180deg, rgba(198,163,91,.04), transparent);">
+      <span class="eyebrow">Recruit</span>
+      <h2 class="font-serif" style="font-size:var(--fs-h1); font-weight:500; margin:24px 0; max-width:20ch;">
+        挑戦する企業の隣に。<br>その挑戦を、あなたと。
+      </h2>
+      <p class="text-dim" style="max-width:52ch;">
+        carasu は、クリエイティブを民主化する仲間を探しています。
+        映像・デザイン・エンジニアリング・プランニング——あなたの得意で、企業の挑戦を前に進めませんか。
+      </p>
+      <div style="margin-top:36px; display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="recruit.html" class="btn btn--accent">採用情報を見る <span class="arrow">→</span></a>
+        <a href="recruit.html#philosophy" class="btn btn--ghost">経営理念を見る <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA
+  ============================================================ -->
+  <section class="cta">
+    <div class="container">
+      <p class="eyebrow" style="justify-content:center; margin-bottom:28px;" data-reveal>Contact</p>
+      <h2 class="big" data-reveal>Let's <span class="serif">create.</span></h2>
+      <p data-reveal style="--reveal-delay:.1s">
+        映像制作・Web・ブランディングのご相談から、漠然とした課題のご相談まで。
+        まずはお気軽にお問い合わせください。
+      </p>
+      <a href="contact.html" class="btn btn--accent" data-reveal style="--reveal-delay:.2s">お問い合わせはこちら <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     フッター（全ページ共通）
+============================================================ -->
+<footer class="site-footer">
+  <div class="container wide">
+    <div class="footer-watermark" aria-hidden="true">carasu</div>
+
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="assets/img/logo-black.png" alt="carasu inc."></a>
+        <p>Creative Engineering Studio.<br>クリエイティブを、企業の武器に。</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sitemap</h4>
+        <ul>
+          <li><a href="works.html">制作実績</a></li>
+          <li><a href="news.html">カラスニュース</a></li>
+          <li><a href="recruit.html">採用情報</a></li>
+          <li><a href="about.html">会社概要</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="recruit.html#philosophy">経営理念</a></li>
+          <li><a href="about.html">会社情報</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="#" target="_blank" rel="noopener">X (Twitter)</a></li>
+          <li><a href="#" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <small>© 2026 carasu inc. All rights reserved.</small>
+      <div class="footer-social">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
