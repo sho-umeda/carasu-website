@@ -924,3 +924,24 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* ============================================================
+   22. トップ修正（2026-07-11 PDF指示）※背景色・文字色は変更しない
+============================================================ */
+/* サービスカードのアイコン */
+.service-card .ico { display: block; width: 38px; height: 38px; margin-bottom: 16px; color: var(--fg); }
+.service-card .ico svg { width: 100%; height: 100%; display: block; }
+
+/* ヒーローのカラスロゴマークをしっかり見せ、ワードマークと少し重ねる */
+.hero-mark { right: -2vw; width: min(66vw, 780px); opacity: .1; }
+@media (max-width: 860px) { .hero-mark { right: -8vw; opacity: .06; } }
+
+/* フッターの CARASU を横幅いっぱいに */
+.site-footer { overflow: hidden; }
+.footer-watermark {
+  left: 0; right: 0; width: 100%;
+  top: auto; bottom: clamp(8px, 2.2vw, 40px);
+  text-align: center; text-transform: uppercase;
+  white-space: nowrap; letter-spacing: .02em;
+  font-size: clamp(72px, 21vw, 540px);
+}
