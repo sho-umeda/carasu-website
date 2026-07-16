@@ -408,6 +408,7 @@ body.media .field label .req { color: var(--accent); }
 body.media .form-check input { accent-color: var(--accent); }
 .m-formcard { border: 1px solid var(--line); background: var(--bg-2); padding: clamp(26px,3.4vw,44px); }
 .m-form-fallback { border: 1px dashed var(--line-2); padding: 20px 22px; color: var(--fg-2); font-size: var(--fs-sm); line-height: 1.8; }
+.m-form-intro { font-size: var(--fs-sm); color: var(--fg-2); margin-bottom: 18px; padding-left: .9em; border-left: 2px solid var(--accent); }
 
 /* ------------------------------------------------------------------
    11. 共通CTA（フッター前・記事内）
