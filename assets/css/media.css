@@ -465,3 +465,93 @@ body.media .footer-col a:hover, body.media .footer-social a:hover { color: var(-
   .m-cards, .m-cards.cols-2 { grid-template-columns: 1fr; }
   .m-flow3 { grid-template-columns: 1fr; gap: 24px; }
 }
+
+/* ==================================================================
+   15. ブログ可読性の作り込み（雑誌的な編集レイアウト）
+   ※このセクションは上の定義を意図的に上書きする
+================================================================== */
+
+/* 読書プログレスバー */
+.m-progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 1200; background: transparent; pointer-events: none; }
+.m-progress > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #e6cf9a); transition: width .1s linear; }
+
+/* 記事ヘッダー：より編集的に */
+.m-article__head { padding-bottom: clamp(24px,3.4vw,44px); }
+.m-article__title { font-weight: 600; letter-spacing: .015em; max-width: 22ch; }
+
+/* デッキ（標題下の大きなリード文＝読ませるフック） */
+.m-deck {
+  max-width: 40rem; margin: clamp(26px,4vw,42px) auto 0;
+  font-family: var(--m-serif-jp); font-weight: 500;
+  font-size: clamp(1.28rem, 2.3vw, 1.72rem); line-height: 1.78; letter-spacing: .012em;
+  color: var(--fg);
+}
+
+/* 本文レイアウト：目次を左ガター、本文は最適な読み幅(約40rem)で中央 */
+.m-article__grid {
+  grid-template-columns: 224px minmax(0, 40rem);
+  gap: clamp(40px, 5vw, 88px);
+  justify-content: center;
+  align-items: start;
+}
+@media (max-width: 1040px){
+  .m-article__grid { grid-template-columns: 1fr; max-width: 40rem; margin-inline: auto; }
+}
+
+/* 目次（左・追従） */
+.m-toc { top: calc(var(--header-h) + 30px); }
+.m-toc ol { border-left-color: var(--line); }
+
+/* 本文タイポグラフィ（可読性最優先・雑誌組み） */
+body.media .prose { font-size: 1.075rem; line-height: 2.02; letter-spacing: .012em; text-align: left; }
+body.media .prose > * + * { margin-top: 1.7em; }
+body.media .prose p { color: #cfc9bc; line-height: 2.05; }
+/* リード段落（冒頭）はやや大きく・明るく：日本語なのでドロップキャップは使わない */
+body.media .prose > p:first-of-type { font-size: 1.18rem; line-height: 1.96; color: var(--fg); }
+body.media .prose h2 {
+  margin-top: 2.6em; padding-top: 1.1em;
+  font-size: clamp(1.5rem, 2.7vw, 2.05rem); line-height: 1.5; letter-spacing: .02em; color: var(--fg);
+}
+/* h2 の上の細い装飾ルール */
+body.media .prose h2::before {
+  content: ""; display: block; width: 34px; height: 2px; background: var(--accent);
+  margin-bottom: .7em; opacity: .8;
+}
+body.media .prose h2 { border-top: 0; }
+body.media .prose h3 { margin-top: 2em; font-size: 1.24rem; color: var(--fg); }
+body.media .prose strong { color: #f4f1ea; font-weight: 700; }
+body.media .prose li { line-height: 1.95; }
+body.media .prose li + li { margin-top: .5em; }
+
+/* プルクオート（本文中 blockquote を大きく引く） */
+body.media .prose blockquote {
+  position: relative; border-left: 0; margin: 2.4em 0; padding: 0 0 0 1.6rem;
+  font-family: var(--m-serif-jp); font-weight: 500; font-size: clamp(1.3rem,2.2vw,1.7rem);
+  line-height: 1.7; letter-spacing: .01em; color: var(--fg);
+}
+body.media .prose blockquote::before {
+  content: ""; position: absolute; left: 0; top: .2em; bottom: .2em; width: 2px; background: var(--accent);
+}
+
+/* 要点（TL;DR）を「編集部ノート」風に脱・箱化 */
+.m-summary {
+  border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  background: transparent; padding: clamp(22px,2.6vw,30px) 0;
+}
+.m-summary__label {
+  font-family: var(--font-en); font-size: var(--fs-xs); letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: .7em;
+}
+.m-summary__label::before { content: ""; width: 22px; height: 1px; background: var(--accent-line); }
+.m-summary p { font-family: var(--m-serif-jp); font-weight: 500; font-size: 1.12rem; line-height: 1.9; color: var(--fg); margin: 0; }
+.m-takeaways { margin-top: 20px; padding-top: 18px; border-top: 1px dashed var(--line); }
+.m-takeaways li { color: var(--fg-2); font-size: .95rem; }
+.m-takeaways li::before { content: "—"; color: var(--accent); }
+
+/* 記事内インラインCTA：本文と馴染むトーンに */
+.m-cta-inline { border-left: 2px solid var(--accent); border-top: 0; border-right: 0; border-bottom: 0; background: var(--bg-2); }
+
+@media (max-width: 640px){
+  body.media .prose { font-size: 1.02rem; }
+  .m-deck { font-size: 1.2rem; }
+}

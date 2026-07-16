@@ -82,6 +82,20 @@
     });
   });
 
+  /* ---- 5) 読書プログレスバー ---- */
+  var bar = document.getElementById("readProgress");
+  var article = document.querySelector("article");
+  if (bar && article) {
+    var tick = function () {
+      var total = article.offsetHeight - window.innerHeight;
+      var scrolled = Math.min(Math.max(-article.getBoundingClientRect().top, 0), Math.max(total, 1));
+      bar.style.width = (total > 0 ? (scrolled / total) * 100 : 0).toFixed(1) + "%";
+    };
+    window.addEventListener("scroll", tick, { passive: true });
+    window.addEventListener("resize", tick, { passive: true });
+    tick();
+  }
+
   /* ---- 4) GA4 data-cta クリック計測（gtag があれば） ---- */
   if (typeof window.gtag === "function") {
     document.querySelectorAll("[data-cta]").forEach(function (el) {

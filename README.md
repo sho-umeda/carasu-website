@@ -1,120 +1,108 @@
-# carasu inc. — コーポレートサイト雛形
+# CARASU コーポレートサイト + オウンドメディア「LUXE SOCIAL LAB」
 
-映像制作に強いクリエイティブスタジオ **carasu** の新コーポレートサイトの雛形です。
-「今後50億・100億と成長しても、銀行・社外・社内から信頼される」ことを狙い、
-**ダーク基調のシック**な世界観（黒 × オフホワイト × シャンパンゴールド）で構築しています。
+株式会社CARASU のコーポレートサイトと、ラグジュアリー領域特化のオウンドメディア
+**LUXE SOCIAL LAB（ラグジュアリー・ソーシャル研究所）** を1つのリポジトリで管理します。
 
-参考にしたサイトの型：nahato（信頼×B2Bのシック）、CHOCOLATE（映像主役）、GO（大胆なタイポ）。
+- **コーポレート**：白基調モノクロ（名刺ブランド）。既存ページはそのまま。
+- **メディア（/lab /column /download /audit）**：ダーク・シネマティックな別世界。
+- 静的サイトジェネレータ **Eleventy(11ty)** でビルド。記事は Markdown を1つ足すだけで増やせます。
 
 ---
 
-## 1. ディレクトリ構成
-
-```
-carasu-website/
-├─ index.html          トップページ
-├─ works.html          制作実績 一覧（カテゴリ絞り込み付き）
-├─ work-detail.html    制作実績 詳細（1件テンプレ）
-├─ news.html           カラスニュース 一覧（SEO記事用・絞り込み付き）
-├─ news-article.html   カラスニュース 記事（1件テンプレ・目次/構造化データ入り）
-├─ recruit.html        採用情報（(a)経営理念=PMVV ＋ (b)採用詳細）
-├─ about.html          会社概要
-├─ contact.html        お問い合わせ（フォーム雛形）
-├─ sitemap.xml         SEO用サイトマップ（雛形）
-├─ robots.txt          クローラ向け設定（雛形）
-├─ README.md           このファイル
-└─ assets/
-   ├─ css/style.css    デザインシステム（色・書体・全コンポーネント）
-   └─ js/main.js       共通の動き（メニュー・スクロール演出・絞り込み 等）
-```
-
-## 2. ローカルでの見かた
-
-依存ライブラリはありません。簡易サーバーで開くだけです（書体はネット接続時に読み込まれます）。
+## 1. セットアップ & 開発
 
 ```bash
-# このフォルダで
-python -m http.server 5500
-# → ブラウザで http://localhost:5500/ を開く
+cd projects/carasu-website
+npm install            # 初回のみ
+npm run dev            # 開発サーバー（http://localhost:8080/carasu-website/ ）
+npm run build          # 本番ビルド（_site/ を生成）
 ```
 
-> ※ファイルを直接ダブルクリック（file://）でも表示できますが、
-> 一部ブラウザで動きが制限されるため、上記のローカルサーバー推奨です。
+## 2. ディレクトリ構成
 
+```
+projects/carasu-website/
+├─ eleventy.config.mjs        Eleventy設定（pathPrefix・フィルタ・コレクション）
+├─ package.json
+├─ src/                       ← ここが正本
+│  ├─ *.html                  既存コーポレート9ページ（パススルー＝素通しで無傷配信）
+│  ├─ assets/                 css（style.css=白 / media.css=メディア用ダーク）・js・img
+│  ├─ _data/
+│  │  ├─ site.json            サイト共通変数（★ラボ名・GA4・HubSpot・ドメイン）
+│  │  └─ whitepapers.json     資料（WP）のメタデータ
+│  ├─ _includes/
+│  │  ├─ layouts/             base-media / article / （WP LPは download/wp.njk）
+│  │  └─ components/          cta-footer / cta-inline / article-card / wp-card / lead-form
+│  ├─ column/posts/*.md       ★記事（Markdown）。ここに足すだけで公開される
+│  ├─ lab/ download/ audit/ privacy/   メディア各ページ
+│  ├─ sitemap.njk feed.njk robots.njk  自動生成
+│  └─ _site/                  ビルド出力（gitignore）
+└─ README.md
+```
+
+## 3. 記事を1本追加する（非エンジニアでもOK）
+
+`src/column/posts/` に `.md` ファイルを1つ作るだけです。冒頭の frontmatter を埋めてください。
+
+```markdown
 ---
-
-## 3. デザインの考え方（触る前に）
-
-- **色・余白・角丸などは、ほぼすべて `assets/css/style.css` 冒頭の `:root` 変数**にまとまっています。
-  ここを書き換えると全ページに反映されます。
-  - 差し色を変える → `--accent`（現在はシャンパンゴールド `#c6a35b`）
-  - 背景の黒み → `--bg`
-  - 文字色 → `--fg` / `--fg-2`（補助） / `--fg-3`（控えめ）
-- **書体**：英・数字＝Manrope、和文＝Noto Sans JP、見出しの品格用＝Noto Serif JP（明朝）。
-- **動き**：スクロールで要素がフェードイン（`data-reveal` を付けた要素）。
-
+title: "記事タイトル（全角32〜42字・具体的に）"
+description: "検索結果・SNSに出る説明。全角100〜120字。"
+date: "2026-08-01"
+category: "ナレッジ"          # ナレッジ / 事例分析 / 検証レポート / お知らせ
+tags: ["ラグジュアリー", "ショート動画"]
+summary: "記事の要点（TL;DR）。2〜3文。AIが引用しやすい要約。"
+takeaways: ["要点1", "要点2", "要点3"]
+faq:
+  - q: "想定される質問1"
+    a: "その回答（自己完結・60〜160字）。"
+cta: "wp01"                    # wp01 / audit / contact（記事末のCTA）
+readingTime: 6
+thumbnail: "/assets/img/column/xxx.svg"   # 任意。無ければ自動プレースホルダ
+draft: false                  # true でビルド除外
 ---
+本文（Markdown）。## と ### の見出しから目次を自動生成します。
+内部リンクは /column/other-slug/ の形で書けば自動でリンクされます。
+```
 
-## 4. よくある編集
+保存 → `git add/commit/push`（またはデプロイ手順）で公開されます。要点ボックス・FAQ・目次・
+構造化データ（BlogPosting/FAQPage/BreadcrumbList）・OGP・関連記事は**システムが自動で付与**します。
 
-### 🎬 ヒーローに動画を入れる
-`index.html` の `<section class="hero">` 内、`<div class="hero-media">` にある
-コメントアウトされた `<video>` を有効化し、`assets/video/showreel.mp4` を置いてください。
-`poster` に静止画を指定すると、読み込み前の見栄えが良くなります。
+## 4. 資料（ホワイトペーパー）を追加する
 
-### 🖼 プレースホルダ画像を実物に差し替える
-グレーのグラデ枠（`<div class="ph ph-1" ...>`）が仮画像です。
-`<img src="assets/img/xxx.jpg" alt="...">` に置き換えてください（枠のサイズは自動）。
+`src/_data/whitepapers.json` に1件足す → 表紙画像を `assets/img/wp/` に置く →
+`/download/{slug}/` の個別LP・フォームが自動生成されます。
 
-### 🗂 制作実績を増やす
-1. **一覧**：`works.html` の `.work-card`（`<a>…</a>`）を1件コピーして内容を変更。
-   - `data-cat` に該当カテゴリ（`film` / `branding` / `web` / `sns`）を半角スペース区切りで指定すると絞り込みに反映。
-2. **詳細**：`work-detail.html` を複製（例：`work-brandmovie.html`）し、
-   `<title>` / OGP / 本文を変更。一覧カードの `href` をそのファイル名に。
+## 5. サイト共通変数（`src/_data/site.json`）
 
-### 📝 カラスニュース（記事）を書き溜める
-1. **一覧**：`news.html` の `.news-item` を1件コピーし、日付・カテゴリ・タイトルを変更。
-   - `data-cat` は `news`（お知らせ）/ `case`（実績紹介）/ `knowledge`（ナレッジ）/ `interview`（インタビュー）。
-2. **記事**：`news-article.html` を複製（例：`news-20260701.html`）し、
-   - `<title>`・`<meta name="description">`・OGP を記事内容に更新（**SEOで重要**）。
-   - ページ上部の **`<script type="application/ld+json">`（構造化データ）** の headline / datePublished 等も更新。
-   - 本文（`.prose`）と目次（`.toc`）を編集。見出し `<h2 id="sX">` と目次リンク `href="#sX"` を対応させる。
+| 項目 | 内容 | 現状 |
+|---|---|---|
+| `lab.name` / `lab.nameJa` | ラボ名称 | **提案段階**（要・正式決定） |
+| `framework.name` | フレームワーク名 | **提案段階** |
+| `ga4Id` | GA4測定ID | 空（入れると全メディアページで計測開始） |
+| `hubspot.portalId` / `forms` | HubSpotフォーム | 空（入れると各LPが自動でHubSpot埋め込みに切替。空の間はメール請求フォールバックで動作） |
+| `domain` | 本番ドメイン | https://carasu.jp（canonical/OGP/sitemapに使用） |
 
-### 👥 採用情報を編集
-`recruit.html`。
-- **経営理念**は社内PMVVを反映済み（Purpose/Mission/Vision/Value・カルチャー）。文言変更は該当箇所を直接編集。
-- **募集職種**は `.job-card` を複製/削除で増減。
-- **募集要項** `spec-table` は雛形です。確定条件に差し替えてください（`※要確認`/`※一例` の注記を外す）。
+## 6. デプロイ（現状：限定公開 / noindex）
 
-### 🏢 会社情報を更新
-`about.html` の `info-table`。`準備中` の項目（設立・代表者・資本金・所在地）を埋めてください。
-沿革（`history`）は `※サンプル` を実データに差し替え。
+```bash
+python C:/Users/umeum/carasu_ai/scripts/deploy_carasu_site.py   # build → 公開リポジトリ同期＋noindex注入
+cd C:/Users/umeum/carasu-website && git add -A && git commit -m "..." && git push origin main
+```
 
-### ✉️ お問い合わせフォームを"実際に送れる"ように
-`contact.html` の `<form>` は現在ダミー（送信されません）。
-Googleフォーム / formrun / 自社API などの送信先に接続してください。
-（ページ末尾の簡易バリデーション用 `<script>` は接続後に差し替え可）
+公開URL：https://sho-umeda.github.io/carasu-website/ （**noindex＝検索避け・URLを知る人だけ**）
 
----
+## 7. 本番公開（carasu.jp・検索公開）への切替 ※人間の作業
 
-## 5. SEO まわり
-- 各ページに `<title>` / `meta description` / `canonical` / OGP を設定済み。ページ複製時は必ず内容を更新。
-- 記事ページには構造化データ（`BlogPosting`）の雛形入り。
-- `sitemap.xml` / `robots.txt` はドメイン確定後にURLを実値へ更新。
-- 独自ドメイン公開時は、`https://carasu.jp/` 部分を実URLに合わせてください。
+1. `carasu.jp` を GitHub Pages のカスタムドメインに接続（DNS設定）＋ `CNAME` 配置
+2. `eleventy.config.mjs` の `pathPrefix` を `"/"` に変更
+3. `scripts/deploy_carasu_site.py` の `INJECT_NOINDEX = False` に変更（robots も Allow に）
+4. GA4・HubSpot・Google Search Console を接続（`site.json`）
 
-## 6. 未確定・要確認（雛形のまま残している箇所）
-- 会社情報（設立・代表者・資本金・所在地）… `about.html`：**準備中**
-- 沿革の年月・内容 … `about.html`：**※サンプル**
-- 実績の具体内容・クライアント名・数値 … `works.html` / `work-detail.html`：**Sample / ※数値はサンプル**
-- 募集要項の具体条件 … `recruit.html`：**※要確認 / ※一例**
-- SNS・プライバシーポリシー等のリンク先 … 各ページ `href="#"`
-- ロゴ・favicon・OGP画像 … 仮のものを設定（`assets/img/` に正式版を配置して差し替え）
+## 8. 既知の要対応・提案事項
 
-## 7. 今後の拡張（提案）
-- 実績・記事が増えたら **CMS化**（microCMS / WordPress 等）で運用を効率化。
-- 実写真・実映像の投入で世界観がさらに向上。
-- ライトモード対応、多言語（EN）対応も同じ変数設計の上で拡張可能。
-
----
-*Designed & built as a starting template. ここから自由に育ててください。*
+- **ラボ名称/フレームワーク名は提案段階**（`site.json` の1箇所変更で全ページ反映）
+- **記事の数字・主張は公開前に一次情報で要確認** → `docs_owned_media_factcheck.md` にリスト化済み
+- OGP画像は当面SVG。SNS拡散を本格化する際はラスター(PNG)化を推奨
+- 記事本文はSEO+AIO対応済み（捏造データなし・フレームワーク/公開情報ベース）
+- コーポレートトップの「※数値はサンプル」実績数値は実数確定待ち
