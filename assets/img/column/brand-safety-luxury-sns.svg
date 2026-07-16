@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="BRAND SAFETY">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#151310"/><stop offset="0.55" stop-color="#0d0c0a"/><stop offset="1" stop-color="#080706"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="15%" cy="85%" r="60%">
+      <stop offset="0" stop-color="#c9a86a" stop-opacity="0.22"/><stop offset="1" stop-color="#c9a86a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect width="1200" height="800" fill="url(#glow)"/>
+  <rect x="28" y="28" width="1144" height="744" fill="none" stroke="#c9a86a" stroke-opacity="0.32" stroke-width="1"/>
+  <text x="60" y="88" fill="#c9a86a" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="6" font-style="italic">LUXE SOCIAL LAB</text>
+  <text x="60" y="118" fill="#847d6f" font-family="'Segoe UI', Arial, sans-serif" font-size="15" letter-spacing="5">BRAND SAFETY</text>
+  <text x="600.0" y="470.0" fill="#f4f1ea" fill-opacity="0.9" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="240" font-style="italic">IV</text>
+  <line x1="60" y1="704" x2="160" y2="704" stroke="#c9a86a" stroke-opacity="0.5" stroke-width="1"/>
+  <text x="60" y="744" fill="#b8b2a4" font-family="'Segoe UI', Arial, sans-serif" font-size="17" letter-spacing="3">INSIGHT — by CARASU</text>
+</svg>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LUXE SOCIAL LAB｜株式会社CARASU</title>
+    <link>https://carasu.jp/column/</link>
+    <atom:link href="https://carasu.jp/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>ラグジュアリーブランドが「世界観を守りながら、正しく届く」ための知を、実験と検証から生み出す。</description>
+    <language>ja</language>
+    <item>
+      <title>高級ブランドのショート動画設計｜世界観を守りリーチを最大化する3原則</title>
+      <link>https://carasu.jp/column/world-view-driven-short-video/</link>
+      <guid isPermaLink="true">https://carasu.jp/column/world-view-driven-short-video/</guid>
+      <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+      <category>ナレッジ</category>
+      <description>『バズ vs 世界観』の二項対立に陥らず、ラグジュアリーブランドがショート動画でリーチを最大化する設計法を構造で解説。フレームワーク『世界観ドリブン・ショート設計』の3原則を、社内稟議でそのまま使えるチェックリスト付きでまとめました。</description>
+    </item>
+    <item>
+      <title>なぜ今、高級ブランドはショート動画に投資すべきか——「様子見」という名の機会損失</title>
+      <link>https://carasu.jp/column/why-luxury-short-video-now/</link>
+      <guid isPermaLink="true">https://carasu.jp/column/why-luxury-short-video-now/</guid>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+      <category>ナレッジ</category>
+      <description>高級ブランドがショート動画に『今』投資すべき理由を、発見の起点の変化、生成AI検索時代の見つかり方、機会損失の構造から整理。意思決定者が稟議でそのまま使える『失うもの』の棚卸し表と初動チェックリストを収録した実務記事。</description>
+    </item>
+    <item>
+      <title>ショート動画ROIを稟議で通す——ラグジュアリーのKPI設計とブランドリフト測定</title>
+      <link>https://carasu.jp/column/short-video-roi-ringi/</link>
+      <guid isPermaLink="true">https://carasu.jp/column/short-video-roi-ringi/</guid>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 GMT</pubDate>
+      <category>ナレッジ</category>
+      <description>ラグジュアリーのショート動画ROIを社内稟議で通す方法。フォロワー数ではなく保存率・プロフィールアクセス率・指名検索・ブランドリフトでKPIを設計し、ROIを確定値でなく計算構造で示し、稟議一枚資料に落とし込む骨子を解説します。</description>
+    </item>
+    <item>
+      <title>高級ブランドSNSのブランドセーフティ設計｜炎上と世界観毀損を防ぐ4層体制</title>
+      <link>https://carasu.jp/column/brand-safety-luxury-sns/</link>
+      <guid isPermaLink="true">https://carasu.jp/column/brand-safety-luxury-sns/</guid>
+      <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
+      <category>ナレッジ</category>
+      <description>高級ブランドのSNS運用で起きる「安っぽく見える・世界観のブレ・コメント欄の荒れ・炎上」を4層で体系化。稟議にそのまま貼れるブランドセーフティ・チェックリストと、炎上時60分のエスカレーション・フロー雛形を提示します。</description>
+    </item>
+    <item>
+      <title>高級ホテルのショート動画活用——「泊まる前に世界観を体験させる」映像設計3原則</title>
+      <link>https://carasu.jp/column/luxury-hotel-short-video/</link>
+      <guid isPermaLink="true">https://carasu.jp/column/luxury-hotel-short-video/</guid>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+      <category>事例分析</category>
+      <description>高級ホテルやラグジュアリーリゾートは、ショート動画で何を見せ、どう指名予約に繋げるのか。空間・光・所作・静けさの映像文法と、担当者がそのまま使える「見せるべき/見せてはいけない」対比表、外注チェックリスト、KPIの考え方を解説する。</description>
+    </item>
+    <item>
+      <title>「格を落とさない」縦型動画の演出原則｜シネマティックな高級感の作り方</title>
+      <link>https://carasu.jp/column/cinematic-vertical-video-craft/</link>
+      <guid isPermaLink="true">https://carasu.jp/column/cinematic-vertical-video-craft/</guid>
+      <pubDate>Thu, 11 Jun 2026 00:00:00 GMT</pubDate>
+      <category>ナレッジ</category>
+      <description>ラグジュアリーブランドの縦型動画で「格を落とさない」ための演出原則を、構図・光・カラーグレーディング・カット・音・余白・タイポの観点から解説。安いバズ演出との違いと、制作会社を見極める品質チェックリストも収録。稟議でそのまま使えます。</description>
+    </item>
+  </channel>
+</rss>
