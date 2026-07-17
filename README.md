@@ -96,8 +96,11 @@ cd C:/Users/umeum/carasu-website && git add -A && git commit -m "..." && git pus
 
 1. `carasu.jp` を GitHub Pages のカスタムドメインに接続（DNS設定）＋ `CNAME` 配置
 2. `eleventy.config.mjs` の `pathPrefix` を `"/"` に変更
-3. `scripts/deploy_carasu_site.py` の `INJECT_NOINDEX = False` に変更（robots も Allow に）
-4. GA4・HubSpot・Google Search Console を接続（`site.json`）
+3. `src/_data/site.json` の `domain` を `https://carasu.jp` に戻す（現在は共有プレビュー用に公開URL基準）
+4. `scripts/deploy_carasu_site.py` の `INJECT_NOINDEX = False` に変更（＝noindex注入を止め検索公開）
+5. GA4・HubSpot・Google Search Console を接続／`carasu.jp/sitemap.xml` を送信
+
+> ※現在は「限定公開＝リンク共有OK・OGPプレビューも表示／検索には出さない(noindex)」状態です。robots はクロール許可、各HTMLの noindex メタで検索非掲載を維持しています。
 
 ## 8. 既知の要対応・提案事項
 

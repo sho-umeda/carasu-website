@@ -651,7 +651,21 @@ body.media::after{
 /* 16.10 フォーカスの可視化（アクセシビリティ） */
 body.media a:focus-visible, body.media button:focus-visible, body.media summary:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
 
-/* 16.11 HubSpotフォーム枠を「アイボリーの返信カード」に（iframe描画のため枠側で世界観を作る） */
+/* 16.12 安心チップ（心理的ハードルを下げる保証の可視化・軽やかに） */
+.m-assure{ list-style:none; display:flex; flex-wrap:wrap; gap:12px 24px; margin-top:28px; }
+.m-assure li{ display:inline-flex; align-items:center; gap:.5em; font-size:.92rem; color:var(--fg-2); letter-spacing:.015em; }
+.m-assure li::before{ content:"✓"; color:var(--accent); font-family:var(--font-en); font-weight:700; }
+
+/* 16.11 HubSpotフォーム枠 / 相談スケジューラを「アイボリーの返信カード」に */
+.m-formcard:has(.meetings-iframe-container){
+  background:#f6f3ec; border:1px solid rgba(20,19,18,.10);
+  box-shadow:0 34px 90px rgba(0,0,0,.5); position:relative;
+}
+.m-formcard:has(.meetings-iframe-container)::before{ content:""; position:absolute; top:0; left:0; right:0; height:2px; background:var(--accent); }
+.m-formcard:has(.meetings-iframe-container) .m-hs-note{ color:#6b675e; }
+.m-formcard:has(.meetings-iframe-container) .m-hs-note a{ color:#8a6d2f; }
+.meetings-iframe-container{ min-height:640px; }
+.meetings-iframe-container iframe{ width:100%!important; border:0; }
 .m-formcard:has(.hs-form-frame){
   background:#f6f3ec; border:1px solid rgba(20,19,18,.10);
   box-shadow:0 34px 90px rgba(0,0,0,.5); position:relative;
