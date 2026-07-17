@@ -2,54 +2,54 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>LUXE SOCIAL LAB｜株式会社CARASU</title>
-    <link>https://carasu.jp/column/</link>
-    <atom:link href="https://carasu.jp/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>https://sho-umeda.github.io/carasu-website/column/</link>
+    <atom:link href="https://sho-umeda.github.io/carasu-website/feed.xml" rel="self" type="application/rss+xml"/>
     <description>ラグジュアリーブランドが「世界観を守りながら、正しく届く」ための知を、実験と検証から生み出す。</description>
     <language>ja</language>
     <item>
       <title>「バズか世界観か」で消耗しない、ラグジュアリー・ショート動画の設計思想</title>
-      <link>https://carasu.jp/column/world-view-driven-short-video/</link>
-      <guid isPermaLink="true">https://carasu.jp/column/world-view-driven-short-video/</guid>
+      <link>https://sho-umeda.github.io/carasu-website/column/world-view-driven-short-video/</link>
+      <guid isPermaLink="true">https://sho-umeda.github.io/carasu-website/column/world-view-driven-short-video/</guid>
       <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
       <category>ナレッジ</category>
       <description>「バズか世界観か」という二択を疑うところから、ラグジュアリーのショート動画で本当に効く設計思想を、格の定義から冒頭の止め方、測定、社内稟議の通し方まで、CARASU編集部が現場で使う判断基準としてまとめた。</description>
     </item>
     <item>
       <title>高級ブランドのショート動画は、なぜ今なのか。発見はもうスクロールにある</title>
-      <link>https://carasu.jp/column/why-luxury-short-video-now/</link>
-      <guid isPermaLink="true">https://carasu.jp/column/why-luxury-short-video-now/</guid>
+      <link>https://sho-umeda.github.io/carasu-website/column/why-luxury-short-video-now/</link>
+      <guid isPermaLink="true">https://sho-umeda.github.io/carasu-website/column/why-luxury-short-video-now/</guid>
       <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
       <category>ナレッジ</category>
       <description>検索して選ぶより先に、富裕層はリールのなかでホテルの午後の光や所作を見ている。発見の起点がスクロールへ移り、生成AI検索が見つかり方まで変えた今、高級ブランドがなぜショート動画へ踏み出すべきかを、様子見の代償も含めて現場から書いた。</description>
     </item>
     <item>
       <title>ショート動画のROIを稟議で通す。追うべき指標と経営を動かすロジック</title>
-      <link>https://carasu.jp/column/short-video-roi-ringi/</link>
-      <guid isPermaLink="true">https://carasu.jp/column/short-video-roi-ringi/</guid>
+      <link>https://sho-umeda.github.io/carasu-website/column/short-video-roi-ringi/</link>
+      <guid isPermaLink="true">https://sho-umeda.github.io/carasu-website/column/short-video-roi-ringi/</guid>
       <pubDate>Thu, 02 Jul 2026 00:00:00 GMT</pubDate>
       <category>ナレッジ</category>
       <description>フォロワー数を成果に据えた瞬間、ラグジュアリーは一番不利な土俵に上がる。保存率・指名検索・ブランドリフトの意味と、ROIを試算の構造として経営に翻訳する考え方、そして撤退線まで引いた稟議一枚の骨子を、現場の言葉で書いた。</description>
     </item>
     <item>
       <title>高級ブランドのSNSで世界観が壊れる瞬間とブランドセーフティの守り方</title>
-      <link>https://carasu.jp/column/brand-safety-luxury-sns/</link>
-      <guid isPermaLink="true">https://carasu.jp/column/brand-safety-luxury-sns/</guid>
+      <link>https://sho-umeda.github.io/carasu-website/column/brand-safety-luxury-sns/</link>
+      <guid isPermaLink="true">https://sho-umeda.github.io/carasu-website/column/brand-safety-luxury-sns/</guid>
       <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
       <category>ナレッジ</category>
       <description>高級ブランドのSNSは、派手な炎上より前に、色味の揺れやコメント欄の放置で静かに格を落とす。現場のディレクターが、世界観を守る体制と権限の設計、炎上時の止める・調べる・語る、そして稟議に貼れる投稿前チェックまで具体的に示す。</description>
     </item>
     <item>
       <title>高級ホテルのショート動画は「泊まる前」に世界観を体験させているか</title>
-      <link>https://carasu.jp/column/luxury-hotel-short-video/</link>
-      <guid isPermaLink="true">https://carasu.jp/column/luxury-hotel-short-video/</guid>
+      <link>https://sho-umeda.github.io/carasu-website/column/luxury-hotel-short-video/</link>
+      <guid isPermaLink="true">https://sho-umeda.github.io/carasu-website/column/luxury-hotel-short-video/</guid>
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
       <category>事例分析</category>
       <description>高級ホテルのショート動画で予約を動かすのは、施設紹介ではない。光を待ち、静けさを録り、所作と余白で世界観を先に体験させる映像設計がいる。撮影現場で照明も編集も回してきた編集長が、稟議でそのまま使える四つの採点軸まで具体的に書いた。</description>
     </item>
     <item>
       <title>格を落とさないシネマティック縦型動画。高級感を生む演出の作り方</title>
-      <link>https://carasu.jp/column/cinematic-vertical-video-craft/</link>
-      <guid isPermaLink="true">https://carasu.jp/column/cinematic-vertical-video-craft/</guid>
+      <link>https://sho-umeda.github.io/carasu-website/column/cinematic-vertical-video-craft/</link>
+      <guid isPermaLink="true">https://sho-umeda.github.io/carasu-website/column/cinematic-vertical-video-craft/</guid>
       <pubDate>Thu, 11 Jun 2026 00:00:00 GMT</pubDate>
       <category>ナレッジ</category>
       <description>縦型動画を使い捨てにした瞬間、被写体がどれだけ豪華でもブランドの格は落ちる。シネマティックな縦型で高級感を決めるのは光とカラーグレーディング、そして引き算の判断だ。安いバズ演出との分岐点と制作会社の見極め方を撮影現場の視点で書いた。</description>
