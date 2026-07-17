@@ -682,3 +682,28 @@ body.media a:focus-visible, body.media button:focus-visible, body.media summary:
   .m-hero__inner::before{ font-size:50vh; right:-16vw; top:-4vh; opacity:.04; }
   .m-hero .scroll-cue{ display:none; }
 }
+
+/* ==================================================================
+   17. 記事内ビジュアル（図版・要点・比較）— 文字の連続を断ち読み進めやすく
+================================================================== */
+/* 図版（インフォグラフィック） */
+body.media .prose figure.m-fig{ margin:2.6em 0; }
+body.media .prose figure.m-fig img{ width:100%; border:1px solid var(--line-2); box-shadow:0 24px 64px rgba(0,0,0,.5); margin:0; display:block; }
+body.media .prose figure.m-fig figcaption{ margin-top:.95em; padding-left:1em; border-left:2px solid var(--accent-line); font-size:.85rem; color:var(--fg-3); line-height:1.7; text-align:left; }
+
+/* 要点コールアウト（読者の目を留める） */
+body.media .prose .m-callout{ margin:2.4em 0; padding:24px 28px; background:linear-gradient(180deg,var(--accent-soft),transparent); border-left:2px solid var(--accent); }
+.m-callout__label{ display:inline-flex; align-items:center; gap:.5em; font-family:var(--font-en); font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+.m-callout__label::before{ content:"—"; }
+body.media .prose .m-callout p{ margin:0; font-family:var(--m-serif-jp); font-weight:500; font-size:1.18rem; line-height:1.85; color:var(--fg); }
+
+/* 比較ブロック（◯/✕の2カラム・図として読める） */
+body.media .prose .m-compare{ margin:2.6em 0; display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+body.media .prose .m-compare > div{ background:var(--bg-2); padding:22px 24px; }
+body.media .prose .m-compare h4{ font-family:var(--m-serif-jp); font-weight:600; font-size:1.05rem; margin:0 0 14px; }
+body.media .prose .m-compare .neg h4{ color:var(--fg-3); }
+body.media .prose .m-compare ul{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+body.media .prose .m-compare li{ position:relative; padding-left:1.6em; font-size:.95rem; color:var(--fg-2); line-height:1.7; margin:0; }
+body.media .prose .m-compare .pos li::before{ content:"✓"; position:absolute; left:0; color:var(--accent); font-weight:700; }
+body.media .prose .m-compare .neg li::before{ content:"✕"; position:absolute; left:0; color:var(--fg-3); }
+@media(max-width:600px){ body.media .prose .m-compare{ grid-template-columns:1fr; } }
