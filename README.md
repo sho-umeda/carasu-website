@@ -94,13 +94,22 @@ cd C:/Users/umeum/carasu-website && git add -A && git commit -m "..." && git pus
 
 ## 7. 本番公開（carasu.jp・検索公開）への切替 ※人間の作業
 
-1. `carasu.jp` を GitHub Pages のカスタムドメインに接続（DNS設定）＋ `CNAME` 配置
+1. `carasu.jp` を GitHub Pages のカスタムドメインに接続（DNS設定）
 2. `eleventy.config.mjs` の `pathPrefix` を `"/"` に変更
-3. `src/_data/site.json` の `domain` を `https://carasu.jp` に戻す（現在は共有プレビュー用に公開URL基準）
-4. `scripts/deploy_carasu_site.py` の `INJECT_NOINDEX = False` に変更（＝noindex注入を止め検索公開）
-5. GA4・HubSpot・Google Search Console を接続／`carasu.jp/sitemap.xml` を送信
+3. `scripts/deploy_carasu_site.py` の `INJECT_NOINDEX = False`・`WRITE_CNAME = True` に変更
+4. Google Search Console にドメイン登録／`carasu.jp/sitemap.xml` を送信
 
-> ※現在は「限定公開＝リンク共有OK・OGPプレビューも表示／検索には出さない(noindex)」状態です。robots はクロール許可、各HTMLの noindex メタで検索非掲載を維持しています。
+> ソースは常に `https://carasu.jp` 基準で書かれています。限定公開中はデプロイスクリプトが
+> 全 html/xml/txt の URL を現行公開URL（github.io）へ自動書換し、noindex を注入します。
+> ＝「リンク共有OK・OGPプレビュー表示／Google検索には出さない」状態。本番切替はフラグ2つだけ。
+
+## 7.5 AIO（AI最適化）対策 ※実装済み
+
+- **llms.txt / llms-full.txt**：AI向けサイト索引と記事全文（記事追加で自動更新）
+- **robots.txt**：GPTBot / ClaudeBot / PerplexityBot / Google-Extended 等のAIクローラーを明示的に許可
+- **構造化データ**：Organization（創業・代表・住所・knowsAbout）／WebSite／BlogPosting（speakable・audience・dateModified）／FAQPage（記事＋lab/consult/audit/資料LP）／DefinedTerm（「世界観ドリブン・ショート設計」の帰属明示）／BreadcrumbList／ItemList／AboutPage／ContactPage
+- **記事構造**：TL;DR要約・要点・FAQ・問いの形の見出し・更新日表示
+- ※noindex（限定公開）中はAI検索経由の流入は限定的。**フル効果は carasu.jp 検索公開後**
 
 ## 8. 既知の要対応・提案事項
 

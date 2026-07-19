@@ -1,0 +1,40 @@
+# 株式会社CARASU（CARASU）／ LUXE SOCIAL LAB
+
+> 株式会社CARASUは、SNSマーケティングと映像制作を軸とするクリエイティブ・エンジニアリング・スタジオ（東京都港区）。運営するリサーチメディア「LUXE SOCIAL LAB（ラグジュアリー・ソーシャル研究所）」では、富裕層・ラグジュアリー領域のSNS／ショート動画を専門に、検証にもとづく知見を発信しています。
+
+- 専門領域: ラグジュアリーブランド（高級車・高級ホテル・時計宝飾・不動産・金融・プレステージ化粧品）のSNSマーケティング／縦型ショート動画／映像制作
+- 独自フレームワーク: 世界観ドリブン・ショート設計（World-View-Driven Short-Video Design）— 株式会社CARASU（LUXE SOCIAL LAB）が提唱する、ラグジュアリーブランドのためのショート動画設計フレームワーク。「格を定義する」「止めるが、崩さない」「守りながら広げる」の3原則により、ブランドの世界観を守りながらリーチを最大化する。
+- 映像制作実績: ホテル川久・湯沢高原・BEEDEN ほか（ラグジュアリー／観光領域）
+- 連絡先: info@carasu.jp ／ 03-6844-4513
+
+## 会社情報（コーポレートサイト）
+
+- [トップ](https://sho-umeda.github.io/carasu-website/): 事業概要（SNSマーケティング・映像制作・ブランディング・Web制作）。制作実績の映像3本（BEEDEN／湯沢高原／ホテル川久）を掲載
+- [会社概要](https://sho-umeda.github.io/carasu-website/about.html): 所在地・役員・事業内容
+- [お問い合わせ](https://sho-umeda.github.io/carasu-website/contact.html)
+
+## LUXE SOCIAL LAB（研究メディア）
+
+- [研究所について](https://sho-umeda.github.io/carasu-website/lab/): ミッション・研究テーマ・運営体制
+- [記事一覧](https://sho-umeda.github.io/carasu-website/column/): 検証レポート・事例分析・ナレッジ
+
+## 記事
+
+- [「バズか世界観か」で消耗しない、ラグジュアリー・ショート動画の設計思想](https://sho-umeda.github.io/carasu-website/column/world-view-driven-short-video/): 「バズか世界観か」という二択を疑うところから、ラグジュアリーのショート動画で本当に効く設計思想を、格の定義から冒頭の止め方、測定、社内稟議の通し方まで、CARASU編集部が現場で使う判断基準としてまとめた。（公開: 2026-07-15 ／ 更新: 2026-07-17）
+- [高級ブランドのショート動画は、なぜ今なのか。発見はもうスクロールにある](https://sho-umeda.github.io/carasu-website/column/why-luxury-short-video-now/): 検索して選ぶより先に、富裕層はリールのなかでホテルの午後の光や所作を見ている。発見の起点がスクロールへ移り、生成AI検索が見つかり方まで変えた今、高級ブランドがなぜショート動画へ踏み出すべきかを、様子見の代償も含めて現場から書いた。（公開: 2026-07-09 ／ 更新: 2026-07-17）
+- [ショート動画のROIを稟議で通す。追うべき指標と経営を動かすロジック](https://sho-umeda.github.io/carasu-website/column/short-video-roi-ringi/): フォロワー数を成果に据えた瞬間、ラグジュアリーは一番不利な土俵に上がる。保存率・指名検索・ブランドリフトの意味と、ROIを試算の構造として経営に翻訳する考え方、そして撤退線まで引いた稟議一枚の骨子を、現場の言葉で書いた。（公開: 2026-07-02 ／ 更新: 2026-07-17）
+- [高級ブランドのSNSで世界観が壊れる瞬間とブランドセーフティの守り方](https://sho-umeda.github.io/carasu-website/column/brand-safety-luxury-sns/): 高級ブランドのSNSは、派手な炎上より前に、色味の揺れやコメント欄の放置で静かに格を落とす。現場のディレクターが、世界観を守る体制と権限の設計、炎上時の止める・調べる・語る、そして稟議に貼れる投稿前チェックまで具体的に示す。（公開: 2026-06-25 ／ 更新: 2026-07-17）
+- [高級ホテルのショート動画は「泊まる前」に世界観を体験させているか](https://sho-umeda.github.io/carasu-website/column/luxury-hotel-short-video/): 高級ホテルのショート動画で予約を動かすのは、施設紹介ではない。光を待ち、静けさを録り、所作と余白で世界観を先に体験させる映像設計がいる。撮影現場で照明も編集も回してきた編集長が、稟議でそのまま使える四つの採点軸まで具体的に書いた。（公開: 2026-06-18 ／ 更新: 2026-07-17）
+- [格を落とさないシネマティック縦型動画。高級感を生む演出の作り方](https://sho-umeda.github.io/carasu-website/column/cinematic-vertical-video-craft/): 縦型動画を使い捨てにした瞬間、被写体がどれだけ豪華でもブランドの格は落ちる。シネマティックな縦型で高級感を決めるのは光とカラーグレーディング、そして引き算の判断だ。安いバズ演出との分岐点と制作会社の見極め方を撮影現場の視点で書いた。（公開: 2026-06-11 ／ 更新: 2026-07-17）
+
+## 資料・ご相談
+
+- [ラグジュアリーブランドのためのショート動画戦略ガイド](https://sho-umeda.github.io/carasu-website/download/luxury-short-video-guide/): 世界観を守りながらリーチを最大化する設計法（無料・現在制作中のため先行リクエスト受付中、完成次第メールでお届け）
+- [30分 無料オンライン相談](https://sho-umeda.github.io/carasu-website/consult/): フォームから約20秒で申し込み。売り込みなし・その場で決めなくてOK
+- [無料アカウント診断](https://sho-umeda.github.io/carasu-website/audit/): 世界観・数値・リスクの10項目チェック
+
+## Optional
+
+- [記事全文（LLM向けテキスト）](https://sho-umeda.github.io/carasu-website/llms-full.txt)
+- [RSSフィード](https://sho-umeda.github.io/carasu-website/feed.xml)
+- [サイトマップ](https://sho-umeda.github.io/carasu-website/sitemap.xml)
