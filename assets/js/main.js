@@ -182,4 +182,127 @@
     }
   }
 
+  /* ---------------------------------------------------------------
+     10. 制作実績（自前動画）：画面内で無音ループ自動再生 → クリックで拡大再生
+         対象は .vwork-media（中の <video data-vsrc> を遅延読み込みする）。
+         音は一覧では絶対に鳴らさない。拡大時も初期はミュートで、
+         ユーザーが「SOUND ON」を押したときだけ音を出す。
+     --------------------------------------------------------------- */
+  var vMedias = Array.prototype.slice.call(document.querySelectorAll('.vwork-media'));
+  if (vMedias.length) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 読み込みは画面に近づいてから（データ量を無駄に使わない）
+    function ensureLoaded(video) {
+      if (!video || video.dataset.loaded) return;
+      var src = video.getAttribute('data-vsrc');
+      if (!src) return;
+      video.src = src;
+      video.load();
+      video.dataset.loaded = '1';
+    }
+
+    vMedias.forEach(function (media) {
+      var video = media.querySelector('.vwork-loop');
+      if (!video) return;
+      video.muted = true;            // 念のためJS側でも固定
+      video.defaultMuted = true;
+      video.volume = 0;
+
+      // PCではカーソルを乗せた時点で確実に読み込み＆再生
+      media.addEventListener('mouseenter', function () {
+        ensureLoaded(video);
+        if (!reduce) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      var vio2 = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var video = entry.target.querySelector('.vwork-loop');
+          if (!video) return;
+          if (entry.isIntersecting) {
+            ensureLoaded(video);
+            if (!reduce) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+          } else {
+            try { video.pause(); } catch (e) {}
+          }
+        });
+      }, { threshold: 0.35 });
+      vMedias.forEach(function (m) { vio2.observe(m); });
+    } else {
+      vMedias.forEach(function (m) { ensureLoaded(m.querySelector('.vwork-loop')); });
+    }
+
+    /* --- 拡大再生（ライトボックス） --- */
+    var modal = document.createElement('div');
+    modal.className = 'vmodal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', '制作実績の再生');
+    modal.innerHTML =
+      '<div class="vmodal-inner">' +
+        '<div class="vmodal-stage"><video playsinline controls preload="metadata"></video></div>' +
+        '<div class="vmodal-bar">' +
+          '<div><div class="vmodal-title"></div><div class="vmodal-client"></div></div>' +
+          '<div class="vmodal-actions">' +
+            '<button type="button" class="vmodal-btn" data-sound>SOUND ON</button>' +
+            '<button type="button" class="vmodal-btn" data-close>CLOSE ✕</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    var mVideo  = modal.querySelector('video');
+    var mTitle  = modal.querySelector('.vmodal-title');
+    var mClient = modal.querySelector('.vmodal-client');
+    var mSound  = modal.querySelector('[data-sound]');
+    var lastFocus = null;
+
+    function openModal(media) {
+      var src = media.getAttribute('data-video');
+      if (!src) return;
+      lastFocus = document.activeElement;
+      mTitle.textContent  = media.getAttribute('data-title') || '';
+      mClient.textContent = media.getAttribute('data-client') || '';
+      mVideo.src = src;
+      mVideo.muted = true;                  // 開いた瞬間に音は出さない
+      mSound.textContent = 'SOUND ON';
+      modal.classList.add('is-mounted');
+      // display の変化を確定させてからフェードさせる（rAF に頼らない：
+      // 背面タブなど rAF が止まる状況で「見えない黒幕だけ残る」のを防ぐ）
+      void modal.offsetWidth;
+      modal.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+      var p = mVideo.play(); if (p && p.catch) p.catch(function () {});
+      modal.querySelector('[data-close]').focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      try { mVideo.pause(); } catch (e) {}
+      document.documentElement.style.overflow = '';
+      setTimeout(function () {
+        modal.classList.remove('is-mounted');
+        mVideo.removeAttribute('src');
+        mVideo.load();
+      }, 400);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    vMedias.forEach(function (media) {
+      media.addEventListener('click', function () { openModal(media); });
+    });
+
+    mSound.addEventListener('click', function () {
+      mVideo.muted = !mVideo.muted;
+      mSound.textContent = mVideo.muted ? 'SOUND ON' : 'SOUND OFF';
+    });
+    modal.querySelector('[data-close]').addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+  }
+
 })();

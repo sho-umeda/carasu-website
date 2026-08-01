@@ -57,39 +57,177 @@
   </section>
 
   <!-- ============================================================
-       動画制作実績（Showreel）
-       ▼ 各枠にYouTube等の <iframe> か、軽量化した <video> を差し込めます。
-         video 例:  <video src="assets/video/xxx.mp4" muted loop autoplay playsinline style="width:100%;height:100%;object-fit:cover;"></video>
-         YouTube例: <iframe src="https://www.youtube.com/embed/ID" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
-         （プレースホルダの <div class="ph ..."> を上記に置き換えるだけ）
+       動画制作実績（Showreel）※自前配信（YouTube を経由しない）
+       ・一覧＝assets/video/<slug>-preview.mp4（無音・6秒ループ）を画面内で自動再生
+       ・クリック＝assets/video/<slug>.mp4（本編1080p）を拡大再生。初期はミュート。
+       ・増やすときは .vwork ブロックを複製し、data-video / data-vsrc / poster と
+         タイトル・クライアントを差し替えるだけ（JS/CSSの追記は不要）。
   ============================================================ -->
   <section class="section container wide">
-    <div class="section-head" data-reveal><span class="eyebrow">Showreel</span><h2>動画制作実績</h2><p class="text-dim">実際に制作した映像の一部をご紹介します。<span class="text-mute">（実績は順次追加していきます）</span></p></div>
+    <div class="section-head" data-reveal><span class="eyebrow">Showreel</span><h2>動画制作実績</h2><p class="text-dim">実際に制作した映像の一部をご紹介します。サムネイルは無音で自動再生され、クリックすると本編を再生できます。<span class="text-mute">（実績は順次追加していきます）</span></p></div>
 
-    <!-- 横型（16:9）×3 -->
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(16px,2vw,28px);" data-reveal>
-      <div style="aspect-ratio:16/9; overflow:hidden; border:1px solid var(--line); background:#000;">
-        <iframe data-yt src="https://www.youtube.com/embed/X-92qigUNpQ?mute=1&loop=1&playlist=X-92qigUNpQ&playsinline=1&rel=0&enablejsapi=1" title="CARASU 制作実績（横型動画01）" style="width:100%; height:100%; border:0; display:block;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <div style="aspect-ratio:16/9; overflow:hidden; border:1px solid var(--line); background:#000;">
-        <iframe data-yt src="https://www.youtube.com/embed/Xpsahlwa9xo?mute=1&loop=1&playlist=Xpsahlwa9xo&playsinline=1&rel=0&enablejsapi=1" title="CARASU 制作実績（横型動画02）" style="width:100%; height:100%; border:0; display:block;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <div style="aspect-ratio:16/9; overflow:hidden; border:1px solid var(--line); background:#000;">
-        <iframe data-yt src="https://www.youtube.com/embed/bto497YBFio?mute=1&loop=1&playlist=bto497YBFio&playsinline=1&rel=0&enablejsapi=1" title="CARASU 制作実績（横型動画03）" style="width:100%; height:100%; border:0; display:block;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
+    <!-- 横型（16:9） -->
+    <h3 class="eyebrow" style="margin-bottom:20px;">Horizontal ／ 横型</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/black-flys.mp4"
+                data-title="ブランドムービー" data-client="BLACK FLYS"
+                aria-label="BLACK FLYS のブランドムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/black-flys-preview.mp4" poster="assets/video/black-flys-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span><span class="tag">ブランディング</span></div>
+          <h3>ブランドムービー</h3>
+          <span class="client">BLACK FLYS</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:.06s">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/texcy-luxe.mp4"
+                data-title="WebCM" data-client="texcy luxe"
+                aria-label="texcy luxe の WebCM を再生">
+          <video class="vwork-loop" data-vsrc="assets/video/texcy-luxe-preview.mp4" poster="assets/video/texcy-luxe-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span><span class="tag">WebCM</span></div>
+          <h3>WebCM</h3>
+          <span class="client">texcy luxe</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:.12s">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/alpha.mp4"
+                data-title="プロモーションムービー" data-client="ALPHA INDUSTRIES"
+                aria-label="ALPHA INDUSTRIES のプロモーションムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/alpha-preview.mp4" poster="assets/video/alpha-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span><span class="tag">プロモーション</span></div>
+          <h3>プロモーションムービー</h3>
+          <span class="client">ALPHA INDUSTRIES</span>
+        </div>
+      </article>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/yuzawa-kogen.mp4"
+                data-title="プロモーションムービー" data-client="湯沢高原"
+                aria-label="湯沢高原のプロモーションムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/yuzawa-kogen-preview.mp4" poster="assets/video/yuzawa-kogen-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span><span class="tag">プロモーション</span></div>
+          <h3>プロモーションムービー</h3>
+          <a class="client" href="https://www.yuzawakogen.com/" target="_blank" rel="noopener">湯沢高原 ↗</a>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:.06s">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/beeden-07.mp4"
+                data-title="ブランドムービー" data-client="BEEDEN"
+                aria-label="BEEDEN のブランドムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/beeden-07-preview.mp4" poster="assets/video/beeden-07-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span><span class="tag">ブランディング</span></div>
+          <h3>ブランドムービー</h3>
+          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
+        </div>
+      </article>
+
+      <!-- 自前ファイル未受領のため YouTube 埋め込みのまま（動画データを受領したら上の形式に統一） -->
+      <article class="vwork" style="--reveal-delay:.12s">
+        <div style="aspect-ratio:16/9; overflow:hidden; border:1px solid var(--line); background:#000;">
+          <iframe data-yt src="https://www.youtube.com/embed/bto497YBFio?mute=1&loop=1&playlist=bto497YBFio&playsinline=1&rel=0&enablejsapi=1" title="ホテル川久 コンセプトムービー｜CARASU 制作実績" style="width:100%; height:100%; border:0; display:block;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span><span class="tag">ブランディング</span></div>
+          <h3>コンセプトムービー『A place to pause』</h3>
+          <a class="client" href="https://www.hotel-kawakyu.jp/" target="_blank" rel="noopener">ホテル川久 ↗</a>
+        </div>
+      </article>
+
     </div>
 
-    <!-- 縦型（9:16）×3 -->
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:clamp(16px,2vw,28px); margin-top:clamp(16px,2vw,28px); max-width:760px;" data-reveal>
-      <div style="aspect-ratio:9/16; overflow:hidden; border:1px solid var(--line); background:#000;">
-        <iframe data-yt src="https://www.youtube.com/embed/fkbICl-Ijnc?mute=1&loop=1&playlist=fkbICl-Ijnc&playsinline=1&rel=0&enablejsapi=1" title="CARASU 制作実績（縦型ショート動画）" style="width:100%; height:100%; border:0; display:block;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <div style="aspect-ratio:9/16; overflow:hidden; border:1px solid var(--line); background:#000;">
-        <iframe data-yt src="https://www.youtube.com/embed/CKRoCLfcefY?mute=1&loop=1&playlist=CKRoCLfcefY&playsinline=1&rel=0&enablejsapi=1" title="CARASU 制作実績（縦型ショート動画02）" style="width:100%; height:100%; border:0; display:block;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <div style="aspect-ratio:9/16; overflow:hidden; border:1px solid var(--line); background:#000;">
-        <iframe data-yt src="https://www.youtube.com/embed/LytJloPljug?mute=1&loop=1&playlist=LytJloPljug&playsinline=1&rel=0&enablejsapi=1" title="CARASU 制作実績（縦型ショート動画03）" style="width:100%; height:100%; border:0; display:block;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
+    <!-- 縦型（9:16） -->
+    <h3 class="eyebrow" style="margin:clamp(48px,6vw,88px) 0 20px;">Vertical ／ 縦型（SNS）</h3>
+    <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/wonjungyo.mp4"
+                data-title="SNS用ショートムービー" data-client="Wonjungyo"
+                aria-label="Wonjungyo のショートムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/wonjungyo-preview.mp4" poster="assets/video/wonjungyo-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">SNS・広告</span></div>
+          <h3>SNS用ショートムービー</h3>
+          <span class="client">Wonjungyo</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:.05s">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/beeden-15.mp4"
+                data-title="SNS用ショートムービー" data-client="BEEDEN"
+                aria-label="BEEDEN のショートムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/beeden-15-preview.mp4" poster="assets/video/beeden-15-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">SNS・広告</span></div>
+          <h3>SNS用ショートムービー</h3>
+          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:.1s">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/beeden-14.mp4"
+                data-title="SNS用ショートムービー" data-client="BEEDEN"
+                aria-label="BEEDEN のショートムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/beeden-14-preview.mp4" poster="assets/video/beeden-14-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">SNS・広告</span></div>
+          <h3>SNS用ショートムービー</h3>
+          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:.15s">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/macaron.mp4"
+                data-title="SNS用ショートムービー" data-client="MACARON"
+                aria-label="MACARON のショートムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/macaron-preview.mp4" poster="assets/video/macaron-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">SNS・広告</span></div>
+          <h3>SNS用ショートムービー</h3>
+          <span class="client">MACARON</span>
+        </div>
+      </article>
+
+      <!-- ※クライアント名が未確定のため、表記は入れていません（映像内は Converse「CONS」のスニーカー）。確認後に .client を追記してください。 -->
+      <article class="vwork" style="--reveal-delay:.2s">
+        <button type="button" class="vwork-media"
+                data-video="assets/video/cpd.mp4"
+                data-title="SNS用ショートムービー" data-client=""
+                aria-label="スニーカーのショートムービーを再生">
+          <video class="vwork-loop" data-vsrc="assets/video/cpd-preview.mp4" poster="assets/video/cpd-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">SNS・広告</span></div>
+          <h3>SNS用ショートムービー</h3>
+        </div>
+      </article>
+
     </div>
   </section>
 
