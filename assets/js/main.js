@@ -30,20 +30,28 @@
   var toggle = document.getElementById('navToggle');
   var navLinks = document.getElementById('navLinks');
   if (toggle && navLinks) {
-    toggle.addEventListener('click', function () {
-      var open = navLinks.classList.toggle('is-open');
+    // ヘッダーに is-nav-open を付ける：開いている間だけ backdrop-filter を外すため。
+    // これが無いと、スクロール後（.is-scrolled）にヘッダーが fixed の基準になり、
+    // メニューの背景が画面を覆えなくなる（CSS側の注記も参照）。
+    var header = document.getElementById('header');
+    function setNav(open) {
+      navLinks.classList.toggle('is-open', open);
       toggle.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (header) header.classList.toggle('is-nav-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    }
+    toggle.addEventListener('click', function () {
+      setNav(!navLinks.classList.contains('is-open'));
     });
     // メニュー内のリンクを押したら閉じる
     navLinks.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        navLinks.classList.remove('is-open');
-        toggle.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
+      a.addEventListener('click', function () { setNav(false); });
+    });
+    // Esc でも閉じる
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navLinks.classList.contains('is-open')) setNav(false);
     });
   }
 

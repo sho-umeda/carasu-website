@@ -868,11 +868,30 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
   :root { --header-h: 66px; }
 
   .nav-toggle { display: block; }
+
+  /* ▼ メニューを開いている間は、ヘッダーの backdrop-filter を必ず外す。
+     backdrop-filter（や transform / filter）が入った要素は、その中の
+     position:fixed の基準（containing block）になる。付いたままだと
+     下の .nav-links の inset:0 が「ヘッダーの高さ(66px)」を基準にしてしまい、
+     スクロール後にメニューの背景が画面を覆えず中身がはみ出す。
+     ＝ページ最上部では正常、少しスクロールすると崩れる原因はこれ。 */
+  .site-header.is-nav-open,
+  .site-header.is-nav-open.is-scrolled {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   .nav-links {
     position: fixed; inset: 0;
+    height: 100vh;
+    height: 100dvh;                /* iOSのURLバー伸縮に追従（非対応環境は上の100vh） */
     flex-direction: column; justify-content: center; align-items: center;
     gap: 32px;
-    background: rgba(244, 243, 239, .98);
+    padding: calc(var(--header-h) + 16px) 20px 40px;
+    background: var(--bg);         /* 半透明をやめ不透明に：下の内容が透けないことを保証する */
+    overflow-y: auto;              /* 端末が小さくて項目が入りきらない場合の保険 */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     transform: translateY(-100%);
     opacity: 0;
     visibility: hidden;            /* iOS Safari で transform 退避後もパネルが残る描画バグ対策：ツリーごと確実に隠す */
@@ -885,8 +904,6 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    -webkit-backdrop-filter: blur(12px);   /* backdrop-filter は開いた時だけ適用（閉じ状態の残留を根絶） */
-    backdrop-filter: blur(12px);
     transition: transform .6s var(--ease), opacity .6s var(--ease), visibility 0s;
   }
   .nav-links a { font-size: 1.4rem; color: var(--fg); }
