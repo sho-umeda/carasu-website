@@ -55,181 +55,1129 @@
   </section>
 
   <!-- ============================================================
-       動画制作実績（Showreel）※自前配信（YouTube を経由しない）
-       ・一覧＝https://pub-7e316d856046464da0a9c4af67174676.r2.dev/<slug>-preview.mp4（無音・6秒ループ）を画面内で自動再生
-       ・クリック＝https://pub-7e316d856046464da0a9c4af67174676.r2.dev/<slug>.mp4（本編1080p）を拡大再生。初期はミュート。
-       ・増やすときは .vwork ブロックを複製し、data-video / data-vsrc / poster と
-         タイトル・クライアントを差し替えるだけ（JS/CSSの追記は不要）。
+       動画制作実績 ※動画は Cloudflare R2 から配信（サイトの中には置いていない）
+       ・一覧＝<slug>-preview.mp4（無音・6秒ループ）を画面内で自動再生
+       ・クリック＝<slug>.mp4（本編1080p）を拡大再生。初期はミュート
+       ・増やすときは .vwork ブロックを複製し、R2のファイル名を差し替える
+       ・クライアント名は判別できたものだけ表示している（不明なものは空欄）
   ============================================================ -->
   <section class="section container wide">
-    <div class="section-head" data-reveal><span class="eyebrow">Showreel</span><h2>動画制作実績</h2><p class="text-dim">実際に制作した映像の一部をご紹介します。サムネイルは無音で自動再生され、クリックすると本編を再生できます。<span class="text-mute">（実績は順次追加していきます）</span></p></div>
+    <div class="section-head" data-reveal><span class="eyebrow">Showreel</span><h2>動画制作実績</h2><p class="text-dim">実際に制作した映像です。サムネイルは無音で自動再生され、クリックすると本編を再生できます。</p></div>
 
-    <!-- 横型（16:9） -->
-    <h3 class="eyebrow" style="margin-bottom:20px;">Horizontal ／ 横型</h3>
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Apparel & Product ／ アパレル・プロダクト（19）</h3>
     <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
 
       <article class="vwork">
         <button type="button" class="vwork-media"
-                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/black-flys.mp4"
-                data-title="ブランドムービー" data-client="BLACK FLYS"
-                aria-label="BLACK FLYS のブランドムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/black-flys-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/black-flys-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-07.mp4"
+                data-title="ブランドムービー" data-client="BEEDEN"
+                aria-label="ブランドムービー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-07-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-07-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
         </button>
         <div class="meta">
-          <div class="tags"><span class="tag">映像制作</span><span class="tag">ブランディング</span></div>
+          <div class="tags"><span class="tag">映像制作</span></div>
           <h3>ブランドムービー</h3>
-          <span class="client">BLACK FLYS</span>
+          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
         </div>
       </article>
 
-      <article class="vwork" style="--reveal-delay:.06s">
-        <button type="button" class="vwork-media"
-                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/texcy-luxe.mp4"
-                data-title="WebCM" data-client="texcy luxe"
-                aria-label="texcy luxe の WebCM を再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/texcy-luxe-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/texcy-luxe-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
-        </button>
-        <div class="meta">
-          <div class="tags"><span class="tag">映像制作</span><span class="tag">WebCM</span></div>
-          <h3>WebCM</h3>
-          <span class="client">texcy luxe</span>
-        </div>
-      </article>
-
-      <article class="vwork" style="--reveal-delay:.12s">
+      <article class="vwork" style="--reveal-delay:0.05s">
         <button type="button" class="vwork-media"
                 data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/alpha.mp4"
                 data-title="プロモーションムービー" data-client="ALPHA INDUSTRIES"
-                aria-label="ALPHA INDUSTRIES のプロモーションムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/alpha-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/alpha-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+                aria-label="プロモーションムービー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/alpha-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/alpha-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
         </button>
         <div class="meta">
-          <div class="tags"><span class="tag">映像制作</span><span class="tag">プロモーション</span></div>
+          <div class="tags"><span class="tag">映像制作</span></div>
           <h3>プロモーションムービー</h3>
           <span class="client">ALPHA INDUSTRIES</span>
         </div>
       </article>
 
+      <article class="vwork" style="--reveal-delay:0.10s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/texcy-luxe.mp4"
+                data-title="WebCM" data-client="texcy luxe"
+                aria-label="WebCM の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/texcy-luxe-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/texcy-luxe-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <h3>WebCM</h3>
+          <span class="client">texcy luxe</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.15s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/black-flys.mp4"
+                data-title="ブランドムービー" data-client="BLACK FLYS"
+                aria-label="ブランドムービー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/black-flys-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/black-flys-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <h3>ブランドムービー</h3>
+          <span class="client">BLACK FLYS</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-01.mp4"
+                data-title="BEEDEN" data-client="BEEDEN"
+                aria-label="BEEDEN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">BEEDEN</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-02.mp4"
+                data-title="BEEDEN" data-client="BEEDEN"
+                aria-label="BEEDEN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">BEEDEN</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-03.mp4"
+                data-title="BEEDEN" data-client="BEEDEN"
+                aria-label="BEEDEN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-03-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-03-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">BEEDEN</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-04.mp4"
+                data-title="BEEDEN" data-client="BEEDEN"
+                aria-label="BEEDEN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-04-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-04-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">BEEDEN</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-06.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-06-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-06-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-07.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-07-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-07-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-08.mp4"
+                data-title="Coca-Cola" data-client="Coca-Cola"
+                aria-label="Coca-Cola の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-08-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-08-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Coca-Cola</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-11.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-11-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-11-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/cpd.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/cpd-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/cpd-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/macaron.mp4"
+                data-title="MACARON" data-client="MACARON"
+                aria-label="MACARON の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/macaron-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/macaron-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">MACARON</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.10s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-14.mp4"
+                data-title="BEEDEN" data-client="BEEDEN"
+                aria-label="BEEDEN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-14-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-14-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.15s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-15.mp4"
+                data-title="BEEDEN" data-client="BEEDEN"
+                aria-label="BEEDEN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-15-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-15-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wonjungyo.mp4"
+                data-title="Wonjungyo" data-client="Wonjungyo"
+                aria-label="Wonjungyo の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wonjungyo-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wonjungyo-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Wonjungyo</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-09.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-09-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-09-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-13.mp4"
+                data-title="UNIVERSAL OVERALL" data-client="UNIVERSAL OVERALL"
+                aria-label="UNIVERSAL OVERALL の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-13-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/apparel-13-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">UNIVERSAL OVERALL</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Automotive / Aston Martin ／ 自動車（Aston Martin）（13）</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-01.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-04.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-04-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-04-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.10s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-05.mp4"
+                data-title="Aston Martin" data-client="Aston Martin"
+                aria-label="Aston Martin の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-05-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-05-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Aston Martin</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.15s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-06.mp4"
+                data-title="Aston Martin" data-client="Aston Martin"
+                aria-label="Aston Martin の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-06-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-06-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Aston Martin</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-08.mp4"
+                data-title="Aston Martin" data-client="Aston Martin"
+                aria-label="Aston Martin の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-08-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-08-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Aston Martin</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-02.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-03.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-03-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-03-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.10s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-07.mp4"
+                data-title="Aston Martin" data-client="Aston Martin"
+                aria-label="Aston Martin の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-07-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-07-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Aston Martin</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.15s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-09.mp4"
+                data-title="Aston Martin" data-client="Aston Martin"
+                aria-label="Aston Martin の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-09-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-09-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Aston Martin</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-10.mp4"
+                data-title="THE MAGARIGAWA CLUB" data-client="THE MAGARIGAWA CLUB"
+                aria-label="THE MAGARIGAWA CLUB の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-10-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-10-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">THE MAGARIGAWA CLUB</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-11.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-11-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-11-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-12.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-12-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-12-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-13.mp4"
+                data-title="Aston Martin" data-client="Aston Martin"
+                aria-label="Aston Martin の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-13-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/aston-13-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Aston Martin</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Automotive ／ 自動車（6）</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car2-01.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car2-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car2-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-01.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-02.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.10s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-03.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-03-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-03-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.15s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-04.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-04-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-04-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-05.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-05-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/car1-05-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Food & Beverage ／ 飲食（10）</h3>
+    <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-01.mp4"
+                data-title="Frantz" data-client="Frantz"
+                aria-label="Frantz の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Frantz</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-02.mp4"
+                data-title="Frantz" data-client="Frantz"
+                aria-label="Frantz の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Frantz</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.10s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-03.mp4"
+                data-title="ティファニー" data-client="ティファニー"
+                aria-label="ティファニー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-03-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-03-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">ティファニー</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.15s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-04.mp4"
+                data-title="ティファニー" data-client="ティファニー"
+                aria-label="ティファニー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-04-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-04-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">ティファニー</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-05.mp4"
+                data-title="ティファニー" data-client="ティファニー"
+                aria-label="ティファニー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-05-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-05-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">ティファニー</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-06.mp4"
+                data-title="ティファニー" data-client="ティファニー"
+                aria-label="ティファニー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-06-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-06-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">ティファニー</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-07.mp4"
+                data-title="ティファニー" data-client="ティファニー"
+                aria-label="ティファニー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-07-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-07-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">ティファニー</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-08.mp4"
+                data-title="左ノ EBISU" data-client="左ノ EBISU"
+                aria-label="左ノ EBISU の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-08-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-08-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">左ノ EBISU</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-09.mp4"
+                data-title="左ノ EBISU" data-client="左ノ EBISU"
+                aria-label="左ノ EBISU の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-09-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-09-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">左ノ EBISU</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-10.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-10-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/food-10-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Hotel & Villa ／ ホテル・ヴィラ（5）</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-01.mp4"
+                data-title="AYIN" data-client="AYIN"
+                aria-label="AYIN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">AYIN</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-02.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-03.mp4"
+                data-title="LACOTAN" data-client="LACOTAN"
+                aria-label="LACOTAN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-03-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-03-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">LACOTAN</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-04.mp4"
+                data-title="LACOTAN" data-client="LACOTAN"
+                aria-label="LACOTAN の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-04-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-04-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">LACOTAN</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.10s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-05.mp4"
+                data-title="カジャデザイン" data-client="カジャデザイン"
+                aria-label="カジャデザイン の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-05-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotelvilla-05-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">カジャデザイン</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Travel & Tourism ／ 観光（7）</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
       <article class="vwork">
         <button type="button" class="vwork-media"
                 data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/yuzawa-kogen.mp4"
                 data-title="プロモーションムービー" data-client="湯沢高原"
-                aria-label="湯沢高原のプロモーションムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/yuzawa-kogen-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/yuzawa-kogen-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+                aria-label="プロモーションムービー の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/yuzawa-kogen-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/yuzawa-kogen-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
         </button>
         <div class="meta">
-          <div class="tags"><span class="tag">映像制作</span><span class="tag">プロモーション</span></div>
+          <div class="tags"><span class="tag">映像制作</span></div>
           <h3>プロモーションムービー</h3>
           <a class="client" href="https://www.yuzawakogen.com/" target="_blank" rel="noopener">湯沢高原 ↗</a>
         </div>
       </article>
 
-      <article class="vwork" style="--reveal-delay:.06s">
-        <button type="button" class="vwork-media"
-                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-07.mp4"
-                data-title="ブランドムービー" data-client="BEEDEN"
-                aria-label="BEEDEN のブランドムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-07-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-07-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
-        </button>
-        <div class="meta">
-          <div class="tags"><span class="tag">映像制作</span><span class="tag">ブランディング</span></div>
-          <h3>ブランドムービー</h3>
-          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
-        </div>
-      </article>
-
-      <!-- ▼ ホテル川久（Kawakyu Auberge NANKI）の枠は、映像が納品前のため一旦外しています。
-             納品が確定したら、他の .vwork ブロックと同じ形で復活させてください。
-             （元の素材は 16:9 の中に 4:3 の絵が入った状態でした。本編は納品どおり、
-               一覧のプレビューとポスターだけ黒帯を切って中央を16:9で切り出す運用）
-        <article class="vwork" style="--reveal-delay:.12s">
-          <button type="button" class="vwork-media"
-                  data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotel-kawakyu.mp4"
-                  data-title="コンセプトムービー『A place to pause』" data-client="ホテル川久"
-                  aria-label="ホテル川久のコンセプトムービーを再生">
-            <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotel-kawakyu-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/hotel-kawakyu-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
-          </button>
-          <div class="meta">
-            <div class="tags"><span class="tag">映像制作</span><span class="tag">ブランディング</span></div>
-            <h3>コンセプトムービー『A place to pause』</h3>
-            <a class="client" href="https://www.hotel-kawakyu.jp/" target="_blank" rel="noopener">ホテル川久 ↗</a>
-          </div>
-        </article>
-      -->
-
     </div>
 
-    <!-- 縦型（9:16） -->
-    <h3 class="eyebrow" style="margin:clamp(48px,6vw,88px) 0 20px;">Vertical ／ 縦型（SNS）</h3>
     <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
 
       <article class="vwork">
         <button type="button" class="vwork-media"
-                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wonjungyo.mp4"
-                data-title="SNS用ショートムービー" data-client="Wonjungyo"
-                aria-label="Wonjungyo のショートムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wonjungyo-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wonjungyo-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-01.mp4"
+                data-title="enjoy北九州" data-client="enjoy北九州"
+                aria-label="enjoy北九州 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
         </button>
         <div class="meta">
-          <div class="tags"><span class="tag">SNS・広告</span></div>
-          <h3>SNS用ショートムービー</h3>
-          <span class="client">Wonjungyo</span>
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">enjoy北九州</span>
         </div>
       </article>
 
-      <article class="vwork" style="--reveal-delay:.05s">
+      <article class="vwork" style="--reveal-delay:0.05s">
         <button type="button" class="vwork-media"
-                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-15.mp4"
-                data-title="SNS用ショートムービー" data-client="BEEDEN"
-                aria-label="BEEDEN のショートムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-15-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-15-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-02.mp4"
+                data-title="enjoy北九州" data-client="enjoy北九州"
+                aria-label="enjoy北九州 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
         </button>
         <div class="meta">
-          <div class="tags"><span class="tag">SNS・広告</span></div>
-          <h3>SNS用ショートムービー</h3>
-          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">enjoy北九州</span>
         </div>
       </article>
 
-      <article class="vwork" style="--reveal-delay:.1s">
+      <article class="vwork" style="--reveal-delay:0.10s">
         <button type="button" class="vwork-media"
-                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-14.mp4"
-                data-title="SNS用ショートムービー" data-client="BEEDEN"
-                aria-label="BEEDEN のショートムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-14-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/beeden-14-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-03.mp4"
+                data-title="enjoy北九州" data-client="enjoy北九州"
+                aria-label="enjoy北九州 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-03-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-03-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
         </button>
         <div class="meta">
-          <div class="tags"><span class="tag">SNS・広告</span></div>
-          <h3>SNS用ショートムービー</h3>
-          <a class="client" href="https://beeden.jp/" target="_blank" rel="noopener">BEEDEN ↗</a>
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">enjoy北九州</span>
         </div>
       </article>
 
-      <article class="vwork" style="--reveal-delay:.15s">
+      <article class="vwork" style="--reveal-delay:0.15s">
         <button type="button" class="vwork-media"
-                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/macaron.mp4"
-                data-title="SNS用ショートムービー" data-client="MACARON"
-                aria-label="MACARON のショートムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/macaron-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/macaron-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-04.mp4"
+                data-title="enjoy北九州" data-client="enjoy北九州"
+                aria-label="enjoy北九州 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-04-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-04-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
         </button>
         <div class="meta">
-          <div class="tags"><span class="tag">SNS・広告</span></div>
-          <h3>SNS用ショートムービー</h3>
-          <span class="client">MACARON</span>
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">enjoy北九州</span>
         </div>
       </article>
 
-      <!-- ※クライアント名が未確定のため、表記は入れていません（映像内は Converse「CONS」のスニーカー）。確認後に .client を追記してください。 -->
-      <article class="vwork" style="--reveal-delay:.2s">
+      <article class="vwork" style="--reveal-delay:0.20s">
         <button type="button" class="vwork-media"
-                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/cpd.mp4"
-                data-title="SNS用ショートムービー" data-client=""
-                aria-label="スニーカーのショートムービーを再生">
-          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/cpd-preview.mp4" poster="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/cpd-poster.jpg" muted loop playsinline preload="none" tabindex="-1"></video>
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-05.mp4"
+                data-title="enjoy北九州" data-client="enjoy北九州"
+                aria-label="enjoy北九州 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-05-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-05-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
         </button>
         <div class="meta">
-          <div class="tags"><span class="tag">SNS・広告</span></div>
-          <h3>SNS用ショートムービー</h3>
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">enjoy北九州</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-06.mp4"
+                data-title="enjoy北九州" data-client="enjoy北九州"
+                aria-label="enjoy北九州 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-06-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/jtb-06-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">enjoy北九州</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Event ／ イベント（2）</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/event-01.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/event-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/event-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/event-02.mp4"
+                data-title="Lamborghini" data-client="Lamborghini"
+                aria-label="Lamborghini の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/event-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/event-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">Lamborghini</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Wedding ／ ウェディング（1）</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wedding-01.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wedding-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/wedding-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">VFX ／ VFX・モーション（7）</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-01.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">VFX</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-02.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">VFX</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.10s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-03.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-03-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-03-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">VFX</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.15s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-04.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-04-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-04-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">VFX</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-05.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-05-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-05-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">VFX</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-06.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-06-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-06-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">VFX</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.20s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-07.mp4"
+                data-title="制作実績" data-client=""
+                aria-label="制作実績 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-07-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/vfx-07-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">VFX</span></div>
+          <span class="client">&nbsp;</span>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="eyebrow" style="margin:clamp(44px,5.5vw,80px) 0 20px;">Brand & Store ／ ブランド・店舗（4）</h3>
+    <div class="vwork-grid cols-3 ratio-16x9" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-02.mp4"
+                data-title="MAYBISS" data-client="MAYBISS"
+                aria-label="MAYBISS の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-02-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-02-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">MAYBISS</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-03.mp4"
+                data-title="OSAKA STORE" data-client="OSAKA STORE"
+                aria-label="OSAKA STORE の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-03-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-03-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">OSAKA STORE</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="vwork-grid cols-5 ratio-9x16" data-reveal>
+
+      <article class="vwork">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-01.mp4"
+                data-title="chipchip" data-client="chipchip"
+                aria-label="chipchip の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-01-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-01-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">chipchip</span>
+        </div>
+      </article>
+
+      <article class="vwork" style="--reveal-delay:0.05s">
+        <button type="button" class="vwork-media"
+                data-video="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-04.mp4"
+                data-title="花園酵素" data-client="花園酵素"
+                aria-label="花園酵素 の映像を再生">
+          <img class="vwork-poster" src="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-04-poster.jpg" alt="" loading="lazy" decoding="async">
+          <video class="vwork-loop" data-vsrc="https://pub-7e316d856046464da0a9c4af67174676.r2.dev/about-04-preview.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
+        </button>
+        <div class="meta">
+          <div class="tags"><span class="tag">映像制作</span></div>
+          <span class="client">花園酵素</span>
         </div>
       </article>
 
