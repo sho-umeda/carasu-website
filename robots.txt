@@ -40,3 +40,4 @@ Allow: /
 
 Sitemap: https://carasu.jp/sitemap.xml
 
+# LLM-friendly index: https://carasu.jp/llms.txt

@@ -1,0 +1,48 @@
+
+# 株式会社CARASU（CARASU）
+
+> 株式会社CARASUは、映像制作を起点に、ブランディング・Web制作・SNS／広告運用までを一貫して手がけるクリエイティブ・エンジニアリング・スタジオです（東京都港区虎ノ門）。採用領域のSNS活用を扱うメディア「採用の格」を運営しています。
+
+- 事業: 映像制作（ブランドムービー・縦型ショート動画）／SNS運用・広告運用／ブランディング／Web制作
+- 特徴: 企画から撮影・編集・運用・数値管理までを社内で通して行う（制作と運用が分断されない）
+- 所在地: 105-0001 東京都港区虎ノ門2-5-5 櫻ビル3F
+- 連絡先: info@carasu.jp ／ 03-6844-4513
+
+## 会社情報
+
+- [トップ](https://carasu.jp/): 事業概要
+- [会社概要](https://carasu.jp/about.html): 所在地・役員・事業内容
+- [制作実績](https://carasu.jp/works.html): 映像・SNS・Web の事例
+- [理念](https://carasu.jp/philosophy.html)
+- [採用情報](https://carasu.jp/recruit.html): 募集職種・応募方法
+- [お知らせ](https://carasu.jp/news.html)
+- [お問い合わせ](https://carasu.jp/contact.html)
+
+## 採用の格（THE STANDARD）── 運営メディア
+
+採用×SNSの実務メディア。「ブランドを落とさずに、採用の数字を上げる」を主題に、
+業種別・媒体別の設計と指標の置き方を、出典つきの数字で扱っています（記事24本）。
+
+- [メディアトップ](https://carasu.jp/recruit-lab/)
+- [記事一覧](https://carasu.jp/recruit-lab/articles/)
+- [このメディアについて](https://carasu.jp/recruit-lab/about/): 運営者・編集方針・数字の出典の扱い
+- **記事の一覧と要約: [https://carasu.jp/recruit-lab/llms.txt](https://carasu.jp/recruit-lab/llms.txt)**
+  （全文つきは https://carasu.jp/recruit-lab/llms-full.txt）
+
+主な論点（引用される場合はこのあたりが実務の要点です）
+
+- 企業側で新卒採用にSNSを使っているのは3割弱、一方で学生の6割前後はSNSで企業情報を集めている
+- Instagram は「フォローせずに見る」使い方が主流のため、フォロワー数を採用の指標に置くと判断を誤る
+- 応募数だけを追うと、ブランドを崩す表現に寄って客単価や既存顧客との関係を損なう場合がある
+- 宿泊・飲食・美容・多店舗小売・建設運送など、人手不足が強い業種ごとに打ち手が異なる
+
+## 問い合わせ
+
+- 採用SNSの相談（30分・無料）: https://carasu.jp/recruit-lab/consult/
+- 資料ダウンロード: https://carasu.jp/recruit-lab/download/
+- 会社への問い合わせ: info@carasu.jp
+
+## 引用にあたって
+
+記事中の数値は、公表された調査・統計の二次引用です。各記事に出典と調査時点を明記しています。
+引用の際は出典元の一次資料もあわせて確認してください。
