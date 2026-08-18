@@ -6,6 +6,7 @@
    3. 表を横スクロール枠で包み、数値列を右寄せにする
    4. 図の番号（図1・図2…）を上から順に振る
    5. 記事一覧の絞り込み（業種・課題）
+   9. フォームの送信（ページを移動させない）
    0. ?measure=1 のときだけ動く開発用の実測表示
    ===================================================================== */
 (function () {
@@ -263,6 +264,156 @@
       };
       window.addEventListener("scroll", onScroll, { passive: true });
     }
+  })();
+
+
+  /* --- 9. フォームの送信（ページを移動させない）-------------------
+     送信先は GAS のウェブアプリ。base.njk が body の data-form-endpoint に入れる。
+
+     ★必須は3つ（会社名・メール・電話）。この後インサイドセールスが電話するため。
+       足りないときは、その欄に印を付けて最初の1つへ移動する。
+       まとめて赤くして突き放すより、どこを直せばいいか1つだけ示す方が戻ってくる。
+     ★なぜ fetch の返事に頼らないか
+       GAS の /exec は 302 で別ドメインへ飛ぶため、返事が読めない環境がある。
+       読めたら使う、読めなくても「送った」として扱う。取りこぼすより出すほうがまし。
+     ★保険として sendBeacon も撃つ。ページを閉じられても届く。
+       ただし二重に届くのは困るので、fetch が成功したら撃たない。 */
+  (function () {
+    var forms = document.querySelectorAll("form.m-lead[data-lead]");
+    if (!forms.length) return;
+    var endpoint = document.body.getAttribute("data-form-endpoint") || "";
+
+    // 電話番号：全角数字と記号を素直に受ける（人は色々な書き方をする）
+    var normTel = function (v) {
+      return String(v || "")
+        .replace(/[０-９]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+        .replace(/[‐-‒–—ー―−]/g, "-")
+        .replace(/[^\d+\-()\s]/g, "")
+        .trim();
+    };
+
+    Array.prototype.forEach.call(forms, function (form) {
+      var kind = form.getAttribute("data-lead");
+      var done = form.querySelector(".m-lead__done");
+      var err = form.querySelector(".m-lead__err");
+      var sent = false;
+
+      var field = function (n) { return form.querySelector('[name="' + n + '"]'); };
+      var mark = function (el, bad) {
+        if (!el) return;
+        if (bad) { el.setAttribute("aria-invalid", "true"); }
+        else { el.removeAttribute("aria-invalid"); }
+      };
+      // 直したらその場で印を消す（送信を押し直さずに分かるように）
+      ["company", "email", "tel"].forEach(function (n) {
+        var el = field(n);
+        if (el) el.addEventListener("input", function () { mark(el, false); });
+      });
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (sent) return;
+
+        var company = (field("company") || {}).value || "";
+        var email = (field("email") || {}).value || "";
+        var tel = normTel((field("tel") || {}).value);
+        company = company.trim();
+        email = email.trim();
+
+        // 形だけ確認する。厳しくすると本物を落とす
+        var bad = [];
+        if (company.length < 2) bad.push("company");
+        if (email.indexOf("@") < 1 || email.indexOf(".") < 0) bad.push("email");
+        if (tel.replace(/\D/g, "").length < 9) bad.push("tel");
+        ["company", "email", "tel"].forEach(function (n) { mark(field(n), bad.indexOf(n) >= 0); });
+        if (bad.length) {
+          var first = field(bad[0]);
+          if (first) { first.focus(); first.scrollIntoView({ block: "center" }); }
+          return;
+        }
+
+        var slots = Array.prototype.map.call(
+          form.querySelectorAll('[name="slot"]:checked'), function (x) { return x.value; }
+        ).join("／");
+        var note = (field("note") || {}).value || "";
+
+        var payload = {
+          kind: kind,
+          email: email,
+          company: company,
+          tel: tel,
+          slot: slots,
+          note: note.trim(),
+          trap: (field("trap") || {}).value || "",
+          article_no: document.body.getAttribute("data-article-no") || "",
+          page_url: location.href,
+          ref_host: (function () {
+            try { return document.referrer ? new URL(document.referrer).hostname : "(direct)"; }
+            catch (e2) { return "(unknown)"; }
+          })(),
+          ua: navigator.userAgent
+        };
+        var body = JSON.stringify(payload);
+
+        form.classList.add("is-sending");
+        sent = true;
+
+        var finish = function (ok) {
+          form.classList.remove("is-sending");
+          if (ok) {
+            form.classList.add("is-done");
+            if (done) done.hidden = false;
+            if (err) err.hidden = true;
+          } else {
+            sent = false;
+            if (err) err.hidden = false;
+          }
+          // GA4：リードとして数える（cta_type = form-consult / form-download）
+          if (window.gtag && ok) {
+            window.gtag("event", "generate_lead", {
+              cta_type: "form-" + kind,
+              cta_place: "form",
+              content_group: document.body.getAttribute("data-cg") || "",
+              article_no: payload.article_no,
+              article_tags: document.body.getAttribute("data-article-tags") || ""
+            });
+          }
+        };
+
+        if (!endpoint) { finish(false); return; }
+
+        var beacon = function () {
+          try {
+            if (navigator.sendBeacon) {
+              navigator.sendBeacon(endpoint, new Blob([body], { type: "text/plain;charset=UTF-8" }));
+              return true;
+            }
+          } catch (e3) {}
+          return false;
+        };
+
+        var timer = setTimeout(function () {
+          // 返事が来ない環境。届いている可能性が高いので、受け付け扱いにする
+          finish(true);
+        }, 6000);
+
+        // text/plain にすると事前確認（preflight）が飛ばないので、GAS でも通る
+        fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=UTF-8" },
+          body: body
+        }).then(function (res) {
+          return res.json().catch(function () { return { ok: true }; });
+        }).then(function (r) {
+          clearTimeout(timer);
+          finish(!!(r && r.ok !== false));
+        }).catch(function () {
+          clearTimeout(timer);
+          // fetch が届かなかったときだけ保険を撃つ（二重送信を避ける）
+          finish(beacon());
+        });
+      });
+    });
   })();
 
   /* --- 0. レイアウト計測（?measure=1 のときだけ動く開発用） -------

@@ -41,10 +41,23 @@
   --rule:     rgba(18, 16, 14, .11);
   --rule-2:   rgba(18, 16, 14, .26);
 
-  /* 署名色＝朱。青をやめた理由は冒頭のとおり */
+  /* 署名色＝朱。図表・キー数字・注意書き（必須マーク）に使う */
   --key:      #bf3b27;
   --key-dark: #9d2d1c;
   --key-soft: #fbeeeb;
+
+  /* ★行動の色＝藍（2026-08-18 見直し）
+     朱をボタンにも使っていたが、同じ色が図表・数字・必須マークにも出るため
+     「押す場所」が埋もれていた。目立つかどうかは色そのものではなく、
+     まわりに同じ色が無いかで決まる（フォン・レストルフ効果）。
+     加えて日本語のUIでは赤は警告・エラー・必須の色でもあり、送信ボタンに使うと
+     「注意」と「進む」が同じ色になってしまう。
+     藍は和の配色（紙・墨・朱）と喧嘩せず、B2Bで最も見慣れた「進む」の色。
+     実測：白文字とのコントラスト 13.08:1（AAA）。紙の地との差 12.53:1。
+     朱は紙との差が 5.20:1 しかなく、藍のほうが物理的にも目立つ。 */
+  --go:       #17324f;
+  --go-dark:  #0f2338;
+  --go-soft:  #eef2f6;
   --warn-soft:#fdf6e6;
   --warn-line:#c99a2e;
 
@@ -92,6 +105,26 @@ body {
   background: var(--paper);
   font-feature-settings: "palt" 1;
   text-rendering: optimizeLegibility;
+
+  /* ★日本語の改行位置（2026-08-18 指摘を受けて追加）
+     line-break: strict … 禁則処理。行頭に「、」「。」「ゃゅょっ」が来ないようにする。
+       既定(auto)だと小さいかなが行頭に落ちて、素人っぽい行になる。
+     hanging-punctuation … 行頭の始め括弧を版面の外にぶら下げ、字下がりを揃える。 */
+  line-break: strict;
+  hanging-punctuation: allow-end;
+}
+
+/* ★見出しの改行を均す。text-wrap:balance が無いと、最後の行に1〜2文字だけ残る
+   「泣き別れ」が起きる（日本語は単語区切りが無いので特に目立つ）。
+   本文は balance が効かない長さなので pretty（末尾1文字だけの行を避ける）を使う。 */
+h1, h2, h3, h4,
+.m-hero h1, .m-article__title, .m-section__head h2, .m-cta__title, .m-tldr__title,
+.m-kv__l, .m-benefit__text, .m-pain__t, .m-index__t, .m-lead__label,
+.m-feature h3, .m-relcard__t, .m-card__title, .m-pullquote, .g__title {
+  text-wrap: balance;
+}
+p, li, dd, td, th, figcaption, .m-hero__lead, .m-article__lead, .m-cta__text, .m-lead__note {
+  text-wrap: pretty;
 }
 h1, h2, h3, h4 { margin: 0; font-weight: 700; line-height: 1.45; color: var(--ink); }
 h1, h2 { font-family: var(--font-serif); letter-spacing: .005em; }
@@ -108,7 +141,7 @@ mark {
 ::selection { background: var(--key); color: #fff; }
 .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
 :where(a, button, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--key); outline-offset: 3px; border-radius: 2px;
+  outline: 2px solid var(--go); outline-offset: 3px; border-radius: 2px;
 }
 
 /* ------------------------------------------------------------------
@@ -169,8 +202,9 @@ mark {
   white-space: nowrap; cursor: pointer;
 }
 .m-btn:hover { background: #2a2620; border-color: #2a2620; }
-.m-btn--key { background: var(--key); border-color: var(--key); }
-.m-btn--key:hover { background: var(--key-dark); border-color: var(--key-dark); }
+/* 送る・申し込む・進む＝藍。朱には戻さない（上の理由） */
+.m-btn--key { background: var(--go); border-color: var(--go); }
+.m-btn--key:hover { background: var(--go-dark); border-color: var(--go-dark); }
 .m-btn--ghost { color: var(--ink); background: transparent; border-color: var(--rule-2); }
 .m-btn--ghost:hover { background: var(--paper-2); border-color: var(--ink); }
 .m-btn--sm { min-height: 40px; font-size: var(--fs-xs); padding: 0 1em; }
@@ -639,7 +673,9 @@ mark {
 }
 .m-cta__text { margin-top: 14px; font-size: var(--fs-sm); line-height: 1.9; color: rgba(255,255,255,.8); }
 .m-cta__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-.m-cta .m-btn { background: var(--key); border-color: var(--key); color: #fff; }
+/* ★ここが本命の押す場所。指定の強さで .m-btn--key を上書きしてしまうため、
+   藍を明示する（朱に戻ると図表や必須マークと同じ色になって埋もれる） */
+.m-cta .m-btn { background: var(--go); border-color: var(--go); color: #fff; }
 .m-cta .m-btn:hover { background: #fff; border-color: #fff; color: var(--ink); }
 .m-cta .m-btn--ghost { background: transparent; border-color: rgba(255,255,255,.42); color: #fff; }
 .m-cta .m-btn--ghost:hover { background: #fff; color: var(--ink); border-color: #fff; }
@@ -1363,3 +1399,151 @@ a.m-tag:hover { color: var(--key); border-color: var(--key); background: var(--k
   .m-kv, .m-thumb, .m-index, .m-survey { page-break-inside: avoid; }
   .m-kv { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+/* ==========================================================
+   21. リード獲得フォーム（.m-lead）
+   ----------------------------------------------------------
+   ★ここは「読んで終わり」を「連絡が取れる」に変える唯一の場所。
+     入力欄は少なく・大きく、押す場所は1つだけ、色はまわりで使っていない藍。
+   ★携帯で指が届く大きさ（高さ48px以上）を守る。16px未満にすると iOS が拡大する。
+   ★ページ遷移しない。送信後は同じ場所が「受け付けました」に変わる。
+   ★必須は3つ（会社名・メール・電話）。この後インサイドセールスが電話するため。
+     手数を減らす工夫は「打つ量を減らす」ではなく「迷わせない」で作る。
+   ========================================================== */
+.m-lead {
+  position: relative;   /* 隠し欄（trap）をこの中に収める */
+  margin: 2em 0 0;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--go);
+  border-top: 3px solid var(--go);   /* 上辺だけ太く＝ここが「進む場所」だと分かる */
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.m-lead__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 18px; }
+.m-lead__label { font-family: var(--font-serif); font-size: 1.125rem; font-weight: 700; color: var(--ink); }
+.m-lead__hint {
+  font-size: var(--fs-xs); font-weight: 700; color: var(--go);
+  background: var(--go-soft); border-radius: 2px; padding: 3px 8px;
+}
+
+/* 3つの必須欄。広い画面では3列、携帯では縦1列 */
+.m-lead__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .m-lead__grid { grid-template-columns: 1fr; gap: 12px; } }
+
+.m-lead__field { display: block; }
+.m-lead__field--wide { display: block; margin-top: 16px; }
+.m-lead__lbl {
+  display: block; font-size: var(--fs-xs); font-weight: 700; color: var(--fg-1, var(--fg));
+  letter-spacing: .04em; margin-bottom: 6px;
+}
+.m-lead__lbl i {
+  font-style: normal; font-weight: 700; margin-left: 8px; padding: 1px 6px;
+  border-radius: 2px; font-size: .6875rem; color: var(--fg-3); border: 1px solid var(--rule);
+}
+/* 必須の印だけ朱。ボタンと同じ色にすると「注意」と「進む」が混ざる */
+.m-lead__lbl i.req { color: var(--key); border-color: var(--key); background: var(--key-soft); }
+
+.m-lead input[type="email"], .m-lead input[type="text"], .m-lead input[type="tel"] {
+  width: 100%; min-height: 50px; padding: 12px 14px;
+  font-family: inherit; font-size: 1rem; color: var(--ink);
+  background: #fff; border: 1px solid var(--rule-2); border-radius: 2px;
+}
+.m-lead input::placeholder { color: var(--fg-3); }
+.m-lead input:focus-visible {
+  outline: 2px solid var(--go); outline-offset: 1px; border-color: var(--go);
+}
+.m-lead input[aria-invalid="true"] { border-color: var(--key); background: var(--key-soft); }
+
+/* 時間帯：最初から全部出す。選んだところが藍で塗られる（複数可） */
+.m-lead__slots { border: 0; padding: 0; margin: 18px 0 0; }
+.m-lead__slots legend {
+  padding: 0; font-size: var(--fs-xs); font-weight: 700; color: var(--fg-1, var(--fg));
+  letter-spacing: .04em; margin-bottom: 9px;
+}
+.m-lead__slots legend i {
+  font-style: normal; font-weight: 500; margin-left: 8px; padding: 1px 6px;
+  border: 1px solid var(--rule); border-radius: 2px; color: var(--fg-3); font-size: .6875rem;
+}
+.m-lead__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.m-lead__chip { position: relative; }
+.m-lead__chip input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
+.m-lead__chip span {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 15px 0 13px;
+  border: 1px solid var(--rule-2); border-radius: 2px; background: #fff;
+  font-size: var(--fs-sm); color: var(--fg); cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+}
+/* チェックの四角。付いたら藍で塗ってレ点を出す */
+.m-lead__chip span::before {
+  content: ""; width: 18px; height: 18px; flex: 0 0 18px;
+  border: 1px solid var(--rule-2); border-radius: 2px; background: #fff;
+}
+.m-lead__chip input:checked + span {
+  border-color: var(--go); background: var(--go-soft); color: var(--go); font-weight: 700;
+}
+.m-lead__chip input:checked + span::before {
+  border-color: var(--go); background: var(--go);
+  box-shadow: inset 0 0 0 2px #fff;
+}
+.m-lead__chip input:focus-visible + span { outline: 2px solid var(--go); outline-offset: 2px; }
+.m-lead__chip:hover span { border-color: var(--go); }
+
+/* 人は触らない欄。★画面外に飛ばしたり文字を置いたりすると、ページが横に伸びる
+   （375px実測で2回検知）。1px に潰し、見えず押せない状態にする。 */
+.m-lead input.m-lead__trap {
+  position: absolute; left: 0; top: 0; width: 1px; height: 1px; min-height: 0;
+  padding: 0; border: 0; opacity: 0; pointer-events: none;
+}
+
+/* 押す場所。1つだけ・大きく・藍 */
+.m-lead__actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 20px;
+}
+.m-lead__submit { min-height: 54px; padding: 0 2em; font-size: 1rem; }
+.m-lead__assure { font-size: var(--fs-xs); color: var(--fg-2); }
+
+.m-lead__note { margin: 14px 0 0; font-size: var(--fs-xs); line-height: 1.9; color: var(--fg-2); }
+.m-lead__note a { color: var(--fg-1, var(--fg)); }
+.m-lead__note strong { color: var(--ink); }
+/* ★携帯では本文16px以上（375px実測の基準）。ここは「次に何が起きるか」を書く場所で、
+   読み飛ばされると不安のまま離脱するため、小さくしない。 */
+@media (max-width: 720px) { .m-lead__note { font-size: 1rem; } }
+
+.m-lead__done, .m-lead__err {
+  margin-top: 4px; padding: 18px 20px; border-radius: 2px; font-size: var(--fs-sm); line-height: 1.9;
+}
+.m-lead__done { border: 1px solid var(--go); background: var(--go); color: #fff; }
+.m-lead__done strong { display: block; font-size: 1.125rem; font-family: var(--font-serif); margin-bottom: 4px; }
+.m-lead__done2 { display: block; margin-top: 6px; font-size: var(--fs-xs); opacity: .85; }
+.m-lead__err { border: 1px solid var(--key); color: var(--key); background: #fff; }
+.m-lead__err a { color: var(--key); font-weight: 700; }
+
+/* 送信中 */
+.m-lead.is-sending .m-lead__submit { opacity: .55; pointer-events: none; }
+/* 送信後は入力欄を隠し、「受け付けました」だけを残す */
+.m-lead.is-done .m-lead__head,
+.m-lead.is-done .m-lead__grid,
+.m-lead.is-done .m-lead__slots,
+.m-lead.is-done .m-lead__field--wide,
+.m-lead.is-done .m-lead__actions,
+.m-lead.is-done .m-lead__note { display: none; }
+
+.m-lead--mailonly { border-style: dashed; border-top-width: 1px; }
+
+/* 記事末：フォームの下に置く「資料だけ受け取る」への逃げ道（1本だけ） */
+/* ★.m-cta は地が墨色。灰色の文字を置くと読めない（白系で書く） */
+.m-cta__alt { margin: 16px 0 0; font-size: var(--fs-xs); color: rgba(255,255,255,.72); }
+.m-cta__alt a { color: #fff; font-weight: 700; text-underline-offset: 3px; }
+
+/* 制定日などの細かい断り書き。★携帯では16px（375px実測の基準）を割らない。
+   小さくして読めなくすると、書いてあるのに読まれない＝書いていないのと同じになる。 */
+.m-fineprint { margin-top: 2em; font-size: var(--fs-xs); color: var(--fg-3); }
+@media (max-width: 720px) { .m-fineprint { font-size: 1rem; } }
+
+/* 送信完了の箱（藍地）の中に置く「いますぐ開く」。地が藍なので白抜きにする */
+.m-lead__dl {
+  display: inline-flex; margin: 10px 0 2px; min-height: 44px;
+  background: #fff; color: var(--go); border-color: #fff; font-weight: 700;
+}
+.m-lead__dl:hover { background: var(--go-soft); border-color: var(--go-soft); color: var(--go); }
