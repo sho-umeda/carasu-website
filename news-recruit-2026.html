@@ -3,6 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) — GA4
+     ★2026-08-18 追加。それまでトップページ(index.html)にしか入っておらず、
+       会社概要・実績・採用情報など9ページが1件も計測されていなかった。
+     content_group は「コーポレート」側のページ種別。採用の格（/recruit-lab/）は
+     「記事」「相談」等を送っているので、これで両者を混ぜずに見られる。 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-11TCQWVBYN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-11TCQWVBYN', {
+    content_group: 'お知らせ記事',
+    ref_host: (function () {
+      try { return document.referrer ? new URL(document.referrer).hostname : '(direct)'; }
+      catch (e) { return '(unknown)'; }
+    })()
+  });
+</script>
 <title>2026年6月より、正社員4職種の募集を開始しました ｜ カラスニュース ｜ carasu inc.</title>
 <meta name="description" content="株式会社CARASUは2026年6月より、クリエイター・ディレクション・営業・バックオフィスの4職種で正社員の募集を開始しました。募集要項は採用情報ページをご覧ください。">
 <link rel="canonical" href="https://carasu.jp/news-recruit-2026.html">
@@ -43,7 +62,7 @@
     <nav class="nav" aria-label="グローバルナビゲーション">
       <ul class="nav-links" id="navLinks">
         <li><a href="works.html">Work<span class="jp">制作実績</span></a></li>
-        <li><a href="recruit-lab/">Lab<span class="jp">採用ラボ</span></a></li>
+        <li><a href="recruit-lab/">Notes<span class="jp">採用の備忘録</span></a></li>
         <li><a href="news.html">News<span class="jp">カラスニュース</span></a></li>
         <li><a href="recruit.html">Recruit<span class="jp">採用情報</span></a></li>
         <li><a href="philosophy.html">Philosophy<span class="jp">経営理念</span></a></li>
