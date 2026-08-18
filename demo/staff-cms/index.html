@@ -1,0 +1,1659 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 社外に広く見せるものではないため、検索結果には出さない -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="スタッフページをコードを触らずに更新する仕組みの試作。架空のクリニックで作成しています。">
+<style>
+  /* アーティファクト側で入る最小限のリセットに相当するもの */
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  img, svg { max-width: 100%; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+</style>
+<title>スタッフページ編集デモ</title>
+</head>
+<body>
+<style>
+  /* ---------- tokens: light (bare :root = complete palette) ---------- */
+  :root {
+    --ink:        #16232D;
+    --ink-soft:   #2B3A45;
+    --slate:      #55666F;
+    --slate-dim:  #7E8E96;
+    --mist:       #DCE3E6;
+    --mist-soft:  #EBEFF1;
+    --paper:      #F6F8F8;
+    --teal:       #23616A;
+    --teal-dim:   #E4EDED;
+    --teal-deep:  #17454C;
+    --rose:       #A03249;
+    --rose-dim:   #F6E7EA;
+    --amber:      #8A6212;
+    --amber-dim:  #F7EFD9;
+
+    /* chrome = the demo rig around the screens */
+    --chrome-bg:    #EDF1F2;
+    --chrome-panel: #FFFFFF;
+    --chrome-text:  #16232D;
+    --chrome-sub:   #55666F;
+    --chrome-line:  #D3DCDF;
+
+    /* screen = the simulated website / tool surface */
+    --screen-bg:    #FFFFFF;
+    --screen-alt:   #F4F7F7;
+    --screen-text:  #16232D;
+    --screen-sub:   #55666F;
+    --screen-line:  #DCE3E6;
+    --screen-frame: #E7ECED;
+
+    --shadow-sm: 0 1px 2px rgba(22,35,45,.08), 0 1px 3px rgba(22,35,45,.06);
+    --shadow-md: 0 2px 8px rgba(22,35,45,.09), 0 8px 24px rgba(22,35,45,.07);
+    --shadow-lg: 0 10px 40px rgba(22,35,45,.18);
+
+    --mincho: "Hiragino Mincho ProN", "HiraMinProN-W3", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+    --gothic: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", "Meiryo", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+    --r-sm: 3px;
+    --r-md: 5px;
+    --maxw: 1180px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --chrome-bg:    #10181E;
+      --chrome-panel: #1A242C;
+      --chrome-text:  #E4EAEC;
+      --chrome-sub:   #9AAAB2;
+      --chrome-line:  #2C3A44;
+
+      --screen-bg:    #E9ECEC;
+      --screen-alt:   #DFE4E4;
+      --screen-text:  #16232D;
+      --screen-sub:   #4E5F68;
+      --screen-line:  #C8D1D4;
+      --screen-frame: #CFD7D9;
+
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+      --shadow-md: 0 2px 8px rgba(0,0,0,.45);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,.6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --chrome-bg:    #10181E;
+    --chrome-panel: #1A242C;
+    --chrome-text:  #E4EAEC;
+    --chrome-sub:   #9AAAB2;
+    --chrome-line:  #2C3A44;
+
+    --screen-bg:    #E9ECEC;
+    --screen-alt:   #DFE4E4;
+    --screen-text:  #16232D;
+    --screen-sub:   #4E5F68;
+    --screen-line:  #C8D1D4;
+    --screen-frame: #CFD7D9;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+    --shadow-md: 0 2px 8px rgba(0,0,0,.45);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--chrome-bg);
+    color: var(--chrome-text);
+    font-family: var(--gothic);
+    font-size: 15px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+
+  /* ---------- rig header ---------- */
+  .rig {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 28px 20px 64px;
+  }
+
+  .rig-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--chrome-line);
+  }
+
+  .rig-eyebrow {
+    font-size: 11px;
+    letter-spacing: .16em;
+    color: var(--chrome-sub);
+    margin: 0 0 2px;
+  }
+
+  .rig-title {
+    font-family: var(--mincho);
+    font-size: clamp(20px, 3.4vw, 27px);
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .rig-note {
+    font-size: 12.5px;
+    color: var(--chrome-sub);
+    margin: 0;
+    max-width: 30em;
+  }
+
+  /* ---------- tabs ---------- */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tab {
+    appearance: none;
+    border: 1px solid var(--chrome-line);
+    border-bottom-color: transparent;
+    background: transparent;
+    color: var(--chrome-sub);
+    font-family: var(--gothic);
+    font-size: 13px;
+    padding: 9px 15px 10px;
+    border-radius: var(--r-md) var(--r-md) 0 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    position: relative;
+    top: 1px;
+    transition: color .15s, background .15s;
+  }
+
+  .tab:hover { color: var(--chrome-text); background: var(--chrome-panel); }
+
+  .tab[aria-selected="true"] {
+    background: var(--chrome-panel);
+    color: var(--chrome-text);
+    font-weight: 600;
+    border-color: var(--chrome-line);
+    box-shadow: inset 0 2px 0 var(--teal);
+  }
+
+  .tab-num {
+    font-size: 10px;
+    letter-spacing: .06em;
+    color: var(--chrome-sub);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tab[aria-selected="true"] .tab-num { color: var(--teal); }
+
+  .tab-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rose);
+    display: none;
+  }
+
+  .tab-dot.on {
+    display: block;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tab-dot.on { animation: none; }
+    * { transition: none !important; }
+  }
+
+  /* ---------- screen frame ---------- */
+  .frame {
+    border: 1px solid var(--chrome-line);
+    border-radius: 0 var(--r-md) var(--r-md) var(--r-md);
+    background: var(--screen-bg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .frame-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--screen-frame);
+    border-bottom: 1px solid var(--screen-line);
+  }
+
+  .frame-dots { display: flex; gap: 5px; flex: none; }
+  .frame-dots i {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--screen-line);
+    display: block;
+  }
+
+  .frame-url {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--screen-sub);
+    background: var(--screen-bg);
+    border: 1px solid var(--screen-line);
+    border-radius: 20px;
+    padding: 3px 12px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .frame-tag {
+    flex: none;
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    color: var(--screen-sub);
+    border: 1px solid var(--screen-line);
+    border-radius: 20px;
+    padding: 2px 9px;
+    background: var(--screen-bg);
+  }
+
+  .pane { display: none; color: var(--screen-text); }
+  .pane.on { display: block; }
+
+  /* =========================================================
+     PANE 1 : public clinic page  (mincho headings)
+     ========================================================= */
+  .pub { background: var(--screen-bg); }
+
+  .pub-head {
+    padding: 26px 26px 0;
+    border-bottom: 1px solid var(--screen-line);
+  }
+
+  .pub-brandrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .pub-brand {
+    font-family: var(--mincho);
+    font-size: 17px;
+    letter-spacing: .04em;
+    color: var(--teal-deep);
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .pub-nav {
+    display: flex;
+    gap: 18px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: var(--screen-sub);
+  }
+
+  .pub-nav li:first-child { color: var(--teal); font-weight: 600; }
+
+  .pub-ecg {
+    display: block;
+    width: 100%;
+    height: 26px;
+    margin: 14px 0 0;
+    color: var(--rose);
+    opacity: .5;
+  }
+
+  .pub-titlerow {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 6px 0 20px;
+  }
+
+  .pub-h1 {
+    font-family: var(--mincho);
+    font-size: clamp(21px, 3.6vw, 29px);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: .05em;
+  }
+
+  .pub-asof {
+    font-size: 11.5px;
+    color: var(--screen-sub);
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+  }
+
+  .pub-filters {
+    padding: 18px 26px;
+    background: var(--screen-alt);
+    border-bottom: 1px solid var(--screen-line);
+    display: grid;
+    gap: 14px;
+  }
+
+  .filter-group { display: flex; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+
+  .filter-label {
+    font-size: 11px;
+    letter-spacing: .12em;
+    color: var(--screen-sub);
+    flex: none;
+    min-width: 3.6em;
+    padding-top: 3px;
+  }
+
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .chip {
+    appearance: none;
+    font-family: var(--gothic);
+    font-size: 12px;
+    padding: 5px 13px;
+    border-radius: 20px;
+    border: 1px solid var(--screen-line);
+    background: var(--screen-bg);
+    color: var(--screen-sub);
+    cursor: pointer;
+    transition: all .14s;
+  }
+
+  .chip:hover { border-color: var(--teal); color: var(--teal); }
+
+  .chip[aria-pressed="true"] {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+
+  .pub-count {
+    font-size: 12px;
+    color: var(--screen-sub);
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+  }
+
+  .pub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(226px, 1fr));
+    gap: 1px;
+    background: var(--screen-line);
+    border-bottom: 1px solid var(--screen-line);
+  }
+
+  .card {
+    appearance: none;
+    text-align: left;
+    font-family: var(--gothic);
+    border: 0;
+    background: var(--screen-bg);
+    padding: 20px 18px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background .14s;
+    color: var(--screen-text);
+  }
+
+  .card:hover { background: var(--screen-alt); }
+
+  .avatar {
+    width: 62px; height: 62px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: var(--mincho);
+    font-size: 24px;
+    flex: none;
+    overflow: hidden;
+    border: 1px solid var(--screen-line);
+  }
+
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .card-name {
+    font-family: var(--mincho);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: .04em;
+  }
+
+  .card-kana { font-size: 11px; color: var(--screen-sub); margin: 2px 0 0; letter-spacing: .06em; }
+
+  .card-meta { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+
+  .role {
+    font-size: 11px;
+    letter-spacing: .06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--screen-sub);
+  }
+
+  .role::before {
+    content: "";
+    width: 14px; height: 1px;
+    background: currentColor;
+    flex: none;
+  }
+
+  .card-pos { font-size: 12.5px; color: var(--teal); font-weight: 600; margin: 0; }
+  .card-spec { font-size: 12px; color: var(--screen-sub); margin: 0; }
+
+  .card-locs { display: flex; gap: 5px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+
+  .loc {
+    font-size: 10.5px;
+    color: var(--screen-sub);
+    border: 1px solid var(--screen-line);
+    border-radius: 2px;
+    padding: 1px 6px;
+    background: var(--screen-alt);
+  }
+
+  .pub-empty { padding: 48px 26px; text-align: center; color: var(--screen-sub); font-size: 13px; }
+
+  .pub-foot {
+    padding: 16px 26px 22px;
+    font-size: 11px;
+    color: var(--screen-sub);
+    background: var(--screen-alt);
+  }
+
+  /* ---------- detail modal ---------- */
+  .modal-back {
+    position: fixed; inset: 0;
+    background: rgba(11,20,26,.62);
+    display: none;
+    place-items: center;
+    padding: 18px;
+    z-index: 60;
+  }
+  .modal-back.on { display: grid; }
+
+  .modal {
+    background: var(--screen-bg);
+    color: var(--screen-text);
+    max-width: 620px;
+    width: 100%;
+    max-height: 86vh;
+    overflow-y: auto;
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-lg);
+    padding: 28px;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 12px; right: 12px;
+    appearance: none;
+    border: 1px solid var(--screen-line);
+    background: var(--screen-bg);
+    color: var(--screen-sub);
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--screen-text); border-color: var(--screen-sub); }
+
+  .modal-top { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+  .modal-top .avatar { width: 88px; height: 88px; font-size: 32px; }
+
+  .modal-name { font-family: var(--mincho); font-size: 24px; margin: 0; font-weight: 600; letter-spacing: .05em; }
+
+  .modal-sec { margin-top: 22px; }
+
+  .modal-sec h4 {
+    font-size: 11px;
+    letter-spacing: .14em;
+    color: var(--teal);
+    margin: 0 0 7px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--screen-line);
+    font-weight: 600;
+  }
+
+  .modal-sec p { margin: 0; font-size: 13.5px; white-space: pre-wrap; line-height: 1.85; }
+
+  /* =========================================================
+     PANE 2 : admin / CMS  (gothic, denser)
+     ========================================================= */
+  .adm { background: var(--screen-alt); }
+
+  .adm-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 12px 18px;
+    background: var(--screen-bg);
+    border-bottom: 1px solid var(--screen-line);
+  }
+
+  .adm-logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .adm-logo span {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    color: var(--screen-sub);
+    border-left: 1px solid var(--screen-line);
+    padding-left: 8px;
+  }
+
+  .adm-user { font-size: 11.5px; color: var(--screen-sub); }
+
+  .steps {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+    padding: 11px 18px;
+    background: var(--teal-dim);
+    border-bottom: 1px solid var(--screen-line);
+    font-size: 12px;
+    color: var(--teal-deep);
+  }
+
+  .step { display: flex; align-items: center; gap: 7px; padding-right: 18px; }
+  .step b {
+    background: var(--teal);
+    color: #FFFFFF;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+  .step::after { content: ""; }
+
+  .adm-body {
+    display: grid;
+    grid-template-columns: 268px 1fr;
+    min-height: 560px;
+  }
+
+  @media (max-width: 760px) {
+    .adm-body { grid-template-columns: 1fr; min-height: 0; }
+  }
+
+  /* list column */
+  .adm-list {
+    border-right: 1px solid var(--screen-line);
+    background: var(--screen-bg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 760px) {
+    .adm-list { border-right: 0; border-bottom: 1px solid var(--screen-line); max-height: 320px; }
+  }
+
+  .adm-list-head { padding: 13px 14px; border-bottom: 1px solid var(--screen-line); display: grid; gap: 9px; }
+
+  .adm-list-title {
+    font-size: 11px;
+    letter-spacing: .12em;
+    color: var(--screen-sub);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .search {
+    font-family: var(--gothic);
+    font-size: 12.5px;
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid var(--screen-line);
+    border-radius: var(--r-sm);
+    background: var(--screen-alt);
+    color: var(--screen-text);
+  }
+
+  .adm-rows { overflow-y: auto; flex: 1; }
+
+  .row {
+    appearance: none;
+    width: 100%;
+    text-align: left;
+    font-family: var(--gothic);
+    border: 0;
+    border-bottom: 1px solid var(--screen-line);
+    background: var(--screen-bg);
+    color: var(--screen-text);
+    padding: 10px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background .12s;
+  }
+
+  .row:hover { background: var(--screen-alt); }
+
+  .row[aria-current="true"] {
+    background: var(--teal-dim);
+    box-shadow: inset 3px 0 0 var(--teal);
+  }
+
+  .row .avatar { width: 34px; height: 34px; font-size: 14px; }
+
+  .row-main { min-width: 0; flex: 1; }
+  .row-name { font-size: 13.5px; font-weight: 600; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row-sub { font-size: 11px; color: var(--screen-sub); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .badge {
+    flex: none;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 2px;
+    letter-spacing: .04em;
+  }
+  .badge.pubd { background: var(--teal-dim); color: var(--teal-deep); }
+  .badge.draft { background: var(--amber-dim); color: var(--amber); }
+
+  .adm-list-foot { padding: 11px 14px; border-top: 1px solid var(--screen-line); }
+
+  /* form column */
+  .adm-form { padding: 20px 22px 26px; background: var(--screen-alt); }
+
+  .form-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--screen-line);
+  }
+
+  .form-title { font-size: 16px; font-weight: 700; margin: 0; }
+  .form-hint { font-size: 11.5px; color: var(--screen-sub); margin: 0; }
+
+  .fields { display: grid; gap: 15px; }
+
+  .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  @media (max-width: 560px) { .fgrid { grid-template-columns: 1fr; } }
+
+  .field { display: grid; gap: 5px; }
+
+  .field > label, .field > .flabel {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--screen-text);
+    letter-spacing: .03em;
+  }
+
+  .field .help { font-size: 11px; color: var(--screen-sub); margin: 0; }
+
+  input[type="text"], select, textarea {
+    font-family: var(--gothic);
+    font-size: 13.5px;
+    line-height: 1.7;
+    width: 100%;
+    padding: 8px 11px;
+    border: 1px solid var(--screen-line);
+    border-radius: var(--r-sm);
+    background: var(--screen-bg);
+    color: var(--screen-text);
+  }
+
+  textarea { resize: vertical; min-height: 92px; }
+
+  input[type="text"]:focus, select:focus, textarea:focus { border-color: var(--teal); }
+
+  .checkrow { display: flex; gap: 7px; flex-wrap: wrap; }
+
+  .checkrow label {
+    font-size: 12px;
+    border: 1px solid var(--screen-line);
+    border-radius: 20px;
+    padding: 4px 12px;
+    background: var(--screen-bg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--screen-sub);
+  }
+
+  .checkrow input { accent-color: var(--teal); margin: 0; }
+  .checkrow label:has(input:checked) { border-color: var(--teal); color: var(--teal-deep); background: var(--teal-dim); font-weight: 600; }
+
+  /* photo picker */
+  .photo-pick { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .photo-pick .avatar { width: 74px; height: 74px; font-size: 27px; }
+
+  .btn {
+    appearance: none;
+    font-family: var(--gothic);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--screen-line);
+    background: var(--screen-bg);
+    color: var(--screen-text);
+    cursor: pointer;
+    transition: all .14s;
+  }
+  .btn:hover { border-color: var(--slate); }
+
+  .btn-primary {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #FFFFFF;
+    padding: 10px 26px;
+    font-size: 13.5px;
+  }
+  .btn-primary:hover { background: var(--teal-deep); border-color: var(--teal-deep); }
+
+  .btn-danger { color: var(--rose); border-color: var(--screen-line); }
+  .btn-danger:hover { background: var(--rose-dim); border-color: var(--rose); }
+
+  .btn-block { width: 100%; }
+
+  .btn-sm { padding: 5px 11px; font-size: 11.5px; }
+
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid var(--screen-line);
+  }
+
+  .form-actions .spacer { flex: 1; }
+
+  .pubstate {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--screen-sub);
+  }
+
+  .adm-blank { padding: 70px 24px; text-align: center; color: var(--screen-sub); font-size: 13px; }
+
+  /* toast */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%) translateY(14px);
+    background: var(--ink);
+    color: #F2F6F7;
+    font-size: 13px;
+    padding: 11px 20px;
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 90;
+    max-width: calc(100vw - 32px);
+    text-align: center;
+  }
+  .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* =========================================================
+     PANE 3 : the old way (code)
+     ========================================================= */
+  .old { padding: 24px 26px 30px; background: var(--screen-bg); }
+
+  .old-lead { max-width: 46em; }
+  .old-lead h3 { font-family: var(--mincho); font-size: 19px; margin: 0 0 8px; font-weight: 600; }
+  .old-lead p { font-size: 13.5px; color: var(--screen-sub); margin: 0 0 4px; }
+
+  .old-split { display: grid; grid-template-columns: 1fr 300px; gap: 20px; margin-top: 22px; align-items: start; }
+  @media (max-width: 800px) { .old-split { grid-template-columns: 1fr; } }
+
+  .codebox {
+    background: var(--ink);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .codebox-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 13px;
+    background: var(--ink-soft);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #A9BAC2;
+    flex-wrap: wrap;
+  }
+
+  .codebox pre {
+    margin: 0;
+    padding: 15px 16px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    line-height: 1.85;
+    color: #CFDCE2;
+    tab-size: 2;
+  }
+
+  .codebox .k { color: #8FC5D6; }
+  .codebox .s { color: #C9D9A8; }
+  .codebox .c { color: #6D8391; }
+
+  .codebox .bad {
+    background: var(--rose);
+    color: #FFFFFF;
+    border-radius: 2px;
+    padding: 0 3px;
+    font-weight: 700;
+  }
+
+  .broke {
+    border: 1px solid var(--screen-line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--screen-alt);
+  }
+
+  .broke-bar {
+    padding: 6px 11px;
+    font-size: 10.5px;
+    color: var(--screen-sub);
+    border-bottom: 1px solid var(--screen-line);
+    font-family: var(--mono);
+    background: var(--screen-frame);
+  }
+
+  .broke-body {
+    background: #FFFFFF;
+    min-height: 172px;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .broke-body p { margin: 0; font-size: 12.5px; color: #8A939A; }
+
+  .old-facts { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; max-width: 48em; }
+  .old-facts li {
+    font-size: 13px;
+    padding-left: 22px;
+    position: relative;
+    color: var(--screen-text);
+  }
+  .old-facts li::before {
+    content: "";
+    position: absolute;
+    left: 4px; top: 10px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--rose);
+  }
+  .old-facts b { color: var(--rose); font-weight: 600; }
+
+  /* ---------- rig footer ---------- */
+  .rig-foot {
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid var(--chrome-line);
+    display: grid;
+    gap: 12px;
+    max-width: 62em;
+  }
+
+  .rig-foot h3 { font-size: 12px; letter-spacing: .1em; color: var(--chrome-sub); margin: 0; font-weight: 600; }
+  .rig-foot p { font-size: 12.5px; color: var(--chrome-sub); margin: 0; }
+  .rig-foot strong { color: var(--chrome-text); }
+</style>
+
+<div class="rig">
+  <header class="rig-head">
+    <div>
+      <p class="rig-eyebrow">DEMO — ヘッドレスCMS接続方式</p>
+      <h1 class="rig-title">スタッフページを、コードを触らずに更新する</h1>
+    </div>
+    <p class="rig-note">
+      架空の「みなと循環器クリニック」で作った試作です。データの項目名は実際のサイトの
+      <code style="font-family:var(--mono);font-size:11.5px">staff_member.json</code> と同じ構成にしてあります。
+    </p>
+  </header>
+
+  <nav>
+    <ul class="tabs" role="tablist">
+      <li role="presentation">
+        <button class="tab" role="tab" id="tab-adm" aria-controls="pane-adm" aria-selected="true" data-pane="adm">
+          <span class="tab-num">01</span> 編集画面
+        </button>
+      </li>
+      <li role="presentation">
+        <button class="tab" role="tab" id="tab-pub" aria-controls="pane-pub" aria-selected="false" data-pane="pub">
+          <span class="tab-num">02</span> 公開ページ <span class="tab-dot" id="dot"></span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button class="tab" role="tab" id="tab-old" aria-controls="pane-old" aria-selected="false" data-pane="old">
+          <span class="tab-num">03</span> 今のやり方
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="frame">
+    <!-- ============ ADMIN ============ -->
+    <section class="pane on" id="pane-adm" role="tabpanel" aria-labelledby="tab-adm">
+      <div class="frame-bar">
+        <div class="frame-dots"><i></i><i></i><i></i></div>
+        <div class="frame-url">https://minato-heart.microcms.io/apis/staff</div>
+        <span class="frame-tag">編集画面（ログインが必要）</span>
+      </div>
+
+      <div class="adm">
+        <div class="adm-topbar">
+          <p class="adm-logo">みなと循環器クリニック <span>スタッフ管理</span></p>
+          <p class="adm-user">事務局 ／ 白石 さん</p>
+        </div>
+
+        <div class="steps">
+          <span class="step"><b>1</b>左の一覧から人を選ぶ</span>
+          <span class="step"><b>2</b>右の欄を書き換える</span>
+          <span class="step"><b>3</b>「保存する」を押す</span>
+        </div>
+
+        <div class="adm-body">
+          <div class="adm-list">
+            <div class="adm-list-head">
+              <p class="adm-list-title"><span>スタッフ一覧</span> <span id="adm-count">10名</span></p>
+              <input type="text" class="search" id="search" placeholder="名前でさがす" aria-label="名前でさがす">
+            </div>
+            <div class="adm-rows" id="rows"></div>
+            <div class="adm-list-foot">
+              <button class="btn btn-block" id="btn-add">＋ スタッフを追加する</button>
+            </div>
+          </div>
+
+          <div class="adm-form" id="form-col"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PUBLIC ============ -->
+    <section class="pane" id="pane-pub" role="tabpanel" aria-labelledby="tab-pub">
+      <div class="frame-bar">
+        <div class="frame-dots"><i></i><i></i><i></i></div>
+        <div class="frame-url">https://www.minato-heart.jp/company/staff/</div>
+        <span class="frame-tag">公開ページ（だれでも見られる）</span>
+      </div>
+
+      <div class="pub">
+        <div class="pub-head">
+          <div class="pub-brandrow">
+            <p class="pub-brand">みなと循環器クリニック</p>
+            <ul class="pub-nav">
+              <li>法人概要</li><li>診療科</li><li>アクセス</li><li>採用情報</li>
+            </ul>
+          </div>
+
+          <svg class="pub-ecg" viewBox="0 0 1000 26" preserveAspectRatio="none" aria-hidden="true">
+            <polyline fill="none" stroke="currentColor" stroke-width="1.2"
+              points="0,18 180,18 196,18 204,9 212,24 220,13 232,18 420,18 436,18 444,9 452,24 460,13 472,18 660,18 676,18 684,9 692,24 700,13 712,18 1000,18" />
+          </svg>
+
+          <div class="pub-titlerow">
+            <h2 class="pub-h1">スタッフ紹介</h2>
+            <p class="pub-asof" id="pub-asof">2026年8月時点の情報です</p>
+          </div>
+        </div>
+
+        <div class="pub-filters">
+          <div class="filter-group">
+            <span class="filter-label">職種</span>
+            <div class="chips" id="chips-job"></div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">拠点</span>
+            <div class="chips" id="chips-loc"></div>
+          </div>
+          <p class="pub-count" id="pub-count"></p>
+        </div>
+
+        <div class="pub-grid" id="grid"></div>
+        <p class="pub-foot">© みなと循環器クリニック ／ この一覧は編集画面の内容をそのまま表示しています。</p>
+      </div>
+    </section>
+
+    <!-- ============ OLD WAY ============ -->
+    <section class="pane" id="pane-old" role="tabpanel" aria-labelledby="tab-old">
+      <div class="frame-bar">
+        <div class="frame-dots"><i></i><i></i><i></i></div>
+        <div class="frame-url">/company/staff/staff_member.json — テキストエディタで開いた状態</div>
+        <span class="frame-tag">今のやり方</span>
+      </div>
+
+      <div class="old">
+        <div class="old-lead">
+          <h3>今は、この文字の並びを直接書き換えています</h3>
+          <p>
+            現在のスタッフページは、147名分の情報がこの形式のファイルに入っていて、
+            書き換えるには文字を直接編集し、サーバーへアップロードし直す必要があります。
+          </p>
+        </div>
+
+        <div class="old-split">
+          <div class="codebox">
+            <div class="codebox-head">
+              <span>staff_member.json</span>
+              <span>147件 ／ 約144KB</span>
+            </div>
+            <pre><span class="c">// 1人分。これが147人ぶん続きます</span>
+{
+  <span class="k">"name"</span>: <span class="s">"A-001：三浦 慎一郎"</span>,
+  <span class="k">"kana"</span>: <span class="s">"みうら しんいちろう"</span>,
+  <span class="k">"prof_img"</span>: <span class="s">"https://www.minato-heart.jp/company/staff/a001.jpg"</span>,
+  <span class="k">"job"</span>: <span class="s">"医師"</span>,
+  <span class="k">"jobsub"</span>: <span class="s">"常勤"</span>,
+  <span class="k">"position"</span>: <span class="s">"理事長・統括院長"</span><span class="bad">←ここのカンマを消すと全員消えます</span>
+  <span class="k">"specialized"</span>: <span class="s">"内科／循環器内科"</span>,
+  <span class="k">"comment"</span>: <span class="s">"順天堂大学医学部卒業。…"</span>,
+  <span class="k">"location"</span>: <span class="s">"本院,渋谷"</span>
+},</pre>
+          </div>
+
+          <div class="broke">
+            <div class="broke-bar">www.minato-heart.jp/company/staff/</div>
+            <div class="broke-body">
+              <p>カンマを1つ消しただけで、<br>スタッフ一覧が1人も出なくなります。</p>
+            </div>
+          </div>
+        </div>
+
+        <ul class="old-facts">
+          <li>この形式は、<b>句読点1つの間違いでページ全体が表示されなくなる</b>ため、慣れていない方が触るのは危険です。</li>
+          <li>書き換えたあと、<b>サーバーへアップロードする作業</b>が別途必要です（専用のソフトとパスワードが必要）。</li>
+          <li>写真も、<b>決まった大きさに切り出して</b>同じ場所へ置く必要があります。</li>
+          <li>つまり「毎回ベンダーに頼まないと更新できない」のは、この3点が理由です。<b>ここを丸ごと無くすのが今回の改修です。</b></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <footer class="rig-foot">
+    <h3>この試作で確認できること</h3>
+    <p>
+      <strong>編集画面</strong>で名前・役職・写真・経歴を書き換えて「保存する」を押すと、
+      <strong>公開ページ</strong>のタブにそのまま反映されます。文字コードもファイル操作も出てきません。
+      実際のヘッドレスCMS（microCMS など）の管理画面も、これとほぼ同じ形です。
+    </p>
+    <p>
+      ※ この試作はブラウザの中だけで動いています。ページを再読み込みすると元の内容に戻ります。
+    </p>
+  </footer>
+</div>
+
+<div class="modal-back" id="modal-back">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name" id="modal"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var JOBS = ["医師", "看護師", "リハビリテーション", "ソーシャルワーカー", "臨床検査技師", "事務"];
+  var LOCS = ["本院", "渋谷", "新大阪", "訪問看護"];
+
+  var TINT = {
+    "医師":               ["#E4EDED", "#17454C"],
+    "看護師":             ["#F6E7EA", "#7E2338"],
+    "リハビリテーション":  ["#E8EBE0", "#4A5533"],
+    "ソーシャルワーカー":  ["#EAE8F0", "#413A5C"],
+    "臨床検査技師":       ["#F7EFD9", "#6E4E0E"],
+    "事務":               ["#E9ECEE", "#3E4A52"]
+  };
+
+  var seq = 100;
+
+  var STAFF = [
+    {
+      id: "s1", name: "三浦 慎一郎", kana: "みうら しんいちろう", photo: null,
+      job: "医師", jobsub: "常勤", position: "理事長・統括院長",
+      specialized: "内科／循環器内科",
+      other: "みなと循環器クリニック 理事長・統括院長\n日本循環器学会認定 循環器専門医\n日本内科学会認定 内科医\n日本心不全学会 評議員",
+      comment: "大学卒業後、循環器内科に入局。重症心不全の臨床と研究に従事したのち、地域での心不全診療に軸足を移す。当院では統括院長として、外来と訪問診療の両方を担当しています。",
+      locs: ["本院", "渋谷"], published: true
+    },
+    {
+      id: "s2", name: "岩瀬 佑季", kana: "いわせ ゆき", photo: null,
+      job: "医師", jobsub: "常勤", position: "副院長",
+      specialized: "循環器内科／心不全",
+      other: "日本循環器学会認定 循環器専門医\n日本内科学会認定 総合内科専門医\n心臓リハビリテーション指導士",
+      comment: "心不全の再入院を減らすため、外来と在宅をつなぐ診療体制づくりに取り組んでいます。生活に合わせた無理のない治療計画を一緒に考えます。",
+      locs: ["本院"], published: true
+    },
+    {
+      id: "s3", name: "桑田 拓也", kana: "くわた たくや", photo: null,
+      job: "医師", jobsub: "常勤", position: "医長",
+      specialized: "循環器内科／不整脈",
+      other: "日本循環器学会認定 循環器専門医\n日本不整脈心電学会認定 不整脈専門医",
+      comment: "動悸や脈の乱れのご相談を多く担当しています。検査の必要性から丁寧にご説明します。",
+      locs: ["渋谷", "新大阪"], published: true
+    },
+    {
+      id: "s4", name: "大城 涼", kana: "おおしろ りょう", photo: null,
+      job: "医師", jobsub: "非常勤", position: "",
+      specialized: "内科",
+      other: "日本内科学会認定 内科医",
+      comment: "毎週水曜の午前を担当しています。生活習慣病の管理を中心に診療しています。",
+      locs: ["新大阪"], published: true
+    },
+    {
+      id: "s5", name: "遠藤 かおり", kana: "えんどう かおり", photo: null,
+      job: "看護師", jobsub: "常勤", position: "看護部長",
+      specialized: "慢性心不全看護",
+      other: "慢性心不全看護認定看護師\n心不全療養指導士",
+      comment: "ご自宅での療養を支える看護のしくみづくりを担当しています。ご家族のご不安もあわせてお伺いします。",
+      locs: ["本院", "訪問看護"], published: true
+    },
+    {
+      id: "s6", name: "榊原 直子", kana: "さかきばら なおこ", photo: null,
+      job: "看護師", jobsub: "常勤", position: "主任",
+      specialized: "",
+      other: "心不全療養指導士",
+      comment: "外来での療養指導を担当しています。お薬や塩分のことなど、続けられる方法をご一緒に探します。",
+      locs: ["渋谷"], published: true
+    },
+    {
+      id: "s7", name: "芦田 悠人", kana: "あしだ ゆうと", photo: null,
+      job: "リハビリテーション", jobsub: "常勤", position: "理学療法士",
+      specialized: "心臓リハビリテーション",
+      other: "理学療法士\n心臓リハビリテーション指導士",
+      comment: "退院後に体力を取り戻すための運動を、安全な範囲から組み立てます。訪問でのリハビリも担当しています。",
+      locs: ["本院", "訪問看護"], published: true
+    },
+    {
+      id: "s8", name: "北村 千夏", kana: "きたむら ちなつ", photo: null,
+      job: "ソーシャルワーカー", jobsub: "常勤", position: "",
+      specialized: "医療福祉相談",
+      other: "社会福祉士\n精神保健福祉士",
+      comment: "介護保険や医療費のご相談、転院・在宅への移行のお手伝いをしています。どこに相談すればよいか分からないときの最初の窓口です。",
+      locs: ["本院"], published: true
+    },
+    {
+      id: "s9", name: "谷口 亮", kana: "たにぐち りょう", photo: null,
+      job: "臨床検査技師", jobsub: "常勤", position: "",
+      specialized: "心エコー／ホルター心電図",
+      other: "臨床検査技師\n超音波検査士（循環器）",
+      comment: "心臓の超音波検査を担当しています。検査中に気分が悪くなったときは遠慮なくお声かけください。",
+      locs: ["本院", "新大阪"], published: true
+    },
+    {
+      id: "s10", name: "白石 みのり", kana: "しらいし みのり", photo: null,
+      job: "事務", jobsub: "常勤", position: "事務長",
+      specialized: "",
+      other: "",
+      comment: "受付・会計・各種証明書のご相談を承ります。このスタッフページの更新も担当しています。",
+      locs: ["本院"], published: false
+    }
+  ];
+
+  var selectedId = "s1";
+  var filterJobs = new Set();
+  var filterLocs = new Set();
+  var searchText = "";
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function avatar(p, cls) {
+    var t = TINT[p.job] || TINT["事務"];
+    if (p.photo) {
+      return '<div class="avatar ' + (cls || "") + '" style="background:' + t[0] + '">' +
+             '<img src="' + esc(p.photo) + '" alt=""></div>';
+    }
+    var ch = (p.name || "？").trim().charAt(0);
+    return '<div class="avatar ' + (cls || "") + '" aria-hidden="true" style="background:' + t[0] + ';color:' + t[1] + '">' +
+           esc(ch) + '</div>';
+  }
+
+  var toastTimer = null;
+  function toast(msg) {
+    var el = $("toast");
+    el.textContent = msg;
+    el.classList.add("on");
+    if (toastTimer) { clearTimeout(toastTimer); }
+    toastTimer = setTimeout(function () { el.classList.remove("on"); }, 3200);
+  }
+
+  /* ---------------- tabs ---------------- */
+  function showPane(key) {
+    var tabs = document.querySelectorAll(".tab");
+    for (var i = 0; i < tabs.length; i++) {
+      var on = tabs[i].getAttribute("data-pane") === key;
+      tabs[i].setAttribute("aria-selected", on ? "true" : "false");
+    }
+    var panes = document.querySelectorAll(".pane");
+    for (var j = 0; j < panes.length; j++) {
+      panes[j].classList.toggle("on", panes[j].id === "pane-" + key);
+    }
+    if (key === "pub") { $("dot").classList.remove("on"); }
+  }
+
+  var tabEls = document.querySelectorAll(".tab");
+  for (var t = 0; t < tabEls.length; t++) {
+    tabEls[t].addEventListener("click", function () {
+      showPane(this.getAttribute("data-pane"));
+    });
+  }
+
+  /* ---------------- public page ---------------- */
+  function buildChips() {
+    var jh = "", lh = "";
+    jh += '<button class="chip" data-kind="job" data-v="" aria-pressed="' + (filterJobs.size === 0) + '">すべて</button>';
+    JOBS.forEach(function (j) {
+      jh += '<button class="chip" data-kind="job" data-v="' + esc(j) + '" aria-pressed="' +
+            filterJobs.has(j) + '">' + esc(j) + '</button>';
+    });
+    lh += '<button class="chip" data-kind="loc" data-v="" aria-pressed="' + (filterLocs.size === 0) + '">すべて</button>';
+    LOCS.forEach(function (l) {
+      lh += '<button class="chip" data-kind="loc" data-v="' + esc(l) + '" aria-pressed="' +
+            filterLocs.has(l) + '">' + esc(l) + '</button>';
+    });
+    $("chips-job").innerHTML = jh;
+    $("chips-loc").innerHTML = lh;
+
+    var chips = document.querySelectorAll(".chip");
+    for (var i = 0; i < chips.length; i++) {
+      chips[i].addEventListener("click", function () {
+        var kind = this.getAttribute("data-kind");
+        var v = this.getAttribute("data-v");
+        var set = kind === "job" ? filterJobs : filterLocs;
+        if (!v) { set.clear(); }
+        else if (set.has(v)) { set.delete(v); }
+        else { set.add(v); }
+        buildChips();
+        renderPublic();
+      });
+    }
+  }
+
+  function visibleStaff() {
+    return STAFF.filter(function (p) {
+      if (!p.published) { return false; }
+      if (filterJobs.size && !filterJobs.has(p.job)) { return false; }
+      if (filterLocs.size) {
+        var hit = p.locs.some(function (l) { return filterLocs.has(l); });
+        if (!hit) { return false; }
+      }
+      return true;
+    });
+  }
+
+  function renderPublic() {
+    var list = visibleStaff();
+    $("pub-count").textContent = list.length + "名を表示中（全" +
+      STAFF.filter(function (p) { return p.published; }).length + "名）";
+
+    if (!list.length) {
+      $("grid").innerHTML = '<p class="pub-empty">条件に合うスタッフがいません。</p>';
+      return;
+    }
+
+    var h = "";
+    list.forEach(function (p) {
+      h += '<button class="card" data-id="' + esc(p.id) + '">' +
+             avatar(p) +
+             '<div>' +
+               '<p class="card-name">' + esc(p.name) + '</p>' +
+               '<p class="card-kana">' + esc(p.kana) + '</p>' +
+             '</div>' +
+             '<div class="card-meta">' +
+               '<span class="role">' + esc(p.job) + (p.jobsub ? '（' + esc(p.jobsub) + '）' : '') + '</span>' +
+               (p.position ? '<p class="card-pos">' + esc(p.position) + '</p>' : '') +
+               (p.specialized ? '<p class="card-spec">' + esc(p.specialized) + '</p>' : '') +
+             '</div>' +
+             '<div class="card-locs">' +
+               p.locs.map(function (l) { return '<span class="loc">' + esc(l) + '</span>'; }).join("") +
+             '</div>' +
+           '</button>';
+    });
+    $("grid").innerHTML = h;
+
+    var cards = document.querySelectorAll(".card");
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].addEventListener("click", function () { openModal(this.getAttribute("data-id")); });
+    }
+  }
+
+  /* ---------------- detail modal ---------------- */
+  function openModal(id) {
+    var p = STAFF.filter(function (x) { return x.id === id; })[0];
+    if (!p) { return; }
+
+    var h = '<button class="modal-close" id="mclose" aria-label="閉じる">✕</button>' +
+      '<div class="modal-top">' + avatar(p) +
+        '<div>' +
+          '<h3 class="modal-name" id="modal-name">' + esc(p.name) + '</h3>' +
+          '<p class="card-kana">' + esc(p.kana) + '</p>' +
+          '<span class="role">' + esc(p.job) + (p.jobsub ? '（' + esc(p.jobsub) + '）' : '') + '</span>' +
+          (p.position ? '<p class="card-pos">' + esc(p.position) + '</p>' : '') +
+        '</div>' +
+      '</div>';
+
+    if (p.specialized) {
+      h += '<div class="modal-sec"><h4>専門分野</h4><p>' + esc(p.specialized) + '</p></div>';
+    }
+    if (p.comment) {
+      h += '<div class="modal-sec"><h4>ごあいさつ</h4><p>' + esc(p.comment) + '</p></div>';
+    }
+    if (p.other) {
+      h += '<div class="modal-sec"><h4>経歴・資格</h4><p>' + esc(p.other) + '</p></div>';
+    }
+    h += '<div class="modal-sec"><h4>所属</h4><p>' + esc(p.locs.join(" ／ ")) + '</p></div>';
+
+    $("modal").innerHTML = h;
+    $("modal-back").classList.add("on");
+    $("mclose").addEventListener("click", closeModal);
+    $("mclose").focus();
+  }
+
+  function closeModal() { $("modal-back").classList.remove("on"); }
+
+  $("modal-back").addEventListener("click", function (e) {
+    if (e.target === this) { closeModal(); }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { closeModal(); }
+  });
+
+  /* ---------------- admin: list ---------------- */
+  function renderRows() {
+    var q = searchText.trim();
+    var list = STAFF.filter(function (p) {
+      if (!q) { return true; }
+      return p.name.indexOf(q) >= 0 || p.kana.indexOf(q) >= 0;
+    });
+
+    $("adm-count").textContent = STAFF.length + "名";
+
+    if (!list.length) {
+      $("rows").innerHTML = '<p class="adm-blank" style="padding:34px 14px">見つかりませんでした。</p>';
+      return;
+    }
+
+    var h = "";
+    list.forEach(function (p) {
+      h += '<button class="row" data-id="' + esc(p.id) + '" aria-current="' + (p.id === selectedId) + '">' +
+             avatar(p) +
+             '<span class="row-main">' +
+               '<p class="row-name">' + esc(p.name) + '</p>' +
+               '<p class="row-sub">' + esc(p.job) + (p.position ? ' ／ ' + esc(p.position) : '') + '</p>' +
+             '</span>' +
+             '<span class="badge ' + (p.published ? 'pubd">公開中' : 'draft">下書き') + '</span>' +
+           '</button>';
+    });
+    $("rows").innerHTML = h;
+
+    var rows = document.querySelectorAll(".row");
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].addEventListener("click", function () {
+        selectedId = this.getAttribute("data-id");
+        renderRows();
+        renderForm();
+      });
+    }
+  }
+
+  /* ---------------- admin: form ---------------- */
+  function renderForm() {
+    var p = STAFF.filter(function (x) { return x.id === selectedId; })[0];
+
+    if (!p) {
+      $("form-col").innerHTML = '<p class="adm-blank">左の一覧から、直したい方を選んでください。</p>';
+      return;
+    }
+
+    var idx = STAFF.indexOf(p);
+
+    var h =
+      '<div class="form-head">' +
+        '<h3 class="form-title">' + esc(p.name) + ' さんの情報</h3>' +
+        '<p class="form-hint">直したら「保存する」を押してください</p>' +
+      '</div>' +
+      '<div class="fields">' +
+
+        '<div class="field">' +
+          '<span class="flabel">顔写真</span>' +
+          '<div class="photo-pick">' + avatar(p) +
+            '<div>' +
+              '<button class="btn btn-sm" id="f-pickphoto">写真を選ぶ</button> ' +
+              (p.photo ? '<button class="btn btn-sm btn-danger" id="f-delphoto">写真を外す</button>' : '') +
+              '<p class="help">パソコンやスマホの中から選ぶだけです。大きさの調整は自動で行われます。</p>' +
+            '</div>' +
+          '</div>' +
+          '<input type="file" id="f-photo" accept="image/*" style="display:none">' +
+        '</div>' +
+
+        '<div class="fgrid">' +
+          '<div class="field"><label for="f-name">お名前</label>' +
+            '<input type="text" id="f-name" value="' + esc(p.name) + '"></div>' +
+          '<div class="field"><label for="f-kana">ふりがな</label>' +
+            '<input type="text" id="f-kana" value="' + esc(p.kana) + '"></div>' +
+        '</div>' +
+
+        '<div class="fgrid">' +
+          '<div class="field"><label for="f-job">職種</label><select id="f-job">' +
+            JOBS.map(function (j) {
+              return '<option' + (j === p.job ? ' selected' : '') + '>' + esc(j) + '</option>';
+            }).join("") +
+          '</select></div>' +
+          '<div class="field"><label for="f-jobsub">勤務のかたち</label><select id="f-jobsub">' +
+            ["常勤", "非常勤", ""].map(function (s) {
+              return '<option value="' + esc(s) + '"' + (s === p.jobsub ? ' selected' : '') + '>' +
+                     (s || "（表示しない）") + '</option>';
+            }).join("") +
+          '</select></div>' +
+        '</div>' +
+
+        '<div class="fgrid">' +
+          '<div class="field"><label for="f-position">役職</label>' +
+            '<input type="text" id="f-position" value="' + esc(p.position) + '" placeholder="例：副院長（なければ空欄）"></div>' +
+          '<div class="field"><label for="f-spec">専門分野</label>' +
+            '<input type="text" id="f-spec" value="' + esc(p.specialized) + '" placeholder="例：内科／循環器内科"></div>' +
+        '</div>' +
+
+        '<div class="field">' +
+          '<span class="flabel">所属（いくつでも選べます）</span>' +
+          '<div class="checkrow" id="f-locs">' +
+            LOCS.map(function (l) {
+              return '<label><input type="checkbox" value="' + esc(l) + '"' +
+                     (p.locs.indexOf(l) >= 0 ? ' checked' : '') + '>' + esc(l) + '</label>';
+            }).join("") +
+          '</div>' +
+        '</div>' +
+
+        '<div class="field"><label for="f-comment">ごあいさつ</label>' +
+          '<textarea id="f-comment" placeholder="患者さまへ向けたひとこと">' + esc(p.comment) + '</textarea>' +
+          '<p class="help">改行はそのまま反映されます。</p></div>' +
+
+        '<div class="field"><label for="f-other">経歴・資格</label>' +
+          '<textarea id="f-other" placeholder="1行に1つずつ書いてください">' + esc(p.other) + '</textarea>' +
+          '<p class="help">1行に1つずつ書くと、公開ページでも1行ずつ並びます。</p></div>' +
+
+      '</div>' +
+
+      '<div class="form-actions">' +
+        '<button class="btn btn-primary" id="f-save">保存する</button>' +
+        '<label class="pubstate"><input type="checkbox" id="f-pub"' + (p.published ? ' checked' : '') +
+          ' style="accent-color:var(--teal)"> 公開ページに載せる</label>' +
+        '<span class="spacer"></span>' +
+        '<button class="btn btn-sm" id="f-up"' + (idx === 0 ? ' disabled' : '') + '>↑ 順番を上へ</button>' +
+        '<button class="btn btn-sm" id="f-down"' + (idx === STAFF.length - 1 ? ' disabled' : '') + '>↓ 下へ</button>' +
+        '<button class="btn btn-sm btn-danger" id="f-del">この方を削除</button>' +
+      '</div>';
+
+    $("form-col").innerHTML = h;
+
+    $("f-pickphoto").addEventListener("click", function () { $("f-photo").click(); });
+
+    $("f-photo").addEventListener("change", function (e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) { return; }
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        p.photo = ev.target.result;
+        renderRows();
+        renderForm();
+        renderPublic();
+        toast("写真を読み込みました。「保存する」を押すと確定します。");
+      };
+      reader.readAsDataURL(file);
+    });
+
+    if ($("f-delphoto")) {
+      $("f-delphoto").addEventListener("click", function () {
+        p.photo = null;
+        renderRows(); renderForm(); renderPublic();
+      });
+    }
+
+    $("f-save").addEventListener("click", function () {
+      p.name = $("f-name").value.trim() || "（お名前が未入力）";
+      p.kana = $("f-kana").value.trim();
+      p.job = $("f-job").value;
+      p.jobsub = $("f-jobsub").value;
+      p.position = $("f-position").value.trim();
+      p.specialized = $("f-spec").value.trim();
+      p.comment = $("f-comment").value;
+      p.other = $("f-other").value;
+      p.published = $("f-pub").checked;
+
+      var boxes = $("f-locs").querySelectorAll("input");
+      var picked = [];
+      for (var i = 0; i < boxes.length; i++) {
+        if (boxes[i].checked) { picked.push(boxes[i].value); }
+      }
+      p.locs = picked;
+
+      renderRows();
+      renderForm();
+      renderPublic();
+      $("dot").classList.add("on");
+      toast("保存しました。「公開ページ」タブに反映されています。");
+    });
+
+    $("f-del").addEventListener("click", function () {
+      if (!window.confirm(p.name + " さんを一覧から削除します。よろしいですか？")) { return; }
+      STAFF.splice(STAFF.indexOf(p), 1);
+      selectedId = STAFF.length ? STAFF[0].id : null;
+      renderRows(); renderForm(); renderPublic();
+      $("dot").classList.add("on");
+      toast("削除しました。「公開ページ」タブに反映されています。");
+    });
+
+    $("f-up").addEventListener("click", function () { move(-1); });
+    $("f-down").addEventListener("click", function () { move(1); });
+
+    function move(d) {
+      var i = STAFF.indexOf(p);
+      var j = i + d;
+      if (j < 0 || j >= STAFF.length) { return; }
+      STAFF[i] = STAFF[j];
+      STAFF[j] = p;
+      renderRows(); renderForm(); renderPublic();
+      $("dot").classList.add("on");
+      toast("並び順を変えました。「公開ページ」タブに反映されています。");
+    }
+  }
+
+  /* ---------------- add / search ---------------- */
+  $("btn-add").addEventListener("click", function () {
+    seq += 1;
+    var np = {
+      id: "n" + seq, name: "新しいスタッフ", kana: "", photo: null,
+      job: "看護師", jobsub: "常勤", position: "", specialized: "",
+      other: "", comment: "", locs: ["本院"], published: false
+    };
+    STAFF.push(np);
+    selectedId = np.id;
+    searchText = "";
+    $("search").value = "";
+    renderRows(); renderForm();
+    toast("追加しました。下書きの状態なので、まだ公開ページには出ていません。");
+    var col = $("form-col");
+    if (col && col.scrollIntoView) { col.scrollIntoView({ block: "nearest" }); }
+  });
+
+  $("search").addEventListener("input", function () {
+    searchText = this.value;
+    renderRows();
+  });
+
+  /* ---------------- go ---------------- */
+  buildChips();
+  renderPublic();
+  renderRows();
+  renderForm();
+})();
+</script>
+
+</body>
+</html>
