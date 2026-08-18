@@ -1,0 +1,492 @@
+
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3名採るのに必要な接触は1,340回です（逆算してみると）</title>
+<meta name="description" content="母集団形成は「応募を増やすこと」ではない。採用したい人数から逆算して、各段階の通過率を埋めていく設計作業だ。必要な接触数を出す計算表、要件を盛りすぎて対象を狭めている状態の検出、そして4つの母集団の源泉を整理した。">
+<link rel="canonical" href="https://carasu.jp/recruit-lab/articles/talent-pool-design/">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="採用の格">
+<meta property="og:title" content="3名採るのに必要な接触は1,340回です（逆算してみると）">
+<meta property="og:description" content="母集団形成は「応募を増やすこと」ではない。採用したい人数から逆算して、各段階の通過率を埋めていく設計作業だ。必要な接触数を出す計算表、要件を盛りすぎて対象を狭めている状態の検出、そして4つの母集団の源泉を整理した。">
+<meta property="og:url" content="https://carasu.jp/recruit-lab/articles/talent-pool-design/">
+<meta property="og:image" content="https://carasu.jp/recruit-lab/assets/img/ogp/talent-pool-design.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/recruit-lab/assets/css/media.css">
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-11TCQWVBYN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-11TCQWVBYN', {
+    // チャネル別の成果を見るために、ページ種別と参照元ホストを page_view に載せる。
+    // 参照元ホストは AI検索（chatgpt.com / perplexity.ai など）を切り分けるために使う。
+    content_group: '記事',
+    ref_host: (function () {
+      try { return document.referrer ? new URL(document.referrer).hostname : '(direct)'; }
+      catch (e) { return '(unknown)'; }
+    })()
+  });
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://carasu.jp/#org",
+  "name": "株式会社CARASU",
+  "alternateName": "CARASU Inc.",
+  "url": "https://carasu.jp/",
+  "logo": "https://carasu.jp/assets/img/logo-black.png",
+  "email": "info@carasu.jp",
+  "telephone": "+81-3-6844-4513",
+  "address": {
+    "@type": "PostalAddress",
+    "postalCode": "105-0001",
+    "addressRegion": "東京都",
+    "addressLocality": "港区",
+    "streetAddress": "虎ノ門2-5-5 櫻ビル3F",
+    "addressCountry": "JP"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://carasu.jp/#website",
+  "name": "採用の格",
+  "alternateName": "THE STANDARD",
+  "url": "https://carasu.jp/",
+  "inLanguage": "ja",
+  "publisher": { "@id": "https://carasu.jp/#org" }
+}
+</script>
+
+</head>
+<body data-cg="記事" data-article-no="19" data-article-tags="全業種,母集団形成,指標">
+
+<div class="m-progress" aria-hidden="true"><div class="m-progress__bar"></div></div>
+
+<header class="m-header">
+  <div class="container m-header__inner">
+    <a class="m-brand" href="/recruit-lab/">
+      <span class="m-brand__name">採用の格</span>
+      <span class="m-brand__en">THE STANDARD</span>
+    </a>
+    <nav class="m-nav" aria-label="メニュー">
+      <a href="/recruit-lab/articles/" class="is-current">記事</a>
+      <a href="/recruit-lab/about/">このメディアについて</a>
+      <a class="m-btn m-btn--key" href="/recruit-lab/consult/" data-cta="consult" data-cta-place="header"><span class="m-btn__pre">30分の</span>無料相談</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="container m-article-layout">
+  <aside class="m-toc" aria-label="目次">
+    <div class="m-toc__title">Contents</div>
+    <ol data-toc=""></ol>
+  </aside>
+
+  <article class="m-article">
+
+    <nav class="m-breadcrumb" aria-label="現在位置">
+      <a href="/recruit-lab/">ホーム</a><span>/</span>
+      <a href="/recruit-lab/articles/">記事</a><span>/</span>
+      <span>ナレッジ</span>
+    </nav>
+
+    <div class="m-tags"><span class="m-cat">ナレッジ</span><a class="m-tag" href="/recruit-lab/tags/all/">#全業種</a><a class="m-tag" href="/recruit-lab/tags/pipeline/">#母集団形成</a><a class="m-tag" href="/recruit-lab/tags/kpi/">#指標</a>
+    </div>
+
+    <h1 class="m-article__title">3名採るのに必要な接触は1,340回です（逆算してみると）</h1><p class="m-article__lead">「応募が来ない」と感じている会社の多くは、実際には書類選考で止まっています。逆算を1回やると、必要量と詰まりの位置が同時に分かります。</p>
+
+    <div class="m-article__meta">
+      <span>DATE 2026.08.11</span>
+      <span class="m-article__updated">UPDATED 2026.08.11</span><span>読了 約9分</span>
+      <span>株式会社CARASU 編集部</span>
+    </div>
+    <div class="m-kv">
+      <span class="m-kv__no" aria-hidden="true">19</span>
+      <span class="m-kv__cat">Key figure</span>
+      <div class="m-kv__row">
+        <span class="m-kv__v">1,340<i>回</i></span>
+        <span class="m-kv__l">入社3名から逆算すると、必要な接触は1,340回（サンプルデータ）。この数字を出さずに「応募が少ない」と言っていると、必要量の感覚がずれる。</span>
+      </div><span class="m-kv__s">出典：本文の計算例はすべてサンプルデータです</span>
+    </div>
+    <div class="m-pain">
+      <div class="m-pain__t">こんな状態なら、この記事です</div>
+      <ul><li>応募が足りないと感じているが、必要な数を計算したことがない</li><li>書類選考の通過率を集計していない</li><li>SNSを始めたので、来月の不足を埋められると期待している</li>
+      </ul><p class="m-pain__f">3つ目は期待の置き方が違います。SNSは効き始めるまで3〜6か月かかります。</p>
+    </div>
+    <div class="m-benefits">
+      <div class="m-benefit">
+        <div class="m-benefit__no">01</div>
+        <div class="m-benefit__text">必要な接触数が計算できるようになる</div>
+      </div>
+      <div class="m-benefit">
+        <div class="m-benefit__no">02</div>
+        <div class="m-benefit__text">どの段階が詰まっているかが特定できる</div>
+      </div>
+      <div class="m-benefit">
+        <div class="m-benefit__no">03</div>
+        <div class="m-benefit__text">要件を盛りすぎている状態を数字で検出できる</div>
+      </div>
+    </div>
+    <div class="m-tldr" id="tldr">
+      <div class="m-tldr__title">結論だけ先に</div><p>母集団形成は応募数を増やす作業ではなく、採用人数から逆算して各段階の通過率を埋める設計作業だ。逆算すると、1名採用するのに必要な接触数は想像よりはるかに多い。詰まりの多くは応募数ではなく書類選考の通過率にあり、その原因は要件を盛りすぎていることにある。母集団の源泉は4つあり、費用と速度が違う。社員紹介がもっとも安く、SNSがもっとも遅く効く。</p>
+      <ul><li>母集団形成は逆算。応募数から考えると必要量が分からない</li><li>詰まりは応募数より書類通過率に出る。原因は要件の盛りすぎ</li><li>源泉は4つ。社員紹介が最安、SNSは最も遅く効くが最も広い</li><li>通過率を記録していない会社は、どこを直すべきか分からない</li>
+      </ul>
+    </div>
+    <nav class="m-index" aria-label="この記事の目次">
+      <div class="m-index__t">目次<span>INDEX</span></div>
+      <ol data-index=""></ol>
+    </nav>
+
+    <div class="m-prose">
+      <p>「応募が来ない」という相談を受けたとき、応募数の話から始めることはありません。<strong>先に通過率を聞きます。</strong></p>
+<p>そして多くの場合、通過率が記録されていません。記録がないと、どこが詰まっているのか分からないため、打つ手が「とにかく応募を増やす」しかなくなります。</p>
+<p>その状態で応募を増やすと、面接の工数が増えるだけで採用人数は変わりません。<strong>先に、逆算をします。</strong></p>
+<h2 id="h-%E9%80%86%E7%AE%97%E3%81%AE%E9%A0%86%E7%95%AA">逆算の順番</h2>
+<p>上から下ではなく、<strong>下から上に計算します。</strong></p>
+<table>
+<thead>
+<tr>
+<th>段階</th>
+<th>計算</th>
+<th>例（※サンプルデータ）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⑥ 入社</td>
+<td>ここが目標</td>
+<td><strong>3名</strong></td>
+</tr>
+<tr>
+<td>⑤ 内定承諾</td>
+<td>入社 ÷ 承諾率</td>
+<td>3 ÷ 60% ＝ <strong>5名に内定</strong></td>
+</tr>
+<tr>
+<td>④ 内定</td>
+<td>内定 ÷ 面接通過率</td>
+<td>5 ÷ 25% ＝ <strong>20名を面接</strong></td>
+</tr>
+<tr>
+<td>③ 書類通過</td>
+<td>面接 ÷ 書類通過率</td>
+<td>20 ÷ 30% ＝ <strong>67名の応募</strong></td>
+</tr>
+<tr>
+<td>② 応募</td>
+<td>応募 ÷ 応募率</td>
+<td>67 ÷ 5% ＝ <strong>1,340回の接触</strong></td>
+</tr>
+<tr>
+<td>① 接触</td>
+<td>ここを作るのが母集団形成</td>
+<td><strong>1,340回</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="m-callout">
+<span class="m-callout__label">要点</span>
+<p>3名採るために、1,340回の接触が必要になります（サンプル）。この数字を出さずに「応募が少ない」と言っていると、必要量の感覚がずれます。<strong>逆算を1回やるだけで、施策の規模感が決まります。</strong></p>
+</div>
+<div class="m-callout m-callout--warn">
+<span class="m-callout__label">注意</span>
+<p>上の表の通過率はすべてサンプルデータです。業界平均でも推奨値でもありません。自社の直近1年の実績を入れてください。実績がない場合は、まず記録を始めることが最初の施策になります。</p>
+</div>
+<h2 id="h-%E8%A9%B0%E3%81%BE%E3%82%8A%E3%81%AF%E5%BF%9C%E5%8B%9F%E6%95%B0%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%8F%E2%91%A2%E3%81%AB%E5%87%BA%E3%82%8B">詰まりは応募数ではなく③に出る</h2>
+<p>逆算表を実際の数字で埋めると、詰まりの位置がはっきりします。経験上、いちばん多いのは<strong>③書類通過率</strong>です。</p>
+<figure class="g g--bar"><figcaption class="g__cap"><span class="g__no" aria-hidden="true"></span><span class="g__t">各段階の通過率</span></figcaption><div class="g__body"><div class="g-bars"><div class="g-bar"><span class="g-bar__l">応募率（①→②）</span><span class="g-bar__t"><span class="g-bar__f" style="width:5.0%"></span></span><span class="g-bar__v">5%<span class="g-bar__u"></span></span></div><div class="g-bar is-mark"><span class="g-bar__l">書類通過（②→③）</span><span class="g-bar__t"><span class="g-bar__f" style="width:30.0%"></span></span><span class="g-bar__v">30%<span class="g-bar__u"></span></span></div><div class="g-bar"><span class="g-bar__l">面接通過（③→④）</span><span class="g-bar__t"><span class="g-bar__f" style="width:25.0%"></span></span><span class="g-bar__v">25%<span class="g-bar__u"></span></span></div><div class="g-bar"><span class="g-bar__l">内定承諾（④→⑤）</span><span class="g-bar__t"><span class="g-bar__f" style="width:60.0%"></span></span><span class="g-bar__v">60%<span class="g-bar__u"></span></span></div></div></div><p class="g__note">ここに自社の実数を入れると、詰まりの位置が1分で分かります。</p><p class="g__src">※サンプルデータ</p></figure>
+<p><strong>書類通過率が2割を下回っている場合、要件が実態より厳しい可能性が高いです。</strong> 検出方法があります。</p>
+<div class="m-check">
+<div class="m-check__t">要件を盛りすぎているかの検出</div>
+<ul>
+<li>現在活躍している社員が、自社の求人要件を満たしているか確認する</li>
+<li>満たしていない社員が2名以上いるなら、その要件は必須ではない</li>
+<li>「◯年以上の経験」を、実際に必要な作業に書き換えられるか試す</li>
+<li>資格を「入社後に取得可」に変えられるか確認する</li>
+<li>要件を5項目以内に減らせるか試す（多いほど応募が減る）</li>
+</ul>
+</div>
+<div class="m-pullquote">
+要件は、採りたい人を描くために書かれます。<br>実際には、応募できない人を決めるために働きます。
+</div>
+<figure class="g g--stat"><figcaption class="g__cap"><span class="g__no" aria-hidden="true"></span><span class="g__t">詰まりを見つけるための3つの数字</span></figcaption><div class="g__body"><div class="g-stats"><div class="g-stat"><p class="g-stat__v">20<span class="g-stat__u">%</span></p><p class="g-stat__l">書類通過率がこれを下回ると、要件が実態より厳しい</p><p class="g-stat__s">carasu の目安</p></div><div class="g-stat"><p class="g-stat__v">2<span class="g-stat__u">名</span></p><p class="g-stat__l">活躍社員のうち自社の要件を満たさない人がこれ以上いたら、その要件は必須ではない</p><p class="g-stat__s">同</p></div><div class="g-stat"><p class="g-stat__v">4<span class="g-stat__u">つ</span></p><p class="g-stat__l">記録する指標の数。ただし必ず経路別に取る</p><p class="g-stat__s">同</p></div></div></div></figure>
+<h2 id="h-%E6%AF%8D%E9%9B%86%E5%9B%A3%E3%81%AE%E6%BA%90%E6%B3%89%E3%81%AF4%E3%81%A4">母集団の源泉は4つ</h2>
+<p>①の接触を作る経路です。<strong>費用と速度がまったく違うので、組み合わせて使います。</strong></p>
+<table>
+<thead>
+<tr>
+<th>源泉</th>
+<th>費用</th>
+<th>効き始めるまで</th>
+<th>届く相手</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>求人媒体</strong></td>
+<td>中〜高</td>
+<td>即日</td>
+<td>探している人だけ</td>
+</tr>
+<tr>
+<td><strong>人材紹介</strong></td>
+<td>高（成功報酬）</td>
+<td>数週間</td>
+<td>探している人（登録者）</td>
+</tr>
+<tr>
+<td><strong>社員紹介</strong></td>
+<td><strong>最安</strong></td>
+<td>数週間〜数か月</td>
+<td>社員の知人（質が高い）</td>
+</tr>
+<tr>
+<td><strong>SNS・動画</strong></td>
+<td>低〜中</td>
+<td><strong>3〜6か月</strong></td>
+<td><strong>探していない人（最も広い）</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="m-steps">
+  <div class="m-step">
+    <div class="m-step__t">短期の不足は、媒体と紹介で埋める</div>
+    <div class="m-step__d">来月に人が必要な状況では、SNSは間に合いません。ここを混同すると「SNSをやったのに採れない」という誤った結論になります。</div>
+  </div>
+  <div class="m-step">
+    <div class="m-step__t">社員紹介を制度として動かす</div>
+    <div class="m-step__d">最も費用が安く、質も高い経路ですが、制度がないと動きません。紹介した人・された人の両方に報酬を設定し、選考の進捗を紹介者に伝える運用にしてください。伝えないと、次から紹介されません。</div>
+  </div>
+  <div class="m-step">
+    <div class="m-step__t">SNSは中期の投資として並行させる</div>
+    <div class="m-step__d">3〜6か月後の母集団を作る作業です。短期の数字で評価しないでください。ここを短期で判断すると、効き始める直前に止めることになります。</div>
+  </div>
+  <div class="m-step">
+    <div class="m-step__t">紹介経路の応募には、媒体と別の対応をする</div>
+    <div class="m-step__d">社員紹介の応募者を通常のフォームに流すと、辞退が増えます。紹介者を交えた面談を最初に置くだけで、承諾率が変わります。</div>
+  </div>
+</div>
+<h2 id="h-%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF4%E3%81%A4%E3%81%AE%E6%95%B0%E5%AD%97%E3%81%A0%E3%81%91">記録するのは4つの数字だけ</h2>
+<p>集計が重いと続きません。<strong>この4つで足ります。</strong></p>
+<div class="m-compare">
+  <div class="m-compare__col m-compare__col--yes">
+    <div class="m-compare__head">記録する</div>
+    <ul class="m-compare__body">
+      <li>経路別の応募数（媒体／紹介／SNS／その他）</li>
+      <li>書類通過率</li>
+      <li>内定承諾率</li>
+      <li>入社後3か月の在籍率</li>
+    </ul>
+  </div>
+  <div class="m-compare__col m-compare__col--no">
+    <div class="m-compare__head">記録しなくてよい</div>
+    <ul class="m-compare__body">
+      <li>投稿ごとの再生数</li>
+      <li>求人ページのPV合計</li>
+      <li>フォロワー数</li>
+      <li>説明会の参加者数だけ</li>
+    </ul>
+  </div>
+</div>
+<p><strong>「経路別」であることが要点です。</strong> 合計だけを見ていると、どの投資を増やすべきかが判断できません。面談の冒頭で「当社をどこで知りましたか」と必ず聞き、手作業で記録してください。それで十分です。</p>
+<h2 id="h-%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h2>
+<ul>
+<li>母集団形成は逆算。下（入社人数）から上（接触数）へ計算する</li>
+<li>3名採るのに1,340回の接触が必要（サンプル）。感覚とずれる</li>
+<li>詰まりは応募数より書類通過率に出る。原因は要件の盛りすぎ</li>
+<li>通過率2割未満なら、活躍社員が要件を満たしているか確認する</li>
+<li>源泉は4つ。社員紹介が最安、SNSは3〜6か月かかるが最も広い</li>
+<li>短期の不足をSNSで埋めようとしない</li>
+<li>記録は4つだけ。ただし必ず経路別に取る</li>
+</ul>
+<p>投資額の決め方は、関連記事にまとめています。</p>
+
+    </div>
+    <section class="m-faq" aria-label="よくある質問">
+      <h2 class="m-faq__title">よくある質問</h2>
+      <details>
+        <summary>母集団形成とは何ですか。</summary>
+        <div class="m-faq__a">採用したい人数を満たすために、自社を知り応募する可能性のある候補者の集団を意図的に作る活動です。単に応募を増やすことではありません。採用人数から逆算して、接触・応募・書類通過・面接通過・内定・承諾の各段階の通過率を設計し、不足している段階を特定して埋める作業を指します。</div>
+      </details>
+      <details>
+        <summary>応募数が足りません。まず何をすべきですか。</summary>
+        <div class="m-faq__a">先に各段階の通過率を出してください。応募が足りないと感じている会社の多くは、実際には書類選考の通過率が低いために選考が進んでいません。その状態で応募を増やすと、面接の工数が増えるだけで採用人数は変わりません。通過率の記録がない場合は、まず直近1年分を集計するところから始めてください。</div>
+      </details>
+      <details>
+        <summary>要件を盛りすぎているかどうかは、どう判断しますか。</summary>
+        <div class="m-faq__a">書類選考の通過率が2割を下回っている場合、要件が実態より厳しい可能性が高いです。判定の方法は、現在活躍している社員が自社の求人要件を満たしているかを確認することです。満たしていない社員が複数いるなら、その要件は採用の必須条件ではありません。</div>
+      </details>
+      <details>
+        <summary>SNSは母集団形成に効きますか。</summary>
+        <div class="m-faq__a">効きますが、最も遅い経路です。効き始めるまで3〜6か月かかります。一方で、他の経路が届かない層（転職活動をしていない人）に届く唯一の手段でもあります。短期の不足はSNSでは埋まりません。媒体と紹介で当面を埋めつつ、SNSは中期の投資として並行させてください。</div>
+      </details>
+    </section>
+    <section class="m-sources" aria-label="出典">
+      <div class="m-sources__title">Sources 出典</div>
+      <ol>
+        <li>採用課題ランキング・母集団形成の課題（Bellwether／キャリタス）　<a href="https://www.career-tasu.co.jp/press_release/12383/" target="_blank" rel="noopener">https://www.career-tasu.co.jp/press_release/12383/</a></li>
+        <li>中途採用状況調査2026年版（マイナビキャリアリサーチLab）　<a href="https://career-research.mynavi.jp/reserch/20260327_109053/" target="_blank" rel="noopener">https://career-research.mynavi.jp/reserch/20260327_109053/</a></li>
+        <li>採用単価の平均（ONE／Wantedly）　<a href="https://one-group.jp/humanresource/use/recruitment_cost.html" target="_blank" rel="noopener">https://one-group.jp/humanresource/use/recruitment_cost.html</a>（二次情報）</li>
+      </ol>
+    </section>
+    <nav class="m-related" aria-label="関連記事">
+      <div class="m-related__t">Related あわせて読む</div>
+      <div class="m-related__grid">
+        <a class="m-relcard" href="/recruit-lab/articles/brand-safe-recruit-sns/">
+          <span class="m-relcard__meta"><span class="m-relcard__kind">柱記事</span><span>2026.08.11</span></span>
+          <span class="m-relcard__t">若者に寄せた1本が客単価を壊す ── 採用SNSの設計</span><span class="m-relcard__v">7割</span>
+        </a>
+        <a class="m-relcard" href="/recruit-lab/articles/hiring-cost-ringi/">
+          <span class="m-relcard__meta"><span class="m-relcard__kind">稟議</span><span>2026.08.11</span><span>約10分</span></span>
+          <span class="m-relcard__t">「いくらかかるの」に3行で答える稟議の作り方</span><span class="m-relcard__v">57〜120万円</span>
+        </a>
+        <a class="m-relcard" href="/recruit-lab/articles/recruit-sns-kpi/">
+          <span class="m-relcard__meta"><span class="m-relcard__kind">測定</span><span>2026.08.11</span><span>約8分</span></span>
+          <span class="m-relcard__t">3か月目に採用単価を聞かれ、答えられず、そこで止まります</span><span class="m-relcard__v">6個</span>
+        </a>
+      </div>
+    </nav>
+    <aside class="m-cta">
+      <div class="m-cta__title">自社の採用SNSを、ブランドを落とさずに設計する</div>
+      <p class="m-cta__text">現状のアカウントと採用の数字を見ながら、何から手をつけるべきかを整理します。売り込みはしません。その場で決めていただく必要もありません。</p>
+      <div class="m-cta__actions">
+        <a class="m-btn m-btn--key" href="/recruit-lab/consult/" data-cta="consult" data-cta-place="article-end">30分の無料相談</a>
+        <a class="m-btn m-btn--ghost" href="/recruit-lab/download/" data-cta="download" data-cta-place="article-end">資料をダウンロード</a>
+      </div>
+      <p class="m-cta__note">運営：株式会社CARASU（info@carasu.jp）</p>
+    </aside>
+
+    <a class="m-backlink" href="/recruit-lab/articles/">記事一覧に戻る</a>
+
+  </article>
+</div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "3名採るのに必要な接触は1,340回です（逆算してみると）",
+  "description": "母集団形成は「応募を増やすこと」ではない。採用したい人数から逆算して、各段階の通過率を埋めていく設計作業だ。必要な接触数を出す計算表、要件を盛りすぎて対象を狭めている状態の検出、そして4つの母集団の源泉を整理した。",
+  "datePublished": "2026-08-11",
+  "dateModified": "2026-08-11",
+  "author": { "@type": "Organization", "name": "株式会社CARASU", "url": "https://carasu.jp/" },
+  "publisher": { "@id": "https://carasu.jp/#org" },
+  "mainEntityOfPage": "https://carasu.jp/recruit-lab/articles/talent-pool-design/",
+  "inLanguage": "ja",
+  "articleSection": "ナレッジ","keywords": "全業種, 母集団形成, 指標","image": "https://carasu.jp/recruit-lab/assets/img/ogp/talent-pool-design.png",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".m-tldr", ".m-article__title"]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  "name": "母集団形成",
+  "description": "採用したい人数を満たすために、自社を知り応募する可能性のある候補者の集団を意図的に作る活動。単に応募数を増やすことではなく、採用人数から逆算して各段階（接触・応募・書類通過・面接通過・内定・承諾）の通過率を設計し、不足している段階を特定して埋める作業を指す。",
+  "inDefinedTermSet": {
+    "@type": "DefinedTermSet",
+    "name": "採用の格",
+    "url": "https://carasu.jp/recruit-lab/articles/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "母集団形成とは何ですか。",
+      "acceptedAnswer": { "@type": "Answer", "text": "採用したい人数を満たすために、自社を知り応募する可能性のある候補者の集団を意図的に作る活動です。単に応募を増やすことではありません。採用人数から逆算して、接触・応募・書類通過・面接通過・内定・承諾の各段階の通過率を設計し、不足している段階を特定して埋める作業を指します。" }
+    },
+    {
+      "@type": "Question",
+      "name": "応募数が足りません。まず何をすべきですか。",
+      "acceptedAnswer": { "@type": "Answer", "text": "先に各段階の通過率を出してください。応募が足りないと感じている会社の多くは、実際には書類選考の通過率が低いために選考が進んでいません。その状態で応募を増やすと、面接の工数が増えるだけで採用人数は変わりません。通過率の記録がない場合は、まず直近1年分を集計するところから始めてください。" }
+    },
+    {
+      "@type": "Question",
+      "name": "要件を盛りすぎているかどうかは、どう判断しますか。",
+      "acceptedAnswer": { "@type": "Answer", "text": "書類選考の通過率が2割を下回っている場合、要件が実態より厳しい可能性が高いです。判定の方法は、現在活躍している社員が自社の求人要件を満たしているかを確認することです。満たしていない社員が複数いるなら、その要件は採用の必須条件ではありません。" }
+    },
+    {
+      "@type": "Question",
+      "name": "SNSは母集団形成に効きますか。",
+      "acceptedAnswer": { "@type": "Answer", "text": "効きますが、最も遅い経路です。効き始めるまで3〜6か月かかります。一方で、他の経路が届かない層（転職活動をしていない人）に届く唯一の手段でもあります。短期の不足はSNSでは埋まりません。媒体と紹介で当面を埋めつつ、SNSは中期の投資として並行させてください。" }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://carasu.jp/recruit-lab/" },
+    { "@type": "ListItem", "position": 2, "name": "記事", "item": "https://carasu.jp/recruit-lab/articles/" },
+    { "@type": "ListItem", "position": 3, "name": "3名採るのに必要な接触は1,340回です（逆算してみると）", "item": "https://carasu.jp/recruit-lab/articles/talent-pool-design/" }
+  ]
+}
+</script>
+
+</main>
+<div class="m-bottom" aria-hidden="true">
+  <div class="m-bottom__inner">
+    <p class="m-bottom__txt">読了 <span class="m-bottom__pc" data-read="">0%</span>　この記事の内容を自社に当てるとどうなるか</p>
+    <a class="m-btn m-btn--key m-btn--sm" href="/recruit-lab/consult/" data-cta="consult" data-cta-place="bottom">30分で相談</a>
+  </div>
+</div>
+
+<footer class="m-footer">
+  <div class="container">
+    <div class="m-footer__grid">
+      <div>
+        <h4>About</h4>
+        <p style="font-size:var(--fs-sm); color:var(--fg-2); line-height:1.8;">
+          採用の格は、株式会社CARASUが運営する
+          採用とSNSのメディアです。ブランドを落とさずに、採用の数字を上げる。
+        </p>
+      </div>
+      <div>
+        <h4>Contents</h4>
+        <ul>
+          <li><a href="/recruit-lab/articles/">記事一覧</a></li>
+          <li><a href="/recruit-lab/articles/roadmap/">記事ロードマップ</a></li>
+          <li><a href="/recruit-lab/about/">このメディアについて</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="/recruit-lab/download/">資料をダウンロード</a></li>
+          <li><a href="/recruit-lab/consult/">30分の無料相談</a></li>
+          <li><a href="https://carasu.jp/" target="_blank" rel="noopener">株式会社CARASU</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="m-footer__bottom">
+      <span>© 株式会社CARASU</span>
+      <span>東京都港区虎ノ門2-5-5 櫻ビル3F</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/recruit-lab/assets/js/media.js"></script>
+</body>
+</html>
