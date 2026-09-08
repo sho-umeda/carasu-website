@@ -42,6 +42,8 @@ Sitemap: https://carasu.jp/sitemap.xml
 
 # LLM-friendly index: https://carasu.jp/llms.txt
 
-# --- 社内資料（検索に出さない） ---
+# --- 社内資料（検索に出さない）---
+# ★手で置いたページ。ここを消すと /lab/ が検索に出てしまう。
+#   実体は公開リポジトリ側の lab/ 配下（ビルドの出力ではない）。
 User-agent: *
 Disallow: /lab/

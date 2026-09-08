@@ -822,11 +822,20 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
 .footer-col ul { display: grid; gap: 13px; }
 .footer-col a { color: var(--fg-2); font-size: var(--fs-sm); transition: color .3s; }
 .footer-col a:hover { color: var(--ink); }
+/* SNSリンク：文字の横にアイコン（2026-09-05 追加。X と YouTube は運用していないので外した）
+   アイコンは currentColor なので、ホバーで文字色と一緒に濃くなる */
+.footer-col a.sns { display: inline-flex; align-items: center; gap: 8px; }
+.sns-ico { flex: 0 0 18px; display: block; border-radius: 4px; }
+/* ★指で押す前提の場所なので、画面が細いときは高さを確保する（16pxのアイコン＋文字だと26pxしかない） */
+@media (max-width: 900px) {
+  .footer-col a.sns, .footer-social a.sns { min-height: 44px; }
+}
 .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: clamp(48px, 6vw, 80px); padding-top: 28px; border-top: 1px solid var(--line); }
 .footer-bottom small { color: var(--fg-3); font-family: var(--font-en); font-size: var(--fs-xs); letter-spacing: .06em; }
 .footer-social { display: flex; gap: 22px; }
 .footer-social a { font-family: var(--font-en); font-size: var(--fs-xs); letter-spacing: .1em; color: var(--fg-3); text-transform: uppercase; }
 .footer-social a:hover { color: var(--ink); }
+.footer-social a.sns { display: inline-flex; align-items: center; gap: 8px; text-transform: none; letter-spacing: .02em; }
 
 /* 巨大なウォーターマーク文字（フッター上部の演出） */
 .footer-watermark {
