@@ -56,7 +56,14 @@
 }
 </script>
 </head>
-<body>
+<!-- ★フォームの送信先。ここ1か所だけを直せば切り替わる（2026-09-10）
+     Apps Script のウェブアプリを「全員がアクセス可」でデプロイし、
+     出てきた https://script.google.com/macros/s/……/exec を data-form-endpoint に入れる。
+     空のままでも入力は捨てない（メールで送る予備手段に自動で切り替わる）。
+     受け取り口のコードは carasu_ai の projects/saiyo-media/gas/コード.js -->
+<body data-form-endpoint=""
+      data-form-to="sho.umeda@carasu.jp"
+      data-form-tel="03-6844-4513">
 
 <!-- ヘッダー（共通） -->
 <header class="site-header" id="header">
@@ -130,8 +137,8 @@
       </div>
 
       <!-- 右：フォーム
-           ▼ このフォームは雛形です。実際に送信するには、
-             <form> の action にフォーム送信先（例：Googleフォーム / formrun / 自社API 等）を接続してください。 -->
+           送信先は <body data-form-endpoint="…"> の1か所で決まる（ページ冒頭のコメント参照）。
+           空でも入力は捨てない。ページ下の script が予備手段に切り替える。 -->
       <form class="form" id="contactForm" data-reveal style="--reveal-delay:.1s" novalidate>
         <div id="formMsg" role="status" style="display:none; padding:16px 18px; border:1px solid var(--ink); border-radius:var(--radius); background:var(--accent-soft); font-size:var(--fs-sm);"></div>
 
@@ -170,10 +177,17 @@
           <input type="checkbox" id="agree" name="agree" required>
           <label for="agree" style="font-weight:400; color:var(--fg-2);"><a href="#" class="accent" style="text-decoration:underline;">プライバシーポリシー</a>に同意します <span class="req">必須</span></label>
         </div>
+        <!-- 迷惑メール除け。人には見えないので、ここに入力があれば bot と判断する。
+             （画像認証を出さずに済ませるため。人の手間を増やしたくない） -->
+        <div aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;">
+          <label for="cs_url">この欄は入力しないでください</label>
+          <input type="text" id="cs_url" name="cs_url" tabindex="-1" autocomplete="off">
+        </div>
         <div>
           <button type="submit" class="btn btn--accent">送信する <span class="arrow">→</span></button>
         </div>
-        <p class="form-note">※ 本フォームは雛形です。送信先の接続後にご利用ください。</p>
+        <p class="form-note">ご入力いただいた内容は、お問い合わせへの回答のためにのみ使用します。<br>
+          お急ぎの場合は <a href="tel:0368444513" class="accent">03-6844-4513</a>（平日10:00〜19:00）へお電話ください。</p>
       </form>
 
     </div>
@@ -226,25 +240,220 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
-<!-- お問い合わせフォームの簡易バリデーション（雛形用。送信先接続時に置き換え可） -->
+<!-- お問い合わせフォームの送信。
+     ★2026-09-10 社長指示：送ってくれたものは絶対に捨てない。
+       ① 送信の前に、入力を localStorage に「未送信」として残す
+       ② 受け取り口へ送る（text/plain にすると事前確認が飛ばないので Apps Script でも通る）
+       ③ 受け取れたと確認できたときだけ、入力を消して「送信しました」と出す
+       ④ 送れなかったときは入力を消さず、メールで送る予備手段と電話番号をその場に出す
+       ⑤ 次に開いたときに未送信が残っていれば、黙って送り直す
+     ★嘘の完了メッセージは出さない。送れたと思って離脱されるのが一番損失が大きい。
+       以前は e.preventDefault() のあと form.reset() するだけで、入力を捨てていた。 -->
 <script>
   (function () {
     var form = document.getElementById('contactForm');
-    var msg = document.getElementById('formMsg');
+    var msg  = document.getElementById('formMsg');
     if (!form) return;
+
+    var host     = document.body;
+    var ENDPOINT = (host.getAttribute('data-form-endpoint') || '').trim();
+    var TO       = (host.getAttribute('data-form-to')  || 'sho.umeda@carasu.jp').trim();
+    var TEL      = (host.getAttribute('data-form-tel') || '03-6844-4513').trim();
+    var KEY      = 'carasu_contact_unsent';
+
+    /* --- 送れるまで手元に残す。localStorage は使えない環境もあるので必ず囲む。
+           ★1件だけ持つ作りにすると、送れないまま2通目を書いたときに1通目が消える。
+             だから配列で持ち、送れたものだけを個別に取り除く。 --- */
+    function held() {
+      try {
+        var a = JSON.parse(localStorage.getItem(KEY) || '[]');
+        return Array.isArray(a) ? a : (a ? [a] : []);
+      } catch (e) { return []; }
+    }
+    function writeAll(a) { try { localStorage.setItem(KEY, JSON.stringify(a.slice(-20))); } catch (e) {} }
+    function keep(d) {
+      var a = held().filter(function (x) { return x && x.cid !== d.cid; });
+      a.push(d);
+      writeAll(a);
+    }
+    function drop(cid) { writeAll(held().filter(function (x) { return x && x.cid !== cid; })); }
+
+    function val(id) { var el = document.getElementById(id); return el ? String(el.value || '').trim() : ''; }
+
+    function collect() {
+      return {
+        kind: 'contact',
+        /* 送り直しで同じ内容が2通になったとき、同じものだと見分けるための印 */
+        cid: 'c' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+        name: val('name'), company: val('company'), email: val('email'), tel: val('tel'),
+        type: val('type'), note: val('message'), trap: val('cs_url'),
+        page_url: location.href,
+        ref_host: (document.referrer || '').split('/')[2] || '(direct)',
+        ua: navigator.userAgent
+      };
+    }
+
+    /* --- 人が読める形。メールの本文と、コピー用に使う --- */
+    function asText(d) {
+      /* 空の項目は行ごと落とす（空行が残ると読みにくい） */
+      var head = [
+        'お名前：' + d.name,
+        d.company ? '会社名・組織名：' + d.company : '',
+        'メールアドレス：' + d.email,
+        d.tel ? '電話番号：' + d.tel : '',
+        'お問い合わせ種別：' + d.type
+      ].filter(Boolean);
+      return head.join('\n') + '\n\nお問い合わせ内容：\n' + d.note;
+    }
+
+    function box(danger) {
+      msg.style.display = 'block';
+      msg.innerHTML = '';
+      msg.style.borderColor = danger ? '#8a1f1f' : 'var(--ink)';
+      return msg;
+    }
+    function line(parent, text, bold) {
+      var p = document.createElement('p');
+      p.style.margin = '0 0 10px';
+      if (bold) { p.style.fontWeight = '700'; }
+      p.textContent = text;                       /* 入力をそのまま HTML にしない */
+      parent.appendChild(p);
+      return p;
+    }
+
+    /* --- 送れなかったときの逃げ道。メールと電話をその場に出す --- */
+    function showFallback(d, headline) {
+      var b = box(true);
+      line(b, headline, true);
+      line(b, 'お手数ですが、下のボタンからメールでお送りください。入力内容はそのまま残してあります。');
+
+      var text = asText(d);
+      var url  = 'mailto:' + TO
+               + '?subject=' + encodeURIComponent('carasu お問い合わせ（' + (d.name || 'お名前未記入') + '）')
+               + '&body=' + encodeURIComponent(text);
+
+      var wrap = document.createElement('p');
+      wrap.style.margin = '14px 0 10px';
+
+      if (url.length < 1900) {                    /* 長すぎる mailto は開かない環境がある */
+        var a = document.createElement('a');
+        a.href = url;
+        a.className = 'btn btn--accent';
+        a.textContent = 'メールで送る';
+        a.style.marginRight = '10px';
+        wrap.appendChild(a);
+      }
+
+      var copy = document.createElement('button');
+      copy.type = 'button';
+      copy.className = 'btn';
+      copy.textContent = '入力内容をコピー';
+      copy.addEventListener('click', function () {
+        var done = function () { copy.textContent = 'コピーしました'; };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { copy.textContent = 'コピーできませんでした'; });
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); done(); } catch (e) { copy.textContent = 'コピーできませんでした'; }
+          document.body.removeChild(ta);
+        }
+      });
+      wrap.appendChild(copy);
+      b.appendChild(wrap);
+
+      line(b, 'お急ぎの場合はお電話ください：' + TEL + '（平日10:00〜19:00）');
+      b.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    /**
+     * 受け取り口へ送る。
+     * 受け取れたと確認できたときだけ onOk。分からないときは onFail（捨てないため厳しめに倒す）。
+     */
+    function send(d, onOk, onFail) {
+      if (!ENDPOINT) { onFail('未接続'); return; }
+      var payload = JSON.stringify(d);
+      var settled = false;
+      var finish = function (ok, why) { if (settled) return; settled = true; ok ? onOk() : onFail(why); };
+
+      var timer = setTimeout(function () {
+        /* 返事が来ない。届いた可能性はあるので保険を撃ちつつ、成功とは言わない */
+        try { if (navigator.sendBeacon) { navigator.sendBeacon(ENDPOINT, new Blob([payload], { type: 'text/plain;charset=UTF-8' })); } } catch (e) {}
+        finish(false, '確認が取れませんでした');
+      }, 8000);
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: payload
+      }).then(function (res) {
+        return res.json().catch(function () { return null; });
+      }).then(function (r) {
+        clearTimeout(timer);
+        /* 受け取り口は、どこかに残せたときだけ saved:true を返す */
+        if (r && r.ok === true) { finish(true); return; }
+        if (r && r.saved === true) { finish(true); return; }
+        finish(false, (r && r.error) ? '受け取り口が受け付けませんでした（' + r.error + '）' : '受け取り口から返事がありません');
+      }).catch(function () {
+        clearTimeout(timer);
+        var beaconed = false;
+        try { if (navigator.sendBeacon) { beaconed = navigator.sendBeacon(ENDPOINT, new Blob([payload], { type: 'text/plain;charset=UTF-8' })); } } catch (e) {}
+        finish(false, beaconed ? '確認が取れませんでした' : 'ネットワークにつながりませんでした');
+      });
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
       if (!form.checkValidity()) {
-        msg.style.display = 'block';
-        msg.textContent = '未入力の必須項目があります。ご確認ください。';
+        var b = box(true);
+        line(b, '未入力の項目があります。ご確認ください。');
         form.reportValidity();
         return;
       }
-      msg.style.display = 'block';
-      msg.innerHTML = '送信ありがとうございます（※これは雛形です。実際の送信には送信先の接続が必要です）。';
-      form.reset();
-      msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      var d = collect();
+      keep(d);                                   /* ★送る前に残す。ここが「捨てない」の起点 */
+
+      var btn = form.querySelector('button[type="submit"]');
+      var label = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.textContent = '送信しています…'; }
+
+      var restore = function () { if (btn) { btn.disabled = false; btn.innerHTML = label; } };
+
+      send(d, function () {
+        drop(d.cid);
+        restore();
+        var b = box(false);
+        line(b, 'お問い合わせを送信しました。', true);
+        line(b, '1営業日以内に担当者からご連絡します。確認のメールが届かない場合は、迷惑メールフォルダもご確認ください。');
+        form.reset();
+        b.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, function (why) {
+        restore();
+        showFallback(d, ENDPOINT
+          ? 'まだ送信できていません（' + why + '）。'
+          : 'ただいまフォームからの送信を受け付けられません。');
+      });
     });
+
+    /* --- ⑤ 前回送れなかったものが残っていれば、黙って送り直す（複数あれば全部） --- */
+    (function retry() {
+      if (!ENDPOINT) return;
+      var pending = held();
+      if (!pending.length) return;
+      var sent = 0;
+      pending.forEach(function (d) {
+        send(d, function () {
+          drop(d.cid);
+          sent++;
+          var b = box(false);
+          line(b, '前回送信できていなかったお問い合わせを送信しました'
+                  + (sent > 1 ? '（' + sent + '件）' : '') + '。', true);
+          line(b, '重ねて届いていた場合は、その旨をお伝えください。');
+        }, function () { /* まだ送れない。次に開いたときにまた試す */ });
+      });
+    })();
   })();
 </script>
 </body>
