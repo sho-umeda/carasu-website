@@ -3,7 +3,7 @@
    ---------------------------------------------------------------------
    デザインシステム（白基調のシャープ・モノクロ）
    - カラー : オフホワイト × 黒 × グレー階調（差し色なし＝モノトーン）
-   - 書体   : Jost（英・Futura代替）/ Anton（極太ディスプレイ＝ロゴタイプ調）/ 游ゴシック（和文）
+   - 書体   : Noto Sans JP（英・和文とも）/ Anton（極太ディスプレイ＝ロゴタイプ調）
    - 思想   : 余白を大きく、罫線は繊細に、角は立てる（角丸ゼロ）。
               名刺のロゴ（黒 on 白）の潔さを、サイト全体の基調にする。
    ---------------------------------------------------------------------
@@ -37,9 +37,10 @@
   --accent-soft: rgba(20, 19, 18, .055);
 
   /* --- 書体 --- */
-  --font-en:      'Jost', 'Futura', 'Century Gothic', 'Segoe UI', system-ui, sans-serif;
+  /* ★2026-09-10 社長指示：Jost と和文をすべて Noto Sans JP に統一（英字も和文も同じ書体） */
+  --font-en:      'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', YuGothic, Meiryo, sans-serif;
   --font-display: 'Anton', 'Futura', 'Arial Narrow', 'Impact', sans-serif;
-  --font-jp:      'Jost', 'Yu Gothic', '游ゴシック体', YuGothic, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  --font-jp:      'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', YuGothic, Meiryo, sans-serif;
 
   /* --- タイポスケール（clampでレスポンシブ）--- */
   --fs-display: clamp(2.9rem, 9vw, 7.5rem);
@@ -114,7 +115,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
 
 .font-en { font-family: var(--font-en); }
-/* 和文の格調は明朝でなく、游ゴシックの中庸ウェイトで整える（シャープ路線） */
+/* 和文の格調は明朝でなく、Noto Sans JP の中庸ウェイトで整える（シャープ路線） */
 .font-serif { font-family: var(--font-jp); font-weight: 500; }
 
 /* 英字の大見出し（Anton：極太コンデンスド＝ロゴタイプに調和） */
@@ -750,7 +751,14 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
   background: var(--bg-2);
   transition: border-color .4s, transform .5s var(--ease-out);
 }
+/* ★カードの四角ぜんぶがリンク（2026-09-10）。a なので下線と色を打ち消す */
+.job-card { text-decoration: none; color: inherit; }
 .job-card:hover { border-color: var(--ink); transform: translateY(-4px); }
+.job-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+/* カードのどこを押しても、中の「エントリー」が反応しているように見せる */
+.job-card:hover .link { color: var(--ink); }
+.job-card:hover .link::after { transform: scaleX(1); transform-origin: left; }
+.job-card:hover .link .arrow { transform: translateX(4px); }
 .job-card .type { font-family: var(--font-en); font-size: var(--fs-xs); letter-spacing: .1em; color: var(--fg-3); text-transform: uppercase; }
 .job-card h3 { font-size: var(--fs-h3); }
 .job-card .desc { color: var(--fg-2); font-size: var(--fs-sm); flex: 1; }
