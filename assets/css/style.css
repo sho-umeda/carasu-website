@@ -881,6 +881,14 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
   .cols-4 { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ヘッダーのメニューが7項目（Media を足した・2026-09-28）になり、
+   861〜985px では2段に折り返していた。この幅だけ間隔を詰めて1段に収める。 */
+@media (min-width: 861px) and (max-width: 1024px) {
+  .nav, .nav-links { gap: 12px; }
+  .nav-links a { letter-spacing: .02em; }
+  .site-header .btn--accent { padding-left: 18px; padding-right: 18px; }
+}
+
 @media (max-width: 860px) {
   :root { --header-h: 66px; }
 
@@ -1090,4 +1098,11 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; letter-spacing: .005em; }
   .vwork-grid.ratio-9x16 { grid-template-columns: repeat(2, 1fr); }
   .vwork .meta { padding-top: 12px; gap: 7px; }
   .vmodal video { max-height: 66vh; }
+}
+
+/* 同じく7項目になり、背の低いスマホ（高さ667px前後）では開いたメニューの先頭 WORK が
+   ヘッダーの下に隠れた（中央寄せのままはみ出すと上側がスクロールでも戻らない）。
+   背が低いときだけ間隔を詰め、はみ出したら上から並べる（safe center）。 */
+@media (max-width: 860px) and (max-height: 760px) {
+  .nav-links { gap: 16px; justify-content: safe center; }
 }
