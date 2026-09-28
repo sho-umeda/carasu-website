@@ -1,0 +1,164 @@
+{
+  "_説明": "RECRUITIVE Mag の取り込みで毎回かける置き換え。block の言葉が1つでも残っていたら公開しない。2026-09-28 取締役判断：設立（2025年3月）と運用期間が合わない支援実績の数字は、確認が取れるまで伏せる。",
+  "replace": [
+    {
+      "note": "採用費削減の記事・3章の本文（事例の数字だけで組まれている）",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "start": "  <h3>実際の運用実績</h3>",
+      "end": "  <h3>広告費ゼロで成立する条件</h3>",
+      "new": "  <h3>SNS採用は蓄積型</h3>\n  <p>広告費ゼロのオーガニック運用は、<strong>投稿が貯まってから効き始めます。</strong><br class=\"desktop-br\">初月から応募が来るものではありません。<br class=\"desktop-br\">最初の数か月は成果が出ない前提で始める必要があります。<br class=\"desktop-br\">3か月で判断して止めると、コンテンツが貯まる前に終わってしまいます。</p>\n"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / SNS採用で採用費削減｜広告費0円で応募214件・30%減の",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "SNS採用で採用費削減｜広告費0円で応募214件・30%減の実例",
+      "new": "SNS採用で採用費削減｜直接応募を増やして媒体費を最適化する"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / 営業職の採用単価は1人あたり平均40.8万円（2024年・全",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "営業職の採用単価は1人あたり平均40.8万円（2024年・全国平均）。大手・上場企業までSNS採用に動く理由と、広告費ゼロで応募214件・月間最高36件・採用コスト30%削減を実現した運用の中身、媒体からの移行手順を解説します。",
+      "new": "営業職の採用単価は1人あたり平均40.8万円（2024年・全国平均）。大手・上場企業までSNS採用に動く理由と、広告費をかけずに応募を集める条件、直接応募の仕組み、媒体からの移行手順を解説します。"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / <span class=\"feature-lead__lin",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "<span class=\"feature-lead__line\">広告費0円で応募214件。</span><span class=\"feature-lead__line\">採用コスト30％削減の実績から、</span>",
+      "new": "<span class=\"feature-lead__line\">広告費をかけずに応募を集める条件と、</span>"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / <li>広告費ゼロで応募214件・月間最高応募36件・採用コ",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "<li>広告費ゼロで応募214件・月間最高応募36件・採用コスト30％削減という運用実績があります。</li>",
+      "new": "<li>広告費をかけずに応募を集めるには、継続できる体制・現場から素材が出る仕組み・応募の受け皿の3つが要ります。</li>"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / <b>03.</b>広告費0円でも応募は来る！ SNS採用の",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "<b>03.</b>広告費0円でも応募は来る！ SNS採用の実績",
+      "new": "<b>03.</b>広告費をかけずに応募を集めるには？ 成立する3つの条件"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / alt=\"SNS経由の応募実績が増える様子を表すエディトリア",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "alt=\"SNS経由の応募実績が増える様子を表すエディトリアルビジュアル\"",
+      "new": "alt=\"SNS経由の応募が積み上がる様子を表すエディトリアルビジュアル\""
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / <h2>広告費0円でも応募は来る！<br>SNS採用の実績<",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "<h2>広告費0円でも応募は来る！<br>SNS採用の実績</h2><p>広告費ゼロのオーガニック運用でも、<br class=\"desktop-br\">継続と応募導線の設計によって成果につながった事例があります。</p>",
+      "new": "<h2>広告費をかけずに<br>応募を集めるには？</h2><p>広告費ゼロのオーガニック運用で応募を集めるには、<br class=\"desktop-br\">継続できる体制と応募導線の設計が欠かせません。</p>"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / <p class=\"feature-band__stat\">",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "<p class=\"feature-band__stat\"><strong>214<small>件</small></strong><span>SNS経由の応募<br>月間最高36件</span></p>",
+      "new": "<p class=\"feature-band__stat\"><strong>3<small>つ</small></strong><span>広告費ゼロで<br>成立する条件</span></p>"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / <li>広告費ゼロで応募214件・月間最高36件・採用コスト",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "<li>広告費ゼロで応募214件・月間最高36件・採用コスト30％削減という実績があります（運用期間 約1年9か月）。</li>",
+      "new": "<li>広告費ゼロで成り立たせるには、継続できる体制・現場から素材が出る仕組み・応募の受け皿の3つが要ります。</li>"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / <li>SNS採用の実績例（応募214件・月間最高応募36件",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "<li>SNS採用の実績例（応募214件・月間最高応募36件・採用コスト30％削減・運用期間 約1年9か月・広告費0円のオーガニック運用）／carasu支援実績</li>",
+      "new": ""
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / carasuが支援した企業では、広告費ゼロのオーガニック運用",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "carasuが支援した企業では、広告費ゼロのオーガニック運用で応募214件を獲得し、採用コストを30％削減した実績があります。運用期間は約1年9か月です。ただし削減幅は業種・職種・運用体制によって変わります。",
+      "new": "削減幅は業種・職種・運用体制によって変わるため、一律には言えません。直近1年の採用経路ごとに1人あたりの採用単価を出し、SNS経由の応募が増えた分だけ媒体費をどこまで減らせたかで判断してください。"
+    },
+    {
+      "note": "articles/sns-recruiting-cost-reduction/index.html / 来た事例があります。採用特化型のSNSアカウントを広告費ゼロ",
+      "page": "articles/sns-recruiting-cost-reduction/index.html",
+      "old": "来た事例があります。採用特化型のSNSアカウントを広告費ゼロで運用し、TikTok経由で214件、月間最高36件の応募を獲得しました。ただし初月からではなく、約1年9か月の継続運用による結果です。",
+      "new": "来ることはありますが、初月からではありません。SNS採用は投稿が貯まってから効く蓄積型です。継続できる体制、現場から素材が出る仕組み、応募の受け皿の3つを整えたうえで、数か月以上の継続を前提にしてください。"
+    },
+    {
+      "note": "articles/sns-recruiting-benefits/index.html / SNS採用5つのメリット｜応募214件・コスト30%減の実例",
+      "page": "articles/sns-recruiting-benefits/index.html",
+      "old": "SNS採用5つのメリット｜応募214件・コスト30%減の実例",
+      "new": "SNS採用5つのメリット｜潜在層との接点と発信の資産化"
+    },
+    {
+      "note": "articles/sns-recruiting-benefits/index.html / 採用にSNSを使うメリットを5つに整理しました。X約6,70",
+      "page": "articles/sns-recruiting-benefits/index.html",
+      "old": "採用にSNSを使うメリットを5つに整理しました。X約6,700万人・Instagram約6,600万人・TikTok約4,950万人へのリーチ、潜在層への接触、広告費ゼロで応募214件・採用コスト30%削減の実例まで解説します。",
+      "new": "採用にSNSを使うメリットを5つに整理しました。X約6,700万人・Instagram約6,600万人・TikTok約4,950万人へのリーチ、潜在層への接触、会社のリアルの伝え方、実質コストでの比べ方、発信の資産化まで解説します。"
+    },
+    {
+      "note": "articles/sns-recruiting-benefits/index.html / <li>採用コストを抑えられる可能性があります（広告費ゼロで",
+      "page": "articles/sns-recruiting-benefits/index.html",
+      "old": "<li>採用コストを抑えられる可能性があります（広告費ゼロで応募214件・採用コスト30%削減の事例あり）。</li>",
+      "new": "<li>採用コストを抑えられる可能性があります（ただし無料ではなく、実質コストで比べます）。</li>"
+    },
+    {
+      "note": "articles/sns-recruiting-benefits/index.html / <p>SNSは自社運用なら基本的に掲載料がかかりません。<b",
+      "page": "articles/sns-recruiting-benefits/index.html",
+      "old": "<p>SNSは自社運用なら基本的に掲載料がかかりません。<br class=\"desktop-br\">実績では、広告費ゼロで応募214件、<br class=\"desktop-br\">採用コスト30%削減につながった事例があります。</p>",
+      "new": "<p>SNSは自社運用なら基本的に掲載料がかかりません。<br class=\"desktop-br\">ただし社内の人の時間はかかるため、<br class=\"desktop-br\">実質コストで比べることが大切です。</p>"
+    },
+    {
+      "note": "articles/sns-recruiting-benefits/index.html /   <h3>実績例：オーガニック運用での応募</h3>\n  ",
+      "page": "articles/sns-recruiting-benefits/index.html",
+      "old": "  <h3>実績例：オーガニック運用での応募</h3>\n  <p>carasuが支援した企業の実績です。</p>\n  <div class=\"article-table-wrap\"><table><thead><tr><th>指標</th><th>実績</th></tr></thead><tbody><tr><td>SNS経由の応募</td><td><strong>214件</strong></td></tr><tr><td>採用コスト</td><td><strong>30%削減</strong></td></tr><tr><td>運用期間</td><td>約1年9か月</td></tr></tbody></table></div>\n  <p><strong>SNS採用で実績を上げた企業では、<br class=\"desktop-br\">広告費を抑えながら多くの応募を獲得し、<br class=\"desktop-br\">採用コストの削減につながった事例もあります。</strong></p>\n",
+      "new": ""
+    },
+    {
+      "note": "articles/sns-recruiting-benefits/index.html / <li>SNS採用の実績例（応募214件・採用コスト30%削",
+      "page": "articles/sns-recruiting-benefits/index.html",
+      "old": "<li>SNS採用の実績例（応募214件・採用コスト30%削減・運用期間 約1年9か月）／carasu支援実績</li>",
+      "new": ""
+    },
+    {
+      "note": "articles/sns-recruiting-benefits/index.html / 下がる可能性はありますが、無料ではありません。実際にcara",
+      "page": "articles/sns-recruiting-benefits/index.html",
+      "old": "下がる可能性はありますが、無料ではありません。実際にcarasuが支援した企業では、広告費ゼロのオーガニック運用で応募214件を獲得し、採用コストを30%削減した事例があります（運用期間 約1年9か月）。ただし投稿を作る社内の人件費は確実に発生します。",
+      "new": "下がる可能性はありますが、無料ではありません。求人媒体の掲載料や人材紹介の成功報酬はかからない一方で、投稿を作る社内の人件費は確実に発生します。"
+    },
+    {
+      "note": "articles/index.html / 広告費0円で応募214件。直接応募を増やし、採用コストを最適",
+      "page": "articles/index.html",
+      "old": "広告費0円で応募214件。直接応募を増やし、採用コストを最適化する方法",
+      "new": "直接応募を増やし、採用コストを最適化する方法"
+    },
+    {
+      "note": "topics/recruitment-market/index.html / 広告費0円で応募214件。直接応募を増やし、採用コストを最適",
+      "page": "topics/recruitment-market/index.html",
+      "old": "広告費0円で応募214件。直接応募を増やし、採用コストを最適化する方法",
+      "new": "直接応募を増やし、採用コストを最適化する方法"
+    },
+    {
+      "note": "topics/sns-market/index.html / 広告費0円で応募214件。直接応募を増やし、採用コストを最適",
+      "page": "topics/sns-market/index.html",
+      "old": "広告費0円で応募214件。直接応募を増やし、採用コストを最適化する方法",
+      "new": "直接応募を増やし、採用コストを最適化する方法"
+    },
+    {
+      "note": "topics/sns-utilization/index.html / 広告費0円で応募214件。直接応募を増やし、採用コストを最適",
+      "page": "topics/sns-utilization/index.html",
+      "old": "広告費0円で応募214件。直接応募を増やし、採用コストを最適化する方法",
+      "new": "直接応募を増やし、採用コストを最適化する方法"
+    },
+    {
+      "note": "index.html / <span>広告費0円で応募214件。</span><spa",
+      "page": "index.html",
+      "old": "<span>広告費0円で応募214件。</span><span>直接応募を増やし、採用費を最適化する方法を解説します。</span>",
+      "new": "<span>直接応募を増やし、</span><span>採用費を最適化する方法を解説します。</span>"
+    }
+  ],
+  "block": [
+    "214件",
+    "214<small>件",
+    "1年9か月",
+    "支援実績",
+    "月間最高36件",
+    "月間最高応募36件"
+  ]
+}
