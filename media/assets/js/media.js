@@ -16,6 +16,7 @@
   const carouselStatus = document.querySelector('[data-carousel-status]');
   const previousButton = document.querySelector('[data-carousel-prev]');
   const nextButton = document.querySelector('[data-carousel-next]');
+  const featuredNextButton = document.querySelector('[data-carousel-featured-next]');
   const carouselItems = carousel ? [...carousel.querySelectorAll('[data-carousel-slide]')] : [];
   let activeSlide = 0;
   const setActiveSlide = (index) => {
@@ -32,6 +33,7 @@
   };
   previousButton?.addEventListener('click', () => setActiveSlide(activeSlide - 1));
   nextButton?.addEventListener('click', () => setActiveSlide(activeSlide + 1));
+  featuredNextButton?.addEventListener('click', () => setActiveSlide(activeSlide + 1));
   carouselItems.forEach((item, index) => {
     item.addEventListener('click', (event) => {
       if (index === activeSlide) return;
