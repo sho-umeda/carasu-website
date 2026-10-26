@@ -4,17 +4,24 @@
 このスクリプトはその公開版を丸ごと取り込み、carasu.jp 向けに整えて media/ を置き換える。
 GitHub Actions（.github/workflows/media-sync.yml）が1時間ごとに実行する。
 
-整えること（2026-09-28 取締役判断）
+整えること
   1. 配信側（Cloudflare）が各HTMLに差し込むスクリプトを外す
   2. 画像を長辺1600pxの JPEG にして軽くする（PNGのままだと1枚2MB）
   3. noindex を外して検索に出す。記事が3本未満のタグページだけ noindex,follow
-  4. rules.json の置き換え（事実確認が取れない記述を伏せる）
-  5. rules.json の block に書いた言葉が1つでも残っていたら、公開しない（終了コード1）
+  4. 置き換え規則（replace）をかける
+  5. 規則の block に書いた言葉が1つでも残っていたら、公開しない（終了コード1）
 
 止めること（公開せずに終了コード1。GitHub が失敗をメールで知らせる）
   - 取り込みで1つでも読めないファイルがあった（途中までの版で本番を上書きしない）
   - ページ数が今の本番より2割以上減った（取り損ねを「記事が消えた」と取り違えない）
   - block の言葉が残っていた
+  - 取り込み元か規則が渡されていない
+
+取り込み元と規則はこのリポジトリに置かない（公開リポジトリのため）。
+Actions の Secrets から環境変数で受け取る。
+  MEDIA_SYNC_BASE   取り込み元のURL
+  MEDIA_SYNC_RULES  規則（JSON）。無ければ同じフォルダの rules.json（手元で試すとき用・.gitignore 済み）
+ログは公開されるので、規則の中身（置き換え前の文面・block の言葉）はログに出さず、番号だけ出す。
 
 使い方: python sync.py <公開リポジトリのルート>
 """
@@ -32,7 +39,7 @@ import urllib.request
 
 from PIL import Image
 
-BASE = "https://carasu-owned-media-preview.carasu-inc-9130.chatgpt.site"
+BASE = os.environ.get("MEDIA_SYNC_BASE", "").rstrip("/")
 START = "/media/"
 SITE = "https://carasu.jp"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -148,9 +155,19 @@ def rel(media, f):
     return os.path.relpath(f, media).replace(os.sep, "/")
 
 
+def load_rules():
+    raw = os.environ.get("MEDIA_SYNC_RULES", "")
+    if raw.strip():
+        return json.loads(raw)
+    local = os.path.join(HERE, "rules.json")
+    if os.path.exists(local):
+        return json.load(open(local, encoding="utf-8"))
+    fail("置き換え規則（MEDIA_SYNC_RULES）が渡されていません。本番は変えていません")
+
+
 def apply_rules(media, rules):
     warnings = []
-    for rule in rules.get("replace", []):
+    for i, rule in enumerate(rules.get("replace", []), 1):
         targets = [f for f in glob.glob(os.path.join(media, rule["page"]), recursive=True)]
         hit = 0
         for f in targets:
@@ -166,7 +183,7 @@ def apply_rules(media, rules):
                 t = t.replace(rule["old"], rule["new"])
             open(f, "w", encoding="utf-8", newline="").write(t)
         if hit == 0:
-            warnings.append(f"置き換え先が見つからない（ChatGPT側で文面が変わった可能性）: {rule.get('note', '')}")
+            warnings.append(f"置き換え先が見つからない（ChatGPT側で文面が変わった可能性）: replace の {i} 番目")
     return warnings
 
 
@@ -197,9 +214,9 @@ def check_blocked(media, rules):
     found = []
     for f in text_files(media):
         t = open(f, encoding="utf-8").read()
-        for word in rules.get("block", []):
+        for i, word in enumerate(rules.get("block", []), 1):
             if word in t:
-                found.append(f"{rel(media, f)}: 「{word}」")
+                found.append(f"{rel(media, f)}: block の {i} 番目")
     return found
 
 
@@ -244,7 +261,9 @@ def html_count(d):
 
 def main():
     repo = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else ".")
-    rules = json.load(open(os.path.join(HERE, "rules.json"), encoding="utf-8"))
+    if not BASE:
+        fail("取り込み元（MEDIA_SYNC_BASE）が渡されていません。本番は変えていません")
+    rules = load_rules()
     work = tempfile.mkdtemp(prefix="media-sync-")
     media = crawl(work)
     if not os.path.exists(os.path.join(media, "index.html")):
@@ -257,7 +276,7 @@ def main():
 
     blocked = check_blocked(media, rules)
     if blocked:
-        fail("公開しない言葉が残っています。本番は変えていません（rules.json を直すか、ChatGPT側で記事を直してください）:\n"
+        fail("公開しない言葉が残っています。本番は変えていません（規則を直して Secrets を入れ直すか、ChatGPT側で記事を直してください）:\n"
              + "\n".join(blocked))
 
     dst = os.path.join(repo, "media")

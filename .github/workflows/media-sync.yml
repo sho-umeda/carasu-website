@@ -36,6 +36,9 @@ jobs:
         run: pip install --quiet Pillow
 
       - name: ChatGPT 版を取り込んで整える
+        env:
+          MEDIA_SYNC_BASE: ${{ secrets.MEDIA_SYNC_BASE }}
+          MEDIA_SYNC_RULES: ${{ secrets.MEDIA_SYNC_RULES }}
         run: python .github/media-sync/sync.py .
 
       - name: 変わっていればコミットして公開
